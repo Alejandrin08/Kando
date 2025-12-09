@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:kando_desktop.Controls"
+             xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels"
+             xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+             x:Class="kando_desktop.Views.LoginPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <BoxView Grid.ColumnSpan="2" Color="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate950}}"/>
+
+        <BoxView>
+            <BoxView.Background>
+                <RadialGradientBrush Center="0.0, 0.0" Radius="0.8">
+                    <GradientStop Offset="0.1" Color="{AppThemeBinding Light={StaticResource Blue100}, Dark={StaticResource Blue900}}" />
+                    <GradientStop Offset="0.6" Color="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate950}}" />
+                    <GradientStop Color="Transparent" Offset="1.0" />
+                </RadialGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <GraphicsView Grid.ColumnSpan="1" x:Name="BgGraphicsView">
+            <GraphicsView.Drawable>
+                <controls:GridBackgroundDrawable x:Name="MyGridDrawable" />
+            </GraphicsView.Drawable>
+        </GraphicsView>
+
+        <Grid Padding="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto" Margin="-40,0">
+                <Image Grid.Column="0" Source="kando_icon.png" HeightRequest="70" Aspect="AspectFit"/>
+                <Label Grid.Column="1"
+                       Margin="-20,0"
+                       Text="{x:Static strings:AppResources.AppTitle}"
+                       Style="{StaticResource TitleHuge}"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" Spacing="0">
+                <Label Text="{x:Static strings:AppResources.SloganLine1}" Style="{StaticResource TitleHuge}"/>
+                <Label Text="{x:Static strings:AppResources.SloganLine2}" Style="{StaticResource TitleHuge}" TextColor="{StaticResource Blue500}"/>
+                <Label Text="{x:Static strings:AppResources.SubSlogan}" Style="{StaticResource SubtitleMuted}" Margin="0,15,0,0"/>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Start" Spacing="20">
+                <Border Style="{StaticResource InputBorderStyle}" Padding="10" WidthRequest="80">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleLanguageCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto, *" VerticalOptions="Center">
+                        <Image Grid.Column="0" Source="{Binding LanguageIconSource}" Style="{StaticResource InputIcon}" />
+                        <Label Grid.Column="1" Text="{Binding LanguageCode}" VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}" FontAttributes="Bold"/>
+                    </Grid>
+                </Border>
+                <Border Style="{StaticResource InputBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleThemeCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Image Source="{Binding ThemeIconSource}" HeightRequest="24" WidthRequest="24"/>
+                </Border>
+            </HorizontalStackLayout>
+        </Grid>
+
+        <Border Grid.Column="1" Margin="40" StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource GlassLight}, Dark={StaticResource GlassDark}}">
+
+            <VerticalStackLayout Spacing="20" VerticalOptions="Center" Padding="40,0">
+
+                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Label Text="{x:Static strings:AppResources.WelcomeTitle}"
+                           Style="{StaticResource TitleHuge}" FontSize="24" HorizontalTextAlignment="Center"/>
+                    <Label Text="{x:Static strings:AppResources.WelcomeSubtitle}"
+                           Style="{StaticResource SubtitleMuted}" FontSize="16" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="{x:Static strings:AppResources.EmailLabel}" Style="{StaticResource FormLabel}"/>
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border"
+                                         Binding="{Binding Source={x:Reference EmailEntry}, Path=IsFocused}"
+                                         Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <Grid ColumnDefinitions="Auto, *">
+                            <Image Grid.Column="0" Source="mail.png" Style="{StaticResource InputIcon}"/>
+                            <controls:BorderlessEntry x:Name="EmailEntry"
+                                                      Grid.Column="1"
+                                                      Placeholder="{x:Static strings:AppResources.EmailPlaceholder}"
+                                                      PlaceholderColor="{StaticResource Slate400}"
+                                                      TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                                      Keyboard="Email"
+                                                      BackgroundColor="Transparent"
+                                                      VerticalOptions="Center" HeightRequest="40" Margin="-5,0"/>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,5">
+                        <Label Grid.Column="0" Text="{x:Static strings:AppResources.PasswordLabel}" Style="{StaticResource FormLabel}" Margin="0"/>
+                        <Label Grid.Column="1" Text="{x:Static strings:AppResources.ForgotPassword}" Style="{StaticResource LinkText}"/>
+                    </Grid>
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border"
+                                         Binding="{Binding Source={x:Reference PasswordEntry}, Path=IsFocused}"
+                                         Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Image Grid.Column="0" Source="locked_computer.png" Style="{StaticResource InputIcon}"/>
+                            <controls:BorderlessEntry x:Name="PasswordEntry"
+                                                      Grid.Column="1"
+                                                      Placeholder="***********"
+                                                      PlaceholderColor="{StaticResource Slate400}"
+                                                      TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                                      IsPassword="{Binding IsPasswordHidden}"
+                                                      BackgroundColor="Transparent"
+                                                      VerticalOptions="Center" HeightRequest="40" Margin="-5,0"/>
+                            <ImageButton Grid.Column="2"
+                                         Source="{Binding EyeIconSource}"
+                                         Command="{Binding TogglePasswordVisibilityCommand}"
+                                         HeightRequest="40" WidthRequest="40"
+                                         BackgroundColor="Transparent"/>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Button Text="{x:Static strings:AppResources.LoginButton}"
+                        Style="{StaticResource PrimaryButton}"
+                        ImageSource="right_arrow.png"
+                        ContentLayout="Right, 10"/>
+
+                <Grid ColumnDefinitions="*, Auto, *" ColumnSpacing="10" VerticalOptions="Center">
+                    <BoxView Grid.Column="0" HeightRequest="1" VerticalOptions="Center"
+                             Color="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" />
+
+                    <Label Grid.Column="1" Text="{x:Static strings:AppResources.OrContinueWith}"
+                           Style="{StaticResource TextMutedSmall}" />
+
+                    <BoxView Grid.Column="2" HeightRequest="1" VerticalOptions="Center"
+                             Color="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" />
+                </Grid>
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,0,0,15">
+                    <Button Grid.Column="0"
+                            Text="{x:Static strings:AppResources.GoogleBtn}"
+                            Style="{StaticResource SocialButton}"
+                            ImageSource="{Binding GoogleIconSource}"/>
+
+                    <Button Grid.Column="1"
+                            Text="{x:Static strings:AppResources.GitHubBtn}"
+                            Style="{StaticResource SocialButton}"
+                            ImageSource="{Binding GithubIconSource}"/>
+                </Grid>
+
+                <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Label Text="{x:Static strings:AppResources.NoAccount}" 
+                           Style="{StaticResource TextMutedSmall}" FontSize="14"/>
+                    <Label Text="{x:Static strings:AppResources.Register}" 
+                           Style="{StaticResource LinkText}" FontSize="14" TextDecorations="Underline"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
