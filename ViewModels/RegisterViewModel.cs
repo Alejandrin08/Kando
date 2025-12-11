@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace kando_desktop.ViewModels
 {
-    public partial class LoginViewModel : BaseViewModel
+    public partial class RegisterViewModel : BaseViewModel
     {
 
         [ObservableProperty]
@@ -16,9 +16,9 @@ namespace kando_desktop.ViewModels
         private void TogglePasswordVisibility() => IsPasswordHidden = !IsPasswordHidden;
 
         [RelayCommand]
-        private async Task GoToRegister()
+        private async Task GoToLogin()
         {
-            await Shell.Current.GoToAsync("RegisterPage");
+            await Shell.Current.GoToAsync("//LoginPage");
         }
     }
 }

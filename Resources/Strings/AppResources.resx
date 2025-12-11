@@ -165,4 +165,25 @@
   <data name="GitHubBtn" xml:space="preserve">
     <value>GitHub</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Crear una cuenta</value>
+  </data>
+  <data name="CreateAccountSubtitle" xml:space="preserve">
+    <value>Comienza administrando tus proyectos hoy</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Nombre Completo</value>
+  </data>
+  <data name="CreateAccountBtn" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+  <data name="FullNamePlaceholder" xml:space="preserve">
+    <value>John Doe</value>
+  </data>
+  <data name="AlreadyAccount" xml:space="preserve">
+    <value>¿Ya tienes una cuenta?</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
 </root>

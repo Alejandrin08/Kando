@@ -10,6 +10,8 @@
         protected override Window CreateWindow(IActivationState? activationState)
         {
             var window = new Window(new AppShell());
+            window.Width = 1080;
+            window.Height = 720;
 
             window.MinimumWidth = 800;
             window.MinimumHeight = 600;

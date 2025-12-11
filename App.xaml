@@ -9,6 +9,26 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <ControlTemplate x:Key="MainPageTemplate">
+                <Grid RowDefinitions="Auto, *">
+
+                    <Border Grid.Row="0" HeightRequest="60" BackgroundColor="{StaticResource Blue500}" Padding="20,0">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Label Text="Kando App" VerticalOptions="Center" TextColor="White" FontAttributes="Bold"/>
+
+                            <HorizontalStackLayout Grid.Column="2" Spacing="10" VerticalOptions="Center">
+                                <Label Text="Usuario" VerticalOptions="Center" TextColor="White"/>
+                                <Image Source="user_icon.png" HeightRequest="30" WidthRequest="30"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <ContentPresenter Grid.Row="1" />
+
+                </Grid>
+            </ControlTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

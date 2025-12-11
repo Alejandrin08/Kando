@@ -61,11 +61,47 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ¿Ya tienes una cuenta?.
+        /// </summary>
+        public static string AlreadyAccount {
+            get {
+                return ResourceManager.GetString("AlreadyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Kando.
         /// </summary>
         public static string AppTitle {
             get {
                 return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear una cuenta.
+        /// </summary>
+        public static string CreateAccount {
+            get {
+                return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear cuenta.
+        /// </summary>
+        public static string CreateAccountBtn {
+            get {
+                return ResourceManager.GetString("CreateAccountBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Comienza administrando tus proyectos hoy.
+        /// </summary>
+        public static string CreateAccountSubtitle {
+            get {
+                return ResourceManager.GetString("CreateAccountSubtitle", resourceCulture);
             }
         }
         
@@ -93,6 +129,24 @@ namespace kando_desktop.Resources.Strings {
         public static string ForgotPassword {
             get {
                 return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre Completo.
+        /// </summary>
+        public static string FullName {
+            get {
+                return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a John Doe.
+        /// </summary>
+        public static string FullNamePlaceholder {
+            get {
+                return ResourceManager.GetString("FullNamePlaceholder", resourceCulture);
             }
         }
         
@@ -156,6 +210,15 @@ namespace kando_desktop.Resources.Strings {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Iniciar sesión.
+        /// </summary>
+        public static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
             }
         }
         
