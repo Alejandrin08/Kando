@@ -20,5 +20,11 @@ namespace kando_desktop.ViewModels
         {
             await Shell.Current.GoToAsync("RegisterPage");
         }
+
+        [RelayCommand]
+        private async Task GoToHome()
+        {
+            await Shell.Current.GoToAsync("HomePage");
+        }
     }
 }

@@ -13,7 +13,8 @@ namespace kando_desktop.ViewModels
         public BaseViewModel()
         {
             var currentLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToLower();
-            LanguageCode = currentLang == "es" ? "EN" : "ES";
+
+            LanguageCode = currentLang == "es" ? "ES" : "EN";
 
             if (Application.Current.UserAppTheme == AppTheme.Unspecified)
             {
@@ -24,7 +25,7 @@ namespace kando_desktop.ViewModels
         [RelayCommand]
         private void ToggleLanguage()
         {
-            string newCode = LanguageCode == "ES" ? "es" : "en";
+            string newCode = LanguageCode == "ES" ? "en" : "es";
 
             var culture = new CultureInfo(newCode);
             Thread.CurrentThread.CurrentCulture = culture;
@@ -36,7 +37,6 @@ namespace kando_desktop.ViewModels
             string currentRoute = Shell.Current.CurrentState.Location.ToString();
             Application.Current.MainPage = new AppShell(currentRoute);
         }
-
 
         [RelayCommand]
         private void ToggleTheme()
@@ -51,16 +51,23 @@ namespace kando_desktop.ViewModels
             OnPropertyChanged(nameof(GithubIconSource));
         }
 
-        public string ThemeIconSource => Application.Current.UserAppTheme == AppTheme.Dark
-            ? "sun.png" : "moon.png";
+        public string ThemeIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "sun.png" : "moon.png";
+        public string LanguageIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "language_light.png" : "language_dark.png";
+        public string GoogleIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "google_dark.png" : "google_light.png";
+        public string GithubIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "github_dark.png" : "github_light.png";
 
-        public string LanguageIconSource => Application.Current.UserAppTheme == AppTheme.Dark
-            ? "language_light.png" : "language_dark.png";
+        public Action<object> RequestMenuOpen;
 
-        public string GoogleIconSource => Application.Current.UserAppTheme == AppTheme.Dark
-            ? "google_dark.png" : "google_light.png";
+        [RelayCommand]
+        private void ToggleMenu(object anchor)
+        {
+            RequestMenuOpen?.Invoke(anchor);
+        }
 
-        public string GithubIconSource => Application.Current.UserAppTheme == AppTheme.Dark
-            ? "github_dark.png" : "github_light.png";
+        [RelayCommand]
+        private async Task Logout()
+        {
+            await Shell.Current.GoToAsync("//LoginPage");
+        }
     }
 }

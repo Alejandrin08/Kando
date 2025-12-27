@@ -186,4 +186,13 @@
   <data name="SignIn" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
+  <data name="SearchBoards" xml:space="preserve">
+    <value>Buscar tableros...</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Modificar Perfil</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Cerrar Sesión</value>
+  </data>
 </root>

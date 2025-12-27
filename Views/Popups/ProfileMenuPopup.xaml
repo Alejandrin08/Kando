@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               x:Class="kando_desktop.Views.Popups.ProfileMenuPopup"
+               Color="Transparent">
+    <Border Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+            StrokeThickness="1"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}"
+            StrokeShape="RoundRectangle 8"
+            Padding="0"
+            TranslationX="-40"
+            TranslationY="5"
+            WidthRequest="140">
+        <Border.Shadow>
+            <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.15"/>
+        </Border.Shadow>
+
+        <VerticalStackLayout Spacing="0">
+
+            <Button Text="{x:Static strings:AppResources.EditProfile}" 
+                    BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                    CornerRadius="0"
+                    HeightRequest="40" 
+                    HorizontalOptions="Fill"
+                    FontSize="13"
+                    ContentLayout="Left, 10"
+                    Clicked="OnItemClicked"
+                    Padding="15,0">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="✎" Color="{StaticResource Blue500}" Size="14"/>
+                </Button.ImageSource>
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate700}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+            <BoxView HeightRequest="1" 
+                     Color="{AppThemeBinding Light={StaticResource Slate100}, Dark={StaticResource Slate700}}" 
+                     Margin="5,0"/>
+
+            <Button Text="{x:Static strings:AppResources.Logout}"
+                    Command="{Binding LogoutCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#EF4444" 
+                    CornerRadius="0"
+                    HeightRequest="40"
+                    HorizontalOptions="Fill"
+                    FontSize="13"
+                    ContentLayout="Left, 10"
+                    Padding="15,0"
+                    Clicked="OnItemClicked">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate700}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

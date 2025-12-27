@@ -7,7 +7,8 @@
             InitializeComponent();
 
             Routing.RegisterRoute("RegisterPage", typeof(Views.RegisterPage));
-            Routing.RegisterRoute("LoginPage", typeof(Views.LoginPage));
+            Routing.RegisterRoute("LoginPage", typeof(Views.LoginPage)); 
+            Routing.RegisterRoute("HomePage", typeof(Views.HomePage));
 
             if (!string.IsNullOrEmpty(targetRoute))
             {

@@ -186,4 +186,13 @@
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>
   </data>
+  <data name="SearchBoards" xml:space="preserve">
+    <value>Search for boards...</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
 </root>

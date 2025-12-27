@@ -2,6 +2,8 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:kando_desktop"
+             xmlns:controls="clr-namespace:kando_desktop.Controls"
+             xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              x:Class="kando_desktop.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,24 +13,128 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ControlTemplate x:Key="MainPageTemplate">
-                <Grid RowDefinitions="Auto, *">
+                <Grid RowDefinitions="60, *">
 
-                    <Border Grid.Row="0" HeightRequest="60" BackgroundColor="{StaticResource Blue500}" Padding="20,0">
-                        <Grid ColumnDefinitions="Auto, *, Auto">
-                            <Label Text="Kando App" VerticalOptions="Center" TextColor="White" FontAttributes="Bold"/>
+                    <Border Grid.Row="0" 
+                            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate900}}" 
+                            Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                            StrokeThickness="0" 
+                            StrokeShape="Rectangle"
+                            Padding="20,0">
 
-                            <HorizontalStackLayout Grid.Column="2" Spacing="10" VerticalOptions="Center">
-                                <Label Text="Usuario" VerticalOptions="Center" TextColor="White"/>
-                                <Image Source="user_icon.png" HeightRequest="30" WidthRequest="30"/>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.05" />
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="Auto, *, Auto, Auto, Auto, Auto" ColumnSpacing="15">
+
+                            <HorizontalStackLayout Grid.Column="0" Spacing="10" VerticalOptions="Center">
+                                <Image Source="kando_icon.png" Aspect="AspectFit"/>
+
+                                <Label Text="{x:Static strings:AppResources.AppTitle}" 
+                                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" 
+                                       FontSize="18" FontAttributes="Bold" VerticalOptions="Center" Margin="-20,0,0,0" />
                             </HorizontalStackLayout>
+
+
+                            <VerticalStackLayout Grid.Column="1" 
+                                                 VerticalOptions="Center" 
+                                                 HorizontalOptions="Center" 
+                                                 WidthRequest="400">
+
+                                <Border Style="{StaticResource InputBorderStyle}"
+                                        Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
+                                        HeightRequest="35">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Source={x:Reference SearchEntry}, Path=IsFocused}"
+                                                     Value="True">
+                                            <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <Image Grid.Column="0" Source="loupe.png" 
+                                               Style="{StaticResource InputIcon}" 
+                                               HeightRequest="16" WidthRequest="16"/>
+
+                                        <controls:BorderlessEntry x:Name="SearchEntry"
+                                                                  Grid.Column="1"
+                                                                  Placeholder="{x:Static strings:AppResources.SearchBoards}"
+                                                                  PlaceholderColor="{StaticResource Slate400}"
+                                                                  TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                                                                  BackgroundColor="Transparent"
+                                                                  VerticalOptions="Center"
+                                                                  HeightRequest="35"/>
+                                    </Grid>
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <Border Grid.Column="3" 
+                                    Style="{StaticResource InputBorderStyle}"
+                                    Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
+                                    Padding="8"
+                                    HeightRequest="36"
+                                    WidthRequest="36"
+                                    StrokeShape="RoundRectangle 8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ToggleThemeCommand, Source={RelativeSource TemplatedParent}}"/>
+                                </Border.GestureRecognizers>
+                                <Image Source="{Binding BindingContext.ThemeIconSource, Source={RelativeSource TemplatedParent}}" 
+                                       HeightRequest="20" WidthRequest="20"
+                                       VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </Border>
+
+                            <Border Grid.Column="4" 
+                                    Style="{StaticResource InputBorderStyle}"
+                                    Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
+                                    Padding="10,0"
+                                    HeightRequest="36"
+                                    StrokeShape="RoundRectangle 8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ToggleLanguageCommand, Source={RelativeSource TemplatedParent}}"/>
+                                </Border.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                    <Image Source="{Binding BindingContext.LanguageIconSource, Source={RelativeSource TemplatedParent}}" 
+                                           HeightRequest="18" WidthRequest="18" 
+                                           VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding BindingContext.LanguageCode, Source={RelativeSource TemplatedParent}}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" 
+                                           FontAttributes="Bold" 
+                                           VerticalOptions="Center"
+                                           FontSize="13"/>
+                                </HorizontalStackLayout>
+                            </Border>
+
+                            <Border Grid.Column="5" 
+                                    x:Name="AvatarBorder"
+                                    StrokeShape="RoundRectangle 18" 
+                                    HeightRequest="36" WidthRequest="36"
+                                    Stroke="Transparent"
+                                    BackgroundColor="{StaticResource Blue500}"
+                                    VerticalOptions="Center">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                            Command="{Binding BindingContext.ToggleMenuCommand, Source={RelativeSource TemplatedParent}}"
+                                            CommandParameter="{Binding Source={x:Reference AvatarBorder}}"/>
+                                </Border.GestureRecognizers>
+
+                                <Label Text="U" TextColor="White" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center" 
+                                       FontAttributes="Bold"/>
+                            </Border>   
+
                         </Grid>
                     </Border>
 
                     <ContentPresenter Grid.Row="1" />
-
                 </Grid>
             </ControlTemplate>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

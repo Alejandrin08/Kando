@@ -183,7 +183,8 @@
                     <Button Text="{x:Static strings:AppResources.LoginButton}"
                             Style="{StaticResource PrimaryButton}"
                             ImageSource="right_arrow.png"
-                            ContentLayout="Right, 10"/>
+                            ContentLayout="Right, 10"
+                            Command="{Binding GoToHomeCommand}"/>
 
                     <Grid ColumnDefinitions="*, Auto, *" ColumnSpacing="10" VerticalOptions="Center">
                         <BoxView Grid.Column="0" HeightRequest="1" VerticalOptions="Center"
