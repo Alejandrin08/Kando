@@ -195,4 +195,28 @@
   <data name="Logout" xml:space="preserve">
     <value>Log Out</value>
   </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Welcome back</value>
+  </data>
+  <data name="WorkspaceTitle" xml:space="preserve">
+    <value>Your Workspace</value>
+  </data>
+  <data name="WorkspaceSubtitle" xml:space="preserve">
+    <value>Manage your teams and projects in one place</value>
+  </data>
+  <data name="ActiveBoards" xml:space="preserve">
+    <value>Active Boards</value>
+  </data>
+  <data name="CompletedTasks" xml:space="preserve">
+    <value>Completed Tasks</value>
+  </data>
+  <data name="TeamsCount" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="YourTeamsTitle" xml:space="preserve">
+    <value>Your Teams</value>
+  </data>
+  <data name="NewTeamButton" xml:space="preserve">
+    <value>New Team</value>
+  </data>
 </root>

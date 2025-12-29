@@ -11,6 +11,7 @@
     <Color x:Key="Slate50">#F8FAFC</Color>
     <Color x:Key="Slate200">#E2E8F0</Color>
     <Color x:Key="Slate300">#CBD5E1</Color>
+    <Color x:Key="Slate350">#F3F4F6</Color>
     <Color x:Key="Slate400">#94A3B8</Color>
     <Color x:Key="Slate500">#64748B</Color>
     <Color x:Key="Slate600">#475569</Color>

@@ -49,12 +49,17 @@ namespace kando_desktop.ViewModels
             OnPropertyChanged(nameof(LanguageIconSource));
             OnPropertyChanged(nameof(GoogleIconSource));
             OnPropertyChanged(nameof(GithubIconSource));
+            OnPropertyChanged(nameof(PlusIconSource));
+            OnPropertyChanged(nameof(GroupIconSource));
         }
 
         public string ThemeIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "sun.png" : "moon.png";
         public string LanguageIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "language_light.png" : "language_dark.png";
         public string GoogleIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "google_dark.png" : "google_light.png";
         public string GithubIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "github_dark.png" : "github_light.png";
+        public string PlusIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "plus_white.png" : "plus_black.png";
+        public string GroupIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "group_white.png" : "group_black.png";
+
 
         public Action<object> RequestMenuOpen;
 

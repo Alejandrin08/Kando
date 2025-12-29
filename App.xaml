@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:kando_desktop"
+             Shell.NavBarIsVisible="False" 
              xmlns:controls="clr-namespace:kando_desktop.Controls"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              x:Class="kando_desktop.App">
@@ -18,7 +19,7 @@
                     <Border Grid.Row="0" 
                             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate900}}" 
                             Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
-                            StrokeThickness="0" 
+                            StrokeThickness="1" 
                             StrokeShape="Rectangle"
                             Padding="20,0">
 
@@ -74,7 +75,7 @@
                                     Style="{StaticResource InputBorderStyle}"
                                     Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
                                     BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
-                                    Padding="8"
+                                    Padding="5"
                                     HeightRequest="36"
                                     WidthRequest="36"
                                     StrokeShape="RoundRectangle 8">

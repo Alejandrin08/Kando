@@ -507,6 +507,41 @@
         </Setter>
     </Style>
 
+    <Style x:Key="NewTeamButtonStyle" TargetType="Button">
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="15,0" />
+        <Setter Property="ContentLayout" Value="Left, 10" />
+        <Setter Property="HorizontalOptions" Value="End" />
+
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark=#0f1729}" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Slate200}, Dark=#2e3d52}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" />
+        <Setter Property="ImageSource" Value="{AppThemeBinding Light=plus_black.png, Dark=plus_white.png}" />
+
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+
+                            <Setter Property="BorderColor" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light=White, Dark=Black}" />
+
+                            <Setter Property="ImageSource" Value="{AppThemeBinding Light=plus_white.png, Dark=plus_black.png}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
     <Style x:Key="SocialButton" TargetType="Button">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Slate700}, Dark={StaticResource Slate50}}" />
@@ -533,5 +568,45 @@
             </VisualStateGroupList>
         </Setter>
     </Style>
-    
+
+    <Style x:Key="StatCardStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource Slate700}}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+        <Setter Property="HeightRequest" Value="80" />
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=Transparent}" Offset="0,4" Radius="10" Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StatIconBorderStyle" TargetType="Border">
+        <Setter Property="WidthRequest" Value="48" />
+        <Setter Property="HeightRequest" Value="48" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Padding" Value="12" />
+    </Style>
+
+    <Style x:Key="StatIconImageStyle" TargetType="Image">
+        <Setter Property="Aspect" Value="AspectFit" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="StatNumberStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style x:Key="StatLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate400}}" />
+    </Style>
+
 </ResourceDictionary>

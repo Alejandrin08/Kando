@@ -2,17 +2,152 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kando_desktop.Views.HomePage"
-             Title="HomePage"
-             Shell.NavBarIsVisible="False" 
+             Shell.NavBarIsVisible="False"
+             xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels"
+             xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+             xmlns:controls="clr-namespace:kando_desktop.Controls"
              ControlTemplate="{StaticResource MainPageTemplate}">
-    <Grid Padding="20">
-        <VerticalStackLayout Spacing="10">
-            <Label Text="Bienvenido al Dashboard" 
-                   Style="{StaticResource TitleHuge}" />
 
-            <Label Text="Aquí irán tus tableros Kanban..." 
-                   Style="{StaticResource SubtitleMuted}" />
-        </VerticalStackLayout>
-    </Grid>
+    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate900}}">
+        <Grid RowDefinitions="Auto, Auto" Padding="40" RowSpacing="40">
 
+            <Border Grid.Row="0"
+                    HeightRequest="240"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                <Border.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#20000000, Dark=#50000000}" 
+                            Offset="0,10" Radius="20" Opacity="0.5"/>
+                </Border.Shadow>
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Offset="0.0" Color="{AppThemeBinding Light=#dbeafe, Dark=#172c50}" />
+                        <GradientStop Offset="1.0" Color="{AppThemeBinding Light=#eff6ff, Dark=#0f192d}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid Padding="25">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           Text="{x:Static strings:AppResources.WelcomeBack}" 
+                           TextColor="{StaticResource Blue500}"
+                           FontSize="14" FontAttributes="Bold"/>
+
+                    <Label Grid.Row="1"
+                           Text="{x:Static strings:AppResources.WorkspaceTitle}"
+                           Style="{StaticResource TitleHuge}" 
+                           Margin="0,5,0,0"/>
+
+                    <Label Grid.Row="2"
+                           Text="{x:Static strings:AppResources.WorkspaceSubtitle}"
+                           Style="{StaticResource SubtitleMuted}"
+                           FontSize="14"
+                           Margin="0,5,0,0"/>
+
+                    <HorizontalStackLayout Grid.Row="3" Spacing="30" VerticalOptions="End" Margin="0,20,0,0">
+
+                        <Border StrokeShape="RoundRectangle 10"
+                                WidthRequest="180"
+                                HeightRequest="75"
+                                BackgroundColor="{AppThemeBinding Light=#f2f7ff, Dark=#111d36}"
+                                Stroke="{AppThemeBinding Light=#80e5e7eb, Dark=#1f2c44}"
+                                Padding="10">
+                            <Border.Shadow>
+                                <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=Transparent}" Offset="0,4" Radius="10" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Border Grid.Column="0" Margin="10,0,0,0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40"
+                                        BackgroundColor="{AppThemeBinding Light=#c3d9fd, Dark=#1a315c}"
+                                        Stroke="{AppThemeBinding Light=#c3d9fd, Dark=#1a315c}">
+                                    <Image Source="menu.png" Aspect="Fill" WidthRequest="20" HeightRequest="20"/>
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                    <Label Text="6" Style="{StaticResource StatNumberStyle}"/>
+                                    <Label Text="{x:Static strings:AppResources.ActiveBoards}" Style="{StaticResource StatLabelStyle}"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+
+                        <Border StrokeShape="RoundRectangle 10"
+                                WidthRequest="200"
+                                HeightRequest="75"
+                                BackgroundColor="{AppThemeBinding Light=#f2f7ff, Dark=#111d36}"
+                                Stroke="{AppThemeBinding Light=#80e5e7eb, Dark=#1f2c44}"
+                                Padding="10">
+                            <Border.Shadow>
+                                <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=Transparent}" Offset="0,4" Radius="10" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Border Grid.Column="0" Margin="10,0,0,0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40"
+                                        BackgroundColor="{AppThemeBinding Light=#f4e6ce, Dark=#3f362b}"
+                                        Stroke="{AppThemeBinding Light=#f4e6ce, Dark=#3f362b}">
+                                    <Image Source="trend.png" Aspect="Fill" WidthRequest="20" HeightRequest="20"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                    <Label Text="32/55" Style="{StaticResource StatNumberStyle}"/>
+                                    <Label Text="{x:Static strings:AppResources.CompletedTasks}" Style="{StaticResource StatLabelStyle}"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+
+                        <Border StrokeShape="RoundRectangle 10"
+                                WidthRequest="140"
+                                HeightRequest="75"
+                                BackgroundColor="{AppThemeBinding Light=#f2f7ff, Dark=#111d36}"
+                                Stroke="{AppThemeBinding Light=#80e5e7eb, Dark=#1f2c44}"
+                                Padding="10">
+                            <Border.Shadow>
+                                <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=Transparent}" Offset="0,4" Radius="10" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Border Grid.Column="0" Margin="10,0,0,0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40"
+                                        BackgroundColor="{AppThemeBinding Light=#cceedf, Dark=#143c3a}"
+                                        Stroke="{AppThemeBinding Light=#cceedf, Dark=#143c3a}">
+                                    <Image Source="group.png" Aspect="Fill" WidthRequest="30" HeightRequest="30"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
+                                    <Label Text="3" Style="{StaticResource StatNumberStyle}"/>
+                                    <Label Text="{x:Static strings:AppResources.TeamsCount}" Style="{StaticResource StatLabelStyle}"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" ColumnDefinitions="Auto, Auto, *" VerticalOptions="Center">
+
+                <Border Grid.Column="0" 
+                        StrokeShape="RoundRectangle 10"
+                        WidthRequest="45" HeightRequest="45"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Slate350}, Dark=#1f2937}"
+                        Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#1f2937}"
+                        Padding="5">
+                    <Image Source="{Binding GroupIconSource}" Aspect="Fill" WidthRequest="30" HeightRequest="30"/>
+                </Border>
+
+                <Label Grid.Column="1" 
+                       Text="{x:Static strings:AppResources.YourTeamsTitle}"
+                       Style="{StaticResource TitleHuge}"
+                       FontSize="18"
+                       Margin="15,0,0,0"
+                       VerticalOptions="Center"/>
+
+                <Button Grid.Column="2"
+                        Text="{x:Static strings:AppResources.NewTeamButton}"
+                        Style="{StaticResource NewTeamButtonStyle}"
+                        WidthRequest="150"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>
