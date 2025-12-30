@@ -219,4 +219,10 @@
   <data name="NewTeamButton" xml:space="preserve">
     <value>Nuevo Equipo</value>
   </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Invitar</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Tableros</value>
+  </data>
 </root>

@@ -88,6 +88,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tableros.
+        /// </summary>
+        public static string Boards {
+            get {
+                return ResourceManager.GetString("Boards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Tareas completadas.
         /// </summary>
         public static string CompletedTasks {
@@ -192,6 +201,15 @@ namespace kando_desktop.Resources.Strings {
         public static string GoogleBtn {
             get {
                 return ResourceManager.GetString("GoogleBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invitar.
+        /// </summary>
+        public static string InviteButton {
+            get {
+                return ResourceManager.GetString("InviteButton", resourceCulture);
             }
         }
         
