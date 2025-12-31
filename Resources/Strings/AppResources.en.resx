@@ -225,4 +225,16 @@
   <data name="Boards" xml:space="preserve">
     <value>Boards</value>
   </data>
+  <data name="YourBoardsTitle" xml:space="preserve">
+    <value>Your Boards</value>
+  </data>
+  <data name="NewBoardButton" xml:space="preserve">
+    <value>New Board</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>tasks</value>
+  </data>
 </root>

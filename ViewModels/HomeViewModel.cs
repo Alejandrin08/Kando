@@ -10,13 +10,15 @@ namespace kando_desktop.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        public ObservableCollection<Team> Teams { get; set; } = new ();
-        public HomeViewModel() 
-        { 
-            LoadMockData();
+        public ObservableCollection<Team> Teams { get; set; } = new();
+        public ObservableCollection<Board> Boards { get; set; } = new();
+        public HomeViewModel()
+        {
+            LoadMockDataTeams();
+            LoadMockDataBoards();
         }
 
-        private void LoadMockData()
+        private void LoadMockDataTeams()
         {
             Teams.Clear();
 
@@ -38,7 +40,7 @@ namespace kando_desktop.ViewModels
                 NumberBoards = 12,
                 Icon = "group.png",
                 TeamColor = purpleColor,
-                Members = CreateMembers(3, purpleColor) 
+                Members = CreateMembers(3, purpleColor)
             });
 
             var pinkColor = Color.FromArgb("#EC4899");
@@ -100,6 +102,59 @@ namespace kando_desktop.ViewModels
                 Icon = "group.png",
                 TeamColor = pinkColor,
                 Members = CreateMembers(6, pinkColor)
+            });
+        }
+
+        private void LoadMockDataBoards()
+        {
+            Boards.Clear();
+
+            if (Teams.Count == 0) return;
+
+            var random = new Random();
+
+            Boards.Add(new Board
+            {
+                Name = "Desarrollo Kando v1.0",
+                Icon = "menu.png",
+                TeamName = Teams[0],
+                TeamColor = Teams[0].TeamColor,
+                TaskCount = 32,
+                TotalTasks = 55,
+                TotalTaskPorcentage = 58
+            });
+
+            Boards.Add(new Board
+            {
+                Name = "Campaña Q3 Redes Sociales",
+                Icon = "trend.png",
+                TeamName = Teams[1],
+                TeamColor = Teams[1].TeamColor,
+                TaskCount = 12,
+                TotalTasks = 12,
+                TotalTaskPorcentage = 100
+            });
+
+            Boards.Add(new Board
+            {
+                Name = "Refactorización Backend",
+                Icon = "menu.png",
+                TeamName = Teams[0],
+                TeamColor = Teams[0].TeamColor,
+                TaskCount = 5,
+                TotalTasks = 20,
+                TotalTaskPorcentage = 25
+            });
+
+            Boards.Add(new Board
+            {
+                Name = "Roadmap 2025",
+                Icon = "trend.png",
+                TeamName = Teams[2],
+                TeamColor = Teams[2].TeamColor,
+                TaskCount = 0,
+                TotalTasks = 10,
+                TotalTaskPorcentage = 0
             });
         }
     }

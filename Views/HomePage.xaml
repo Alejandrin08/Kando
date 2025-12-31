@@ -10,7 +10,7 @@
              ControlTemplate="{StaticResource MainPageTemplate}">
 
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate900}}">
-        <Grid RowDefinitions="Auto, Auto" Padding="40" RowSpacing="40">
+        <Grid RowDefinitions="Auto, Auto, Auto" Padding="40" RowSpacing="40">
 
             <Border Grid.Row="0"
                     HeightRequest="240"
@@ -148,7 +148,7 @@
                     <Button Grid.Column="2"
                         Text="{x:Static strings:AppResources.NewTeamButton}"
                         Style="{StaticResource NewTeamButtonStyle}"
-                        WidthRequest="150"/>
+                        WidthRequest="160"/>
                 </Grid>
 
                 <FlexLayout BindableLayout.ItemsSource="{Binding Teams}"
@@ -161,7 +161,53 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <components:TeamCardView WidthRequest="300" 
-                                                     Margin="0,0,20,20"/>
+                                                     Margin="0,0,5,5"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2" Spacing="20" Margin="0, -40, 0, 0">
+                <Grid ColumnDefinitions="Auto, Auto, *" VerticalOptions="Center">
+
+                    <Border Grid.Column="0" 
+                        StrokeShape="RoundRectangle 10"
+                        WidthRequest="45" HeightRequest="45"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Slate350}, Dark=#1f2937}"
+                        Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#1f2937}"
+                        Padding="5">
+                        <Image Source="{Binding MenuIconSource}" Aspect="Fill" WidthRequest="20" HeightRequest="20"/>
+                    </Border>
+
+                    <Label Grid.Column="1" 
+                       Text="{x:Static strings:AppResources.YourBoardsTitle}"
+                       Style="{StaticResource TitleHuge}"
+                       FontSize="18"
+                       Margin="15,0,0,0"
+                       VerticalOptions="Center"/>
+
+                    <Button Grid.Column="2"
+                            Text="{x:Static strings:AppResources.NewBoardButton}"
+                            Style="{StaticResource PrimaryButton}"
+                            HorizontalOptions="End"
+                            ImageSource="plus_white.png"
+                            ContentLayout="Left, 10"
+                            WidthRequest="160"
+                            FontAttributes="None"/>
+                </Grid>
+
+                <FlexLayout BindableLayout.ItemsSource="{Binding Boards}"
+                            Wrap="Wrap"
+                            Direction="Row"
+                            JustifyContent="Start"
+                            AlignItems="Start"
+                            Margin="0, 0, -20, 0">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <components:BoardCardView WidthRequest="300" 
+                                                     Margin="0,0,5,5"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
 

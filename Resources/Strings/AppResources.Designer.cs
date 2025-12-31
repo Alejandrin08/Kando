@@ -232,6 +232,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Nuevo Tablero.
+        /// </summary>
+        public static string NewBoardButton {
+            get {
+                return ResourceManager.GetString("NewBoardButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nuevo Equipo.
         /// </summary>
         public static string NewTeamButton {
@@ -264,6 +273,15 @@ namespace kando_desktop.Resources.Strings {
         public static string PasswordLabel {
             get {
                 return ResourceManager.GetString("PasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Progreso.
+        /// </summary>
+        public static string Progress {
+            get {
+                return ResourceManager.GetString("Progress", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a tareas.
+        /// </summary>
+        public static string Tasks {
+            get {
+                return ResourceManager.GetString("Tasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Equipos.
         /// </summary>
         public static string TeamsCount {
@@ -372,6 +399,15 @@ namespace kando_desktop.Resources.Strings {
         public static string WorkspaceTitle {
             get {
                 return ResourceManager.GetString("WorkspaceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tus Tableros.
+        /// </summary>
+        public static string YourBoardsTitle {
+            get {
+                return ResourceManager.GetString("YourBoardsTitle", resourceCulture);
             }
         }
         

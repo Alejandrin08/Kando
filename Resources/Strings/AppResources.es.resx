@@ -225,4 +225,16 @@
   <data name="Boards" xml:space="preserve">
     <value>Tableros</value>
   </data>
+  <data name="YourBoardsTitle" xml:space="preserve">
+    <value>Tus Tableros</value>
+  </data>
+  <data name="NewBoardButton" xml:space="preserve">
+    <value>Nuevo Tablero</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progreso</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>tareas</value>
+  </data>
 </root>
