@@ -19,7 +19,8 @@
     <Color x:Key="Slate800">#1F2937</Color>
     <Color x:Key="Slate900">#0F172A</Color>
     <Color x:Key="Slate950">#020617</Color>
-
+    <Color x:Key="Slate1000">#0f1729</Color>
+    
     <Color x:Key="GlassDark">#991D293A</Color>
     <Color x:Key="GlassLight">#CCF1F5F9</Color>
 

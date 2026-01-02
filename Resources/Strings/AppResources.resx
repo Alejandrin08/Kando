@@ -237,4 +237,19 @@
   <data name="Tasks" xml:space="preserve">
     <value>tareas</value>
   </data>
+  <data name="CreateTeam" xml:space="preserve">
+    <value>Crear Equipo</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icono</value>
+  </data>
+  <data name="TeamColor" xml:space="preserve">
+    <value>Color del Equipo</value>
+  </data>
+  <data name="TeamName" xml:space="preserve">
+    <value>Nombre del Equipo</value>
+  </data>
+  <data name="EnterTeamName" xml:space="preserve">
+    <value>Ingresa el nombre del equipo...</value>
+  </data>
 </root>

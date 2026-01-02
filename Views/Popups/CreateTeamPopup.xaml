@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               x:Class="kando_desktop.Views.Popups.CreateTeamPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               xmlns:controls="clr-namespace:kando_desktop.Controls"
+               Color="Transparent">
+
+    <toolkit:Popup.Resources>
+        <Style x:Key="SelectableItemStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Stroke" Value="Transparent" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="HeightRequest" Value="58" />
+            <Setter Property="WidthRequest" Value="58" />
+        </Style>
+    </toolkit:Popup.Resources>
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate1000}}"
+            WidthRequest="540"
+            HeightRequest="500"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=White, Dark=#263244}"
+            StrokeThickness="1"
+            Padding="25">
+
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, *">
+
+            <Grid Grid.Row="0" ColumnDefinitions="*, *">
+                <Label Text="{x:Static strings:AppResources.CreateTeam}" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                       VerticalOptions="Center"/>
+
+                <ImageButton Source="close.png"
+                             Grid.Column="1"
+                             HeightRequest="30" WidthRequest="30"
+                             VerticalOptions="Center"
+                             HorizontalOptions="End"
+                             Background="Transparent"
+                             Clicked="OnCloseClicked">
+                    <ImageButton.Shadow>
+                        <Shadow Brush="Transparent"/>
+                    </ImageButton.Shadow>
+                </ImageButton>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.Icon}"
+                           FontSize="14"
+                           Grid.Row="0"
+                           Margin="0,0,0,8"
+                           TextColor="{StaticResource Slate400}"/>
+
+                    <FlexLayout x:Name="IconContainer" 
+                                Grid.Row="1" 
+                                Wrap="Wrap" 
+                                JustifyContent="Start" 
+                                AlignItems="Start"
+                                AlignContent="Start">
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="cat" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="cat.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="tulip" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="tulip.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="dog" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="dog.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="elephant" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="elephant.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="hacker" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="hacker.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="ninja" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="ninja.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="penguin" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="penguin.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="linux" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="linux.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="shark" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="shark.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="startup" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="startup.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="puzzle" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="puzzle.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="puzzle_two" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="puzzle_two.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="swords" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="swords.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="alien" />
+                            </Border.GestureRecognizers>
+                            <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                <Image Source="alien.png" Aspect="AspectFit" Margin="8"/>
+                            </Border>
+                        </Border>
+
+                    </FlexLayout>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.TeamColor}"
+                           FontSize="14"
+                           Grid.Row="0"
+                           Margin="0,0,0,8"
+                           TextColor="{StaticResource Slate400}"/>
+
+                    <HorizontalStackLayout x:Name="ColorContainer" 
+                                           Grid.Row="1" 
+                                           Spacing="0"
+                                           HorizontalOptions="Start">
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorTapped" />
+                            </Border.GestureRecognizers>
+                            <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#8f45ef">
+                                <Grid>
+                                    <BoxView Opacity="0.2">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0.0" Color="White"/>
+                                                <GradientStop Offset="1.0" Color="Black"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                </Grid>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorTapped" />
+                            </Border.GestureRecognizers>
+                            <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#e7336a">
+                                <Grid>
+                                    <BoxView Opacity="0.2">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0.0" Color="White"/>
+                                                <GradientStop Offset="1.0" Color="Black"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                </Grid>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorTapped" />
+                            </Border.GestureRecognizers>
+                            <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#158ddf">
+                                <Grid>
+                                    <BoxView Opacity="0.2">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0.0" Color="White"/>
+                                                <GradientStop Offset="1.0" Color="Black"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                </Grid>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorTapped" />
+                            </Border.GestureRecognizers>
+                            <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#ee770b">
+                                <Grid>
+                                    <BoxView Opacity="0.2">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0.0" Color="White"/>
+                                                <GradientStop Offset="1.0" Color="Black"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                </Grid>
+                            </Border>
+                        </Border>
+
+                        <Border Style="{StaticResource SelectableItemStyle}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorTapped" />
+                            </Border.GestureRecognizers>
+                            <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#13ad64">
+                                <Grid>
+                                    <BoxView Opacity="0.2">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0.0" Color="White"/>
+                                                <GradientStop Offset="1.0" Color="Black"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                </Grid>
+                            </Border>
+                        </Border>
+
+                    </HorizontalStackLayout>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.TeamName}"
+                           FontSize="14"
+                           Grid.Row="0"
+                           Margin="0,0,0,8"
+                           TextColor="{StaticResource Slate400}"/>
+
+                    <Border Grid.Row="1"
+                            Style="{StaticResource SimpleInputContainerStyle}">
+
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border"
+                                         Binding="{Binding Source={x:Reference TeamNameEntry}, Path=IsFocused}"
+                                         Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#0f1729}"/>
+                            </DataTrigger>
+                        </Border.Triggers>
+
+                        <controls:BorderlessEntry x:Name="TeamNameEntry"
+                                                  Placeholder="{x:Static strings:AppResources.EnterTeamName}"
+                                                  Style="{StaticResource CleanEntryStyle}"/>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Button Text="{x:Static strings:AppResources.CreateTeam}"
+                    Style="{StaticResource PrimaryButton}"
+                    Grid.Row="4"
+                    Margin="0,25,0,0"/>
+        </Grid>
+    </Border>
+</toolkit:Popup>

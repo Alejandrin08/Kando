@@ -15,6 +15,7 @@ public partial class HomePage : ContentPage
         BindingContext = homeViewModel;
 
         _viewModel.RequestMenuOpen += OnRequestMenuOpen;
+        _viewModel.RequestShowCreateTeam += OnRequestShowCreateTeam;
     }
     private void OnRequestMenuOpen(object anchor)
     {
@@ -31,9 +32,16 @@ public partial class HomePage : ContentPage
         this.ShowPopup(popup);
     }
 
+    private void OnRequestShowCreateTeam()
+    {
+        var popup = new CreateTeamPopup(_viewModel);
+        this.ShowPopup(popup);
+    }
+
     protected override void OnDisappearing()
     {
         _viewModel.RequestMenuOpen -= OnRequestMenuOpen;
+        _viewModel.RequestShowCreateTeam -= OnRequestShowCreateTeam;
         base.OnDisappearing();
     }
 }

@@ -671,4 +671,22 @@
         </Setter>
     </Style>
 
+    <Style x:Key="SimpleInputContainerStyle" TargetType="Border">
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+        <Setter Property="HeightRequest" Value="45" />
+        <Setter Property="Padding" Value="8,0" />
+
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Slate200}, Dark=#2e3d52}" />
+    </Style>
+
+    <Style x:Key="CleanEntryStyle" TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource Slate400}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
 </ResourceDictionary>

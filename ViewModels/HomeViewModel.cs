@@ -1,4 +1,5 @@
-﻿using kando_desktop.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using kando_desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace kando_desktop.ViewModels
 {
-    public class HomeViewModel : BaseViewModel
+    public partial class HomeViewModel : BaseViewModel
     {
         public ObservableCollection<Team> Teams { get; set; } = new();
         public ObservableCollection<Board> Boards { get; set; } = new();
+        public Action RequestShowCreateTeam;
+
         public HomeViewModel()
         {
             LoadMockDataTeams();
@@ -156,6 +159,12 @@ namespace kando_desktop.ViewModels
                 TotalTasks = 10,
                 TotalTaskPorcentage = 0
             });
+        }
+
+        [RelayCommand]
+        private void CreateTeam()
+        {
+            RequestShowCreateTeam?.Invoke();
         }
     }
 }

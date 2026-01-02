@@ -133,6 +133,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Crear Equipo.
+        /// </summary>
+        public static string CreateTeam {
+            get {
+                return ResourceManager.GetString("CreateTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Modificar Perfil.
         /// </summary>
         public static string EditProfile {
@@ -156,6 +165,15 @@ namespace kando_desktop.Resources.Strings {
         public static string EmailPlaceholder {
             get {
                 return ResourceManager.GetString("EmailPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ingresa el nombre del equipo....
+        /// </summary>
+        public static string EnterTeamName {
+            get {
+                return ResourceManager.GetString("EnterTeamName", resourceCulture);
             }
         }
         
@@ -201,6 +219,15 @@ namespace kando_desktop.Resources.Strings {
         public static string GoogleBtn {
             get {
                 return ResourceManager.GetString("GoogleBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Icono.
+        /// </summary>
+        public static string Icon {
+            get {
+                return ResourceManager.GetString("Icon", resourceCulture);
             }
         }
         
@@ -345,6 +372,24 @@ namespace kando_desktop.Resources.Strings {
         public static string Tasks {
             get {
                 return ResourceManager.GetString("Tasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color del Equipo.
+        /// </summary>
+        public static string TeamColor {
+            get {
+                return ResourceManager.GetString("TeamColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre del Equipo.
+        /// </summary>
+        public static string TeamName {
+            get {
+                return ResourceManager.GetString("TeamName", resourceCulture);
             }
         }
         
