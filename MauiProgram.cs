@@ -26,8 +26,8 @@ namespace kando_desktop
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<RegisterPage>();
 
-            builder.Services.AddTransient<HomeViewModel>();
-            builder.Services.AddTransient<HomePage>();      
+            builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddSingleton<HomePage>();      
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
             {

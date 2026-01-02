@@ -6,19 +6,41 @@ using Microsoft.Maui.Controls;
 
 public partial class CreateBoadPopup : Popup
 {
+    private HomeViewModel _viewModel;
+
+    private string _selectedIconSource = "cat.png";
+
     private Border _selectedIconBorder;
 
     private Color _lightSelectionColor = Color.FromArgb("#0b64f4");
     private Color _darkSelectionColor = Color.FromArgb("#3c83f6");
-
     private Color _lightInnerBorderColor = Color.FromArgb("#f3f4f6");
     private Color _darkInnerBorderColor = Color.FromArgb("#1d283a");
 
     public CreateBoadPopup(BaseViewModel viewModel)
     {
         InitializeComponent();
+        _viewModel = viewModel as HomeViewModel;
         BindingContext = viewModel;
+
         this.Opened += OnPopupOpened;
+    }
+
+    private void OnCreateClicked(object sender, EventArgs e)
+    {
+        string boardName = BoardNameEntry.Text;
+        if (string.IsNullOrWhiteSpace(boardName))
+        { 
+            BoardNameEntry.PlaceholderColor = Colors.Red;
+            return;
+        }
+
+        if (_viewModel != null && _viewModel.SelectedTeam != null)
+        {
+            _viewModel.AddNewBoard(boardName, _selectedIconSource, _viewModel.SelectedTeam);
+        }
+
+        Close();
     }
 
     private void OnPopupOpened(object sender, CommunityToolkit.Maui.Core.PopupOpenedEventArgs e)
@@ -39,6 +61,11 @@ public partial class CreateBoadPopup : Popup
         if (sender is Border tappedBorder)
         {
             SelectIcon(tappedBorder);
+
+            if (e.Parameter is string iconName)
+            {
+                _selectedIconSource = iconName.EndsWith(".png") ? iconName : $"{iconName}.png";
+            }
         }
     }
 
@@ -51,7 +78,6 @@ public partial class CreateBoadPopup : Popup
         if (_selectedIconBorder != null)
         {
             _selectedIconBorder.Stroke = Colors.Transparent;
-
             if (_selectedIconBorder.Content is Border previousInnerBorder)
             {
                 previousInnerBorder.Stroke = defaultInnerColor;
@@ -60,7 +86,6 @@ public partial class CreateBoadPopup : Popup
         }
 
         border.Stroke = selectionColor;
-
         if (border.Content is Border currentInnerBorder)
         {
             currentInnerBorder.Stroke = selectionColor;

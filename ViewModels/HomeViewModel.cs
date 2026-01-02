@@ -23,178 +23,56 @@ namespace kando_desktop.ViewModels
 
         public HomeViewModel()
         {
-            LoadMockDataTeams();
-            LoadMockDataBoards();
         }
 
-        private void LoadMockDataTeams()
+        public void AddNewTeam(string name, string iconSource, Color teamColor)
         {
-            Teams.Clear();
+            if (string.IsNullOrWhiteSpace(name)) return;
 
-            List<Member> CreateMembers(int count, Color teamColor)
+            var myself = new Member
             {
-                var list = new List<Member>();
-                for (int i = 0; i < count; i++)
-                {
-                    list.Add(new Member { Initials = $"U{i}", BaseColor = teamColor });
-                }
-                return list;
-            }
+                Initials = "YO",
+                BaseColor = teamColor
+            };
 
-            var purpleColor = Color.FromArgb("#913ded");
-            Teams.Add(new Team
+            var newTeam = new Team
             {
-                Name = "Ingeniería Kando",
-                MemberCount = 18,
-                NumberBoards = 12,
-                Icon = "group.png",
-                TeamColor = purpleColor,
-                Members = CreateMembers(3, purpleColor)
+                Name = name,
+                Icon = iconSource,
+                TeamColor = teamColor,
+                MemberCount = 1,
+                NumberBoards = 0,
+                Members = new List<Member> { myself }
+            };
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Teams.Add(newTeam);
+
+                OnPropertyChanged(nameof(Teams));
             });
-
-            var pinkColor = Color.FromArgb("#EC4899");
-            Teams.Add(new Team
-            {
-                Name = "Marketing",
-                MemberCount = 6,
-                NumberBoards = 4,
-                Icon = "group.png",
-                TeamColor = pinkColor,
-                Members = CreateMembers(2, pinkColor)
-            });
-
-            var blueColor = Color.FromArgb("#3B82F6");
-            Teams.Add(new Team
-            {
-                Name = "Diseño UX/UI",
-                MemberCount = 8,
-                NumberBoards = 7,
-                Icon = "group.png",
-                TeamColor = blueColor,
-                Members = CreateMembers(4, blueColor)
-            });
-
-            var greenColor = Color.FromArgb("#10B981");
-            Teams.Add(new Team
-            {
-                Name = "Ventas",
-                MemberCount = 12,
-                NumberBoards = 9,
-                Icon = "group.png",
-                TeamColor = greenColor,
-                Members = CreateMembers(3, greenColor)
-            });
-
-            var orangeColor = Color.FromArgb("#F59E0B");
-            Teams.Add(new Team
-            {
-                Name = "Recursos Humanos",
-                MemberCount = 5,
-                NumberBoards = 3,
-                Icon = "group.png",
-                TeamColor = orangeColor,
-                Members = CreateMembers(2, orangeColor)
-            });
-
-            var tealColor = Color.FromArgb("#14B8A6");
-            Teams.Add(new Team
-            {
-                Name = "Operaciones",
-                MemberCount = 15,
-                NumberBoards = 11,
-                Icon = "group.png",
-                TeamColor = tealColor,
-                Members = CreateMembers(5, tealColor)
-            });
-
-            var indigoColor = Color.FromArgb("#6366F1");
-            Teams.Add(new Team
-            {
-                Name = "Soporte al Cliente",
-                MemberCount = 10,
-                NumberBoards = 6,
-                Icon = "group.png",
-                TeamColor = indigoColor,
-                Members = CreateMembers(3, indigoColor)
-            });
-
-            var redColor = Color.FromArgb("#EF4444");
-            Teams.Add(new Team
-            {
-                Name = "Finanzas",
-                MemberCount = 7,
-                NumberBoards = 5,
-                Icon = "group.png",
-                TeamColor = redColor,
-                Members = CreateMembers(2, redColor)
-            });
-
-            if (Teams.Count > 0)
-            {
-                SelectedTeam = Teams[0];
-            }
         }
 
-        private void LoadMockDataBoards()
+        public void AddNewBoard(string name, string iconSource, Team team)
         {
-            Boards.Clear();
-            if (Teams.Count == 0) return;
+            if (string.IsNullOrWhiteSpace(name) || team == null) return;
 
-            var random = new Random();
-
-            Boards.Add(new Board
+            var newBoard = new Board
             {
-                Name = "Desarrollo Kando v1.0",
-                Icon = "menu.png",
-                TeamName = Teams[0],
-                TeamColor = Teams[0].TeamColor,
-                TaskCount = 32,
-                TotalTasks = 55,
-                TotalTaskPorcentage = 58
-            });
+                Name = name,
+                Icon = iconSource, 
+                TeamName = team,   
+                TeamColor = team.TeamColor, 
+                TaskCount = 0,
+                TotalTasks = 0,
+                TotalTaskPorcentage = 0
+            };
 
-            Boards.Add(new Board
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                Name = "Campaña Q3 Redes Sociales",
-                Icon = "trend.png",
-                TeamName = Teams[1],
-                TeamColor = Teams[1].TeamColor,
-                TaskCount = 12,
-                TotalTasks = 12,
-                TotalTaskPorcentage = 100
-            });
+                Boards.Add(newBoard);
 
-            Boards.Add(new Board
-            {
-                Name = "Rediseño App Mobile",
-                Icon = "puzzle.png",
-                TeamName = Teams[2],
-                TeamColor = Teams[2].TeamColor,
-                TaskCount = 18,
-                TotalTasks = 30,
-                TotalTaskPorcentage = 60
-            });
-
-            Boards.Add(new Board
-            {
-                Name = "Pipeline Q4 2024",
-                Icon = "startup.png",
-                TeamName = Teams[3],
-                TeamColor = Teams[3].TeamColor,
-                TaskCount = 45,
-                TotalTasks = 60,
-                TotalTaskPorcentage = 75
-            });
-
-            Boards.Add(new Board
-            {
-                Name = "Proceso de Onboarding",
-                Icon = "cat.png",
-                TeamName = Teams[4],
-                TeamColor = Teams[4].TeamColor,
-                TaskCount = 8,
-                TotalTasks = 15,
-                TotalTaskPorcentage = 53
+                team.NumberBoards++;
             });
         }
 

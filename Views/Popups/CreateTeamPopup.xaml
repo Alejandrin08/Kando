@@ -68,7 +68,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="cat" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="cat.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -79,7 +79,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="tulip" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="tulip.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -90,7 +90,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="dog" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="dog.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -101,7 +101,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="elephant" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="elephant.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -112,7 +112,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="hacker" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="hacker.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -123,7 +123,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="ninja" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="ninja.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -134,7 +134,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="penguin" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="penguin.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -145,7 +145,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="linux" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="linux.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -156,7 +156,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="shark" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="shark.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -167,7 +167,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="startup" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="startup.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -178,7 +178,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="puzzle" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="puzzle.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -189,7 +189,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="puzzle_two" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="puzzle_two.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -200,7 +200,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="swords" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="swords.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -211,7 +211,7 @@
 
                         <Border Style="{StaticResource SelectableItemStyle}">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="alien" />
+                                <TapGestureRecognizer Tapped="OnIconTapped" CommandParameter="alien.png" />
                             </Border.GestureRecognizers>
                             <Border BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
                                     Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}"
@@ -361,7 +361,8 @@
             <Button Text="{x:Static strings:AppResources.CreateTeam}"
                     Style="{StaticResource PrimaryButton}"
                     Grid.Row="4"
-                    Margin="0,25,0,0"/>
+                    Margin="0,25,0,0"
+                    Clicked="OnCreateClicked"/>
         </Grid>
     </Border>
 </toolkit:Popup>

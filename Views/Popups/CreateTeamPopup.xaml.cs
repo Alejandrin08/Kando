@@ -6,12 +6,16 @@ using Microsoft.Maui.Controls;
 
 public partial class CreateTeamPopup : Popup
 {
+    private HomeViewModel _viewModel;
+
+    private string _selectedIconSource = "cat.png";
+    private Color _selectedTeamColor = Color.FromArgb("#8f45ef");
+
     private Border _selectedIconBorder;
     private Border _selectedColorBorder;
 
     private Color _lightSelectionColor = Color.FromArgb("#0b64f4");
     private Color _darkSelectionColor = Color.FromArgb("#3c83f6");
-
     private Color _lightInnerBorderColor = Color.FromArgb("#f3f4f6");
     private Color _darkInnerBorderColor = Color.FromArgb("#1d283a");
 
@@ -19,7 +23,27 @@ public partial class CreateTeamPopup : Popup
     {
         InitializeComponent();
         BindingContext = viewModel;
+
         this.Opened += OnPopupOpened;
+    }
+
+    private void OnCreateClicked(object sender, EventArgs e)
+    {
+        string teamName = TeamNameEntry.Text;
+        if (string.IsNullOrWhiteSpace(teamName))
+        {
+            TeamNameEntry.PlaceholderColor = Colors.Red; 
+            return;
+        }
+
+        var vm = _viewModel ?? BindingContext as HomeViewModel;
+
+        if (vm != null)
+        {
+            vm.AddNewTeam(teamName, _selectedIconSource, _selectedTeamColor);
+        }
+
+        Close();
     }
 
     private void OnPopupOpened(object sender, CommunityToolkit.Maui.Core.PopupOpenedEventArgs e)
@@ -45,6 +69,11 @@ public partial class CreateTeamPopup : Popup
         if (sender is Border tappedBorder)
         {
             SelectIcon(tappedBorder);
+
+            if (e.Parameter is string iconName)
+            {
+                _selectedIconSource = iconName.EndsWith(".png") ? iconName : $"{iconName}.png";
+            }
         }
     }
 
@@ -81,6 +110,11 @@ public partial class CreateTeamPopup : Popup
         if (sender is Border tappedBorder)
         {
             SelectColor(tappedBorder);
+
+            if (tappedBorder.Content is Border innerBorder)
+            {
+                _selectedTeamColor = innerBorder.BackgroundColor;
+            }
         }
     }
 
