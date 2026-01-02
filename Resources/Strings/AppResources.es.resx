@@ -252,4 +252,19 @@
   <data name="EnterTeamName" xml:space="preserve">
     <value>Ingresa el nombre del equipo...</value>
   </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Crear Tablero</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Nombre del Tablero</value>
+  </data>
+  <data name="EnterBoardName" xml:space="preserve">
+    <value>Ingresa el nombre del tablero...</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Equipo</value>
+  </data>
+  <data name="SelectTeam" xml:space="preserve">
+    <value>Selecciona un equipo...</value>
+  </data>
 </root>

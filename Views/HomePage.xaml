@@ -195,7 +195,8 @@
                             ImageSource="plus_white.png"
                             ContentLayout="Left, 10"
                             WidthRequest="160"
-                            FontAttributes="None"/>
+                            FontAttributes="None"
+                            Command="{Binding CreateBoardCommand}"/>
                 </Grid>
 
                 <FlexLayout BindableLayout.ItemsSource="{Binding Boards}"

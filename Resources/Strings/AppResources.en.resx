@@ -252,4 +252,19 @@
   <data name="EnterTeamName" xml:space="preserve">
     <value>Enter the team name...</value>
   </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Create Board</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Board Name</value>
+  </data>
+  <data name="EnterBoardName" xml:space="preserve">
+    <value>Enter the board name...</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="SelectTeam" xml:space="preserve">
+    <value>Select a team...</value>
+  </data>
 </root>

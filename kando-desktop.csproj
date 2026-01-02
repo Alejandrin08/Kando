@@ -103,6 +103,9 @@
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\CreateBoadPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\CreateTeamPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

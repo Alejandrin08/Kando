@@ -16,6 +16,7 @@ public partial class HomePage : ContentPage
 
         _viewModel.RequestMenuOpen += OnRequestMenuOpen;
         _viewModel.RequestShowCreateTeam += OnRequestShowCreateTeam;
+        _viewModel.RequestShowCreateBoard += OnRequestShowCreateBoard;
     }
     private void OnRequestMenuOpen(object anchor)
     {
@@ -38,10 +39,17 @@ public partial class HomePage : ContentPage
         this.ShowPopup(popup);
     }
 
+    private void OnRequestShowCreateBoard()
+    {
+        var popup = new CreateBoadPopup(_viewModel);
+        this.ShowPopup(popup);
+    }
+
     protected override void OnDisappearing()
     {
         _viewModel.RequestMenuOpen -= OnRequestMenuOpen;
         _viewModel.RequestShowCreateTeam -= OnRequestShowCreateTeam;
+        _viewModel.RequestShowCreateBoard -= OnRequestShowCreateBoard;
         base.OnDisappearing();
     }
 }

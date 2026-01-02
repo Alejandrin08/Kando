@@ -52,6 +52,7 @@ namespace kando_desktop.ViewModels
             OnPropertyChanged(nameof(PlusIconSource));
             OnPropertyChanged(nameof(GroupIconSource));
             OnPropertyChanged(nameof(MenuIconSource));
+            OnPropertyChanged(nameof(DownIconSource));
         }
 
         public string ThemeIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "sun.png" : "moon.png";
@@ -61,6 +62,7 @@ namespace kando_desktop.ViewModels
         public string PlusIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "plus_white.png" : "plus_black.png";
         public string GroupIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "group_white.png" : "group_black.png";
         public string MenuIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "menu_white.png" : "menu_black.png";
+        public string DownIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "down_white.png" : "down_black.png";
 
 
         public Action<object> RequestMenuOpen;

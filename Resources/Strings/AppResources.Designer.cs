@@ -88,6 +88,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Nombre del Tablero.
+        /// </summary>
+        public static string BoardName {
+            get {
+                return ResourceManager.GetString("BoardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Tableros.
         /// </summary>
         public static string Boards {
@@ -133,6 +142,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Crear Tablero.
+        /// </summary>
+        public static string CreateBoard {
+            get {
+                return ResourceManager.GetString("CreateBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Crear Equipo.
         /// </summary>
         public static string CreateTeam {
@@ -165,6 +183,15 @@ namespace kando_desktop.Resources.Strings {
         public static string EmailPlaceholder {
             get {
                 return ResourceManager.GetString("EmailPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ingresa el nombre del tablero....
+        /// </summary>
+        public static string EnterBoardName {
+            get {
+                return ResourceManager.GetString("EnterBoardName", resourceCulture);
             }
         }
         
@@ -331,6 +358,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Selecciona un equipo....
+        /// </summary>
+        public static string SelectTeam {
+            get {
+                return ResourceManager.GetString("SelectTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Iniciar sesión.
         /// </summary>
         public static string SignIn {
@@ -372,6 +408,15 @@ namespace kando_desktop.Resources.Strings {
         public static string Tasks {
             get {
                 return ResourceManager.GetString("Tasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Equipo.
+        /// </summary>
+        public static string Team {
+            get {
+                return ResourceManager.GetString("Team", resourceCulture);
             }
         }
         

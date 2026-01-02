@@ -1,11 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using kando_desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kando_desktop.ViewModels
 {
@@ -14,6 +13,13 @@ namespace kando_desktop.ViewModels
         public ObservableCollection<Team> Teams { get; set; } = new();
         public ObservableCollection<Board> Boards { get; set; } = new();
         public Action RequestShowCreateTeam;
+        public Action RequestShowCreateBoard;
+
+        [ObservableProperty]
+        private bool isTeamDropdownOpen;
+
+        [ObservableProperty]
+        private Team selectedTeam;
 
         public HomeViewModel()
         {
@@ -57,61 +63,81 @@ namespace kando_desktop.ViewModels
                 Members = CreateMembers(2, pinkColor)
             });
 
+            var blueColor = Color.FromArgb("#3B82F6");
             Teams.Add(new Team
             {
-                Name = "Marketing",
-                MemberCount = 6,
-                NumberBoards = 4,
+                Name = "Diseño UX/UI",
+                MemberCount = 8,
+                NumberBoards = 7,
                 Icon = "group.png",
-                TeamColor = pinkColor,
-                Members = CreateMembers(2, pinkColor)
+                TeamColor = blueColor,
+                Members = CreateMembers(4, blueColor)
             });
 
+            var greenColor = Color.FromArgb("#10B981");
             Teams.Add(new Team
             {
-                Name = "Marketing",
-                MemberCount = 6,
-                NumberBoards = 4,
+                Name = "Ventas",
+                MemberCount = 12,
+                NumberBoards = 9,
                 Icon = "group.png",
-                TeamColor = pinkColor,
-                Members = CreateMembers(2, pinkColor)
+                TeamColor = greenColor,
+                Members = CreateMembers(3, greenColor)
             });
 
+            var orangeColor = Color.FromArgb("#F59E0B");
             Teams.Add(new Team
             {
-                Name = "Marketing",
-                MemberCount = 6,
-                NumberBoards = 4,
+                Name = "Recursos Humanos",
+                MemberCount = 5,
+                NumberBoards = 3,
                 Icon = "group.png",
-                TeamColor = pinkColor,
-                Members = CreateMembers(4, pinkColor)
+                TeamColor = orangeColor,
+                Members = CreateMembers(2, orangeColor)
             });
 
+            var tealColor = Color.FromArgb("#14B8A6");
             Teams.Add(new Team
             {
-                Name = "Marketing",
-                MemberCount = 6,
-                NumberBoards = 4,
+                Name = "Operaciones",
+                MemberCount = 15,
+                NumberBoards = 11,
                 Icon = "group.png",
-                TeamColor = pinkColor,
-                Members = CreateMembers(5, pinkColor)
+                TeamColor = tealColor,
+                Members = CreateMembers(5, tealColor)
             });
 
+            var indigoColor = Color.FromArgb("#6366F1");
             Teams.Add(new Team
             {
-                Name = "Marketing",
-                MemberCount = 6,
-                NumberBoards = 4,
+                Name = "Soporte al Cliente",
+                MemberCount = 10,
+                NumberBoards = 6,
                 Icon = "group.png",
-                TeamColor = pinkColor,
-                Members = CreateMembers(6, pinkColor)
+                TeamColor = indigoColor,
+                Members = CreateMembers(3, indigoColor)
             });
+
+            var redColor = Color.FromArgb("#EF4444");
+            Teams.Add(new Team
+            {
+                Name = "Finanzas",
+                MemberCount = 7,
+                NumberBoards = 5,
+                Icon = "group.png",
+                TeamColor = redColor,
+                Members = CreateMembers(2, redColor)
+            });
+
+            if (Teams.Count > 0)
+            {
+                SelectedTeam = Teams[0];
+            }
         }
 
         private void LoadMockDataBoards()
         {
             Boards.Clear();
-
             if (Teams.Count == 0) return;
 
             var random = new Random();
@@ -140,24 +166,35 @@ namespace kando_desktop.ViewModels
 
             Boards.Add(new Board
             {
-                Name = "Refactorización Backend",
-                Icon = "menu.png",
-                TeamName = Teams[0],
-                TeamColor = Teams[0].TeamColor,
-                TaskCount = 5,
-                TotalTasks = 20,
-                TotalTaskPorcentage = 25
+                Name = "Rediseño App Mobile",
+                Icon = "puzzle.png",
+                TeamName = Teams[2],
+                TeamColor = Teams[2].TeamColor,
+                TaskCount = 18,
+                TotalTasks = 30,
+                TotalTaskPorcentage = 60
             });
 
             Boards.Add(new Board
             {
-                Name = "Roadmap 2025",
-                Icon = "trend.png",
-                TeamName = Teams[2],
-                TeamColor = Teams[2].TeamColor,
-                TaskCount = 0,
-                TotalTasks = 10,
-                TotalTaskPorcentage = 0
+                Name = "Pipeline Q4 2024",
+                Icon = "startup.png",
+                TeamName = Teams[3],
+                TeamColor = Teams[3].TeamColor,
+                TaskCount = 45,
+                TotalTasks = 60,
+                TotalTaskPorcentage = 75
+            });
+
+            Boards.Add(new Board
+            {
+                Name = "Proceso de Onboarding",
+                Icon = "cat.png",
+                TeamName = Teams[4],
+                TeamColor = Teams[4].TeamColor,
+                TaskCount = 8,
+                TotalTasks = 15,
+                TotalTaskPorcentage = 53
             });
         }
 
@@ -165,6 +202,30 @@ namespace kando_desktop.ViewModels
         private void CreateTeam()
         {
             RequestShowCreateTeam?.Invoke();
+        }
+
+        [RelayCommand]
+        private void CreateBoard()
+        {
+            if (Teams.Count > 0)
+            {
+                SelectedTeam = Teams[0];
+            }
+            IsTeamDropdownOpen = false; 
+            RequestShowCreateBoard?.Invoke();
+        }
+
+        [RelayCommand]
+        private void ToggleTeamDropdown()
+        {
+            IsTeamDropdownOpen = !IsTeamDropdownOpen;
+        }
+
+        [RelayCommand]
+        private void SelectTeam(Team team)
+        {
+            SelectedTeam = team;
+            IsTeamDropdownOpen = false;
         }
     }
 }
