@@ -52,10 +52,15 @@
                                Grid.Column="1"
                                Text="..."
                                TextColor="{StaticResource Slate400}"
-                               FontSize="20"
+                               FontSize="24" 
                                HorizontalOptions="End"
                                VerticalOptions="Start"
-                               Opacity="0"/>
+                               Padding="5,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnOptionsTapped"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
                     </Grid>
 
                     <Label FontSize="12"

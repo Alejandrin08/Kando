@@ -53,6 +53,16 @@
     <Color x:Key="MidnightBlue">#190649</Color>
     <Color x:Key="OffBlack">#1f1f1f</Color>
 
+    <Color x:Key="MenuBgLight">#fafafa</Color>
+    <Color x:Key="MenuBgDark">#1d283a</Color>
+    <Color x:Key="MenuBorderDark">#2e3d52</Color>
+    <Color x:Key="MenuSeparatorLight">#e5e7eb</Color>
+    <Color x:Key="MenuSeparatorDark">#2e3d52</Color>
+    <Color x:Key="MenuHoverLight">#0b64f4</Color>
+    <Color x:Key="MenuHoverDark">#3c83f6</Color>
+    <Color x:Key="Red500">#ef4343</Color>
+    <Color x:Key="Red400">#e54243</Color>
+
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
 

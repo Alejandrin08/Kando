@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using kando_desktop.Models;
+using kando_desktop.Services; // Asegúrate de importar esto
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,8 +11,13 @@ namespace kando_desktop.ViewModels
 {
     public partial class HomeViewModel : BaseViewModel
     {
-        public ObservableCollection<Team> Teams { get; set; } = new();
-        public ObservableCollection<Board> Boards { get; set; } = new();
+        private readonly WorkspaceService _workspaceService;
+
+        public ObservableCollection<Board> FilteredBoards { get; } = new();
+
+        public ObservableCollection<Team> Teams => _workspaceService.Teams;
+        public ObservableCollection<Board> Boards => _workspaceService.Boards;
+
         public Action RequestShowCreateTeam;
         public Action RequestShowCreateBoard;
 
@@ -21,8 +27,68 @@ namespace kando_desktop.ViewModels
         [ObservableProperty]
         private Team selectedTeam;
 
-        public HomeViewModel()
+        [ObservableProperty]
+        private int activeBoardsCount;
+
+        [ObservableProperty]
+        private int completedTasksCount;
+
+        [ObservableProperty]
+        private int totalTasksCount;
+
+        [ObservableProperty]
+        private int teamsCount;
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
         {
+            PerformSearch(value);
+        }
+
+        public HomeViewModel(WorkspaceService workspaceService)
+        {
+            _workspaceService = workspaceService;
+
+            PerformSearch("");
+
+            UpdateStats();
+        }
+
+        private void PerformSearch(string query)
+        {
+            FilteredBoards.Clear();
+
+            var allBoards = _workspaceService.Boards;
+
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                foreach (var board in allBoards)
+                {
+                    FilteredBoards.Add(board);
+                }
+            }
+            else
+            {
+                var matches = allBoards
+                    .Where(b => b.Name.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                foreach (var board in matches)
+                {
+                    FilteredBoards.Add(board);
+                }
+            }
+        }
+
+        private void UpdateStats()
+        {
+            TeamsCount = _workspaceService.Teams.Count;
+            ActiveBoardsCount = _workspaceService.Boards.Count;
+
+            CompletedTasksCount = 0;
+            TotalTasksCount = 0;
         }
 
         public void AddNewTeam(string name, string iconSource, Color teamColor)
@@ -47,7 +113,9 @@ namespace kando_desktop.ViewModels
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                Teams.Add(newTeam);
+                _workspaceService.AddTeam(newTeam);
+
+                TeamsCount = _workspaceService.Teams.Count;
 
                 OnPropertyChanged(nameof(Teams));
             });
@@ -60,9 +128,9 @@ namespace kando_desktop.ViewModels
             var newBoard = new Board
             {
                 Name = name,
-                Icon = iconSource, 
-                TeamName = team,   
-                TeamColor = team.TeamColor, 
+                Icon = iconSource,
+                TeamName = team,
+                TeamColor = team.TeamColor,
                 TaskCount = 0,
                 TotalTasks = 0,
                 TotalTaskPorcentage = 0
@@ -70,9 +138,11 @@ namespace kando_desktop.ViewModels
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                Boards.Add(newBoard);
-
+                _workspaceService.AddBoard(newBoard);
                 team.NumberBoards++;
+
+                PerformSearch(SearchText);
+                UpdateStats();
             });
         }
 
@@ -87,9 +157,12 @@ namespace kando_desktop.ViewModels
         {
             if (Teams.Count > 0)
             {
-                SelectedTeam = Teams[0];
+                if (SelectedTeam == null)
+                {
+                    SelectedTeam = Teams[0];
+                }
             }
-            IsTeamDropdownOpen = false; 
+            IsTeamDropdownOpen = false;
             RequestShowCreateBoard?.Invoke();
         }
 

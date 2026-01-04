@@ -66,7 +66,8 @@
                                                                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
                                                                   BackgroundColor="Transparent"
                                                                   VerticalOptions="Center"
-                                                                  HeightRequest="35"/>
+                                                                  HeightRequest="35"
+                                                                  Text="{Binding BindingContext.SearchText, Source={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>

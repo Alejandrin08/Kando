@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using kando_desktop.Resources.Strings;
+using kando_desktop.Views.Popups;
 using System.Globalization;
 
 namespace kando_desktop.ViewModels
@@ -9,6 +11,14 @@ namespace kando_desktop.ViewModels
     {
         [ObservableProperty]
         private string languageCode;
+
+        [ObservableProperty]
+        private string userName;
+
+        [ObservableProperty]
+        private string userEmail;
+
+        public Action RequestClosePopup;
 
         public BaseViewModel()
         {
@@ -20,6 +30,9 @@ namespace kando_desktop.ViewModels
             {
                 Application.Current.UserAppTheme = AppTheme.Dark;
             }
+
+            UserName = "Usuario";
+            UserEmail = "usuario@gmail.com";
         }
 
         [RelayCommand]
@@ -70,12 +83,18 @@ namespace kando_desktop.ViewModels
         [RelayCommand]
         private void ToggleMenu(object anchor)
         {
-            RequestMenuOpen?.Invoke(anchor);
+            var popup = new ProfileMenuPopup(this);
+            popup.Anchor = anchor as View;
+            Shell.Current.CurrentPage.ShowPopup(popup);
         }
 
         [RelayCommand]
         private async Task Logout()
         {
+            RequestClosePopup?.Invoke();
+
+            await Task.Delay(150);
+
             await Shell.Current.GoToAsync("//LoginPage");
         }
     }

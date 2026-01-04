@@ -56,8 +56,7 @@
                     <HorizontalStackLayout Grid.Row="3" Spacing="30" VerticalOptions="End" Margin="0,20,0,0">
 
                         <Border StrokeShape="RoundRectangle 10"
-                                WidthRequest="180"
-                                HeightRequest="75"
+                                WidthRequest="180" HeightRequest="75"
                                 BackgroundColor="{AppThemeBinding Light=#f2f7ff, Dark=#111d36}"
                                 Stroke="{AppThemeBinding Light=#80e5e7eb, Dark=#1f2c44}"
                                 Padding="10">
@@ -72,15 +71,14 @@
                                 </Border>
 
                                 <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
-                                    <Label Text="6" Style="{StaticResource StatNumberStyle}"/>
+                                    <Label Text="{Binding ActiveBoardsCount}" Style="{StaticResource StatNumberStyle}"/>
                                     <Label Text="{x:Static strings:AppResources.ActiveBoards}" Style="{StaticResource StatLabelStyle}"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <Border StrokeShape="RoundRectangle 10"
-                                WidthRequest="200"
-                                HeightRequest="75"
+                                WidthRequest="200" HeightRequest="75"
                                 BackgroundColor="{AppThemeBinding Light=#f2f7ff, Dark=#111d36}"
                                 Stroke="{AppThemeBinding Light=#80e5e7eb, Dark=#1f2c44}"
                                 Padding="10">
@@ -94,15 +92,22 @@
                                     <Image Source="trend.png" Aspect="Fill" WidthRequest="20" HeightRequest="20"/>
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
-                                    <Label Text="32/55" Style="{StaticResource StatNumberStyle}"/>
+                                    <Label Style="{StaticResource StatNumberStyle}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding CompletedTasksCount}" />
+                                                <Span Text="/" />
+                                                <Span Text="{Binding TotalTasksCount}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
                                     <Label Text="{x:Static strings:AppResources.CompletedTasks}" Style="{StaticResource StatLabelStyle}"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <Border StrokeShape="RoundRectangle 10"
-                                WidthRequest="140"
-                                HeightRequest="75"
+                                WidthRequest="140" HeightRequest="75"
                                 BackgroundColor="{AppThemeBinding Light=#f2f7ff, Dark=#111d36}"
                                 Stroke="{AppThemeBinding Light=#80e5e7eb, Dark=#1f2c44}"
                                 Padding="10">
@@ -116,7 +121,7 @@
                                     <Image Source="group.png" Aspect="Fill" WidthRequest="30" HeightRequest="30"/>
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" VerticalOptions="Center">
-                                    <Label Text="3" Style="{StaticResource StatNumberStyle}"/>
+                                    <Label Text="{Binding TeamsCount}" Style="{StaticResource StatNumberStyle}"/>
                                     <Label Text="{x:Static strings:AppResources.TeamsCount}" Style="{StaticResource StatLabelStyle}"/>
                                 </VerticalStackLayout>
                             </Grid>
@@ -128,28 +133,27 @@
 
             <VerticalStackLayout Grid.Row="1" Spacing="20">
                 <Grid ColumnDefinitions="Auto, Auto, *" VerticalOptions="Center">
-
                     <Border Grid.Column="0" 
-                        StrokeShape="RoundRectangle 10"
-                        WidthRequest="45" HeightRequest="45"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource Slate350}, Dark=#1f2937}"
-                        Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#1f2937}"
-                        Padding="5">
+                            StrokeShape="RoundRectangle 10"
+                            WidthRequest="45" HeightRequest="45"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Slate350}, Dark=#1f2937}"
+                            Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#1f2937}"
+                            Padding="5">
                         <Image Source="{Binding GroupIconSource}" Aspect="Fill" WidthRequest="30" HeightRequest="30"/>
                     </Border>
 
                     <Label Grid.Column="1" 
-                       Text="{x:Static strings:AppResources.YourTeamsTitle}"
-                       Style="{StaticResource TitleHuge}"
-                       FontSize="18"
-                       Margin="15,0,0,0"
-                       VerticalOptions="Center"/>
+                           Text="{x:Static strings:AppResources.YourTeamsTitle}"
+                           Style="{StaticResource TitleHuge}"
+                           FontSize="18"
+                           Margin="15,0,0,0"
+                           VerticalOptions="Center"/>
 
                     <Button Grid.Column="2"
-                        Text="{x:Static strings:AppResources.NewTeamButton}"
-                        Style="{StaticResource NewTeamButtonStyle}"
-                        WidthRequest="160"
-                        Command="{Binding CreateTeamCommand}"/>
+                            Text="{x:Static strings:AppResources.NewTeamButton}"
+                            Style="{StaticResource NewTeamButtonStyle}"
+                            WidthRequest="160"
+                            Command="{Binding CreateTeamCommand}"/>
                 </Grid>
 
                 <FlexLayout BindableLayout.ItemsSource="{Binding Teams}"
@@ -158,35 +162,53 @@
                             JustifyContent="Start"
                             AlignItems="Start"
                             Margin="0, 0, -20, 0">
+                    <FlexLayout.Triggers>
+                        <DataTrigger TargetType="FlexLayout" Binding="{Binding Teams.Count}" Value="0">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </FlexLayout.Triggers>
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <components:TeamCardView WidthRequest="300" 
-                                                     Margin="0,0,5,5"/>
+                            <components:TeamCardView WidthRequest="300" Margin="0,0,5,5"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
-
                 </FlexLayout>
+
+                <VerticalStackLayout IsVisible="False" Spacing="10" Margin="0,0,0,20">
+                    <VerticalStackLayout.Triggers>
+                        <DataTrigger TargetType="VerticalStackLayout" Binding="{Binding Teams.Count}" Value="0">
+                            <Setter Property="IsVisible" Value="True"/>
+                        </DataTrigger>
+                    </VerticalStackLayout.Triggers>
+
+                    <Label Text="{x:Static strings:AppResources.NoTeams}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate400}}"
+                           FontSize="16" FontAttributes="Bold" HorizontalOptions="Start"/>
+                    <Label Text="{x:Static strings:AppResources.NoTeamsDescription}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate400}}"
+                           FontSize="14" HorizontalOptions="Start"/>
+                </VerticalStackLayout>
+
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="2" Spacing="20" Margin="0, -40, 0, 0">
                 <Grid ColumnDefinitions="Auto, Auto, *" VerticalOptions="Center">
-
                     <Border Grid.Column="0" 
-                        StrokeShape="RoundRectangle 10"
-                        WidthRequest="45" HeightRequest="45"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource Slate350}, Dark=#1f2937}"
-                        Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#1f2937}"
-                        Padding="5">
+                            StrokeShape="RoundRectangle 10"
+                            WidthRequest="45" HeightRequest="45"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Slate350}, Dark=#1f2937}"
+                            Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#1f2937}"
+                            Padding="5">
                         <Image Source="{Binding MenuIconSource}" Aspect="Fill" WidthRequest="20" HeightRequest="20"/>
                     </Border>
 
                     <Label Grid.Column="1" 
-                       Text="{x:Static strings:AppResources.YourBoardsTitle}"
-                       Style="{StaticResource TitleHuge}"
-                       FontSize="18"
-                       Margin="15,0,0,0"
-                       VerticalOptions="Center"/>
+                           Text="{x:Static strings:AppResources.YourBoardsTitle}"
+                           Style="{StaticResource TitleHuge}"
+                           FontSize="18"
+                           Margin="15,0,0,0"
+                           VerticalOptions="Center"/>
 
                     <Button Grid.Column="2"
                             Text="{x:Static strings:AppResources.NewBoardButton}"
@@ -196,24 +218,50 @@
                             ContentLayout="Left, 10"
                             WidthRequest="160"
                             FontAttributes="None"
-                            Command="{Binding CreateBoardCommand}"/>
+                            Command="{Binding CreateBoardCommand}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Teams.Count}" Value="0">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="Opacity" Value="0.5" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
                 </Grid>
 
-                <FlexLayout BindableLayout.ItemsSource="{Binding Boards}"
+                <FlexLayout BindableLayout.ItemsSource="{Binding FilteredBoards}"
                             Wrap="Wrap"
                             Direction="Row"
                             JustifyContent="Start"
                             AlignItems="Start"
                             Margin="0, 0, -20, 0">
+                    <FlexLayout.Triggers>
+                        <DataTrigger TargetType="FlexLayout" Binding="{Binding FilteredBoards.Count}" Value="0">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </FlexLayout.Triggers>
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <components:BoardCardView WidthRequest="300" 
-                                                     Margin="0,0,5,5"/>
+                            <components:BoardCardView WidthRequest="300" Margin="0,0,5,5"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
-
                 </FlexLayout>
+
+                <VerticalStackLayout IsVisible="False" Spacing="10" Margin="0,0,0,10">
+                    <VerticalStackLayout.Triggers>
+                        <DataTrigger TargetType="VerticalStackLayout" Binding="{Binding FilteredBoards.Count}" Value="0">
+                            <Setter Property="IsVisible" Value="True"/>
+                        </DataTrigger>
+                    </VerticalStackLayout.Triggers>
+
+                    <Label Text="{x:Static strings:AppResources.NoBoards}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate400}}"
+                           FontSize="16" FontAttributes="Bold" HorizontalOptions="Start"/>
+                    <Label Text="{x:Static strings:AppResources.NoBoardsDescription}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate400}}"
+                           FontSize="14" HorizontalOptions="Start"/>
+                </VerticalStackLayout>
+
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

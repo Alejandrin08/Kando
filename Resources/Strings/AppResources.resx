@@ -267,4 +267,25 @@
   <data name="SelectTeam" xml:space="preserve">
     <value>Selecciona un equipo...</value>
   </data>
+  <data name="NoTeams" xml:space="preserve">
+    <value>No hay equipos</value>
+  </data>
+  <data name="NoTeamsDescription" xml:space="preserve">
+    <value>Crea un nuevo equipo para comenzar a colaborar.</value>
+  </data>
+  <data name="NoBoards" xml:space="preserve">
+    <value>No hay tableros</value>
+  </data>
+  <data name="NoBoardsDescription" xml:space="preserve">
+    <value>Selecciona un equipo o crea uno nuevo para añadir un tablero.</value>
+  </data>
+  <data name="ModifyTeam" xml:space="preserve">
+    <value>Modificar Equipo</value>
+  </data>
+  <data name="RemoveMember" xml:space="preserve">
+    <value>Eliminar Integrante</value>
+  </data>
+  <data name="DeleteTeam" xml:space="preserve">
+    <value>Eliminar Equipo</value>
+  </data>
 </root>

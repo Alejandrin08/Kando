@@ -160,6 +160,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Eliminar Equipo.
+        /// </summary>
+        public static string DeleteTeam {
+            get {
+                return ResourceManager.GetString("DeleteTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Modificar Perfil.
         /// </summary>
         public static string EditProfile {
@@ -286,6 +295,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Modificar Equipo.
+        /// </summary>
+        public static string ModifyTeam {
+            get {
+                return ResourceManager.GetString("ModifyTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nuevo Tablero.
         /// </summary>
         public static string NewBoardButton {
@@ -309,6 +327,42 @@ namespace kando_desktop.Resources.Strings {
         public static string NoAccount {
             get {
                 return ResourceManager.GetString("NoAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No hay tableros.
+        /// </summary>
+        public static string NoBoards {
+            get {
+                return ResourceManager.GetString("NoBoards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Selecciona un equipo o crea uno nuevo para añadir un tablero..
+        /// </summary>
+        public static string NoBoardsDescription {
+            get {
+                return ResourceManager.GetString("NoBoardsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No hay equipos.
+        /// </summary>
+        public static string NoTeams {
+            get {
+                return ResourceManager.GetString("NoTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crea un nuevo equipo para comenzar a colaborar..
+        /// </summary>
+        public static string NoTeamsDescription {
+            get {
+                return ResourceManager.GetString("NoTeamsDescription", resourceCulture);
             }
         }
         
@@ -345,6 +399,15 @@ namespace kando_desktop.Resources.Strings {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Eliminar Integrante.
+        /// </summary>
+        public static string RemoveMember {
+            get {
+                return ResourceManager.GetString("RemoveMember", resourceCulture);
             }
         }
         

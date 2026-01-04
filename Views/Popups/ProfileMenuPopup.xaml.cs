@@ -9,10 +9,10 @@ public partial class ProfileMenuPopup : Popup
     {
         InitializeComponent();
         BindingContext = viewModel;
-    }
 
-    private void OnItemClicked(object sender, EventArgs e)
-    {
-        Close();
+        viewModel.RequestClosePopup = () =>
+        {
+            this.Close();
+        };
     }
 }
