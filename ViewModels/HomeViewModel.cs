@@ -1,84 +1,66 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using kando_desktop.Models;
-using kando_desktop.Services; // Asegúrate de importar esto
-using System;
-using System.Collections.Generic;
+using kando_desktop.Services;
+using kando_desktop.Resources.Strings;
+using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace kando_desktop.ViewModels
 {
     public partial class HomeViewModel : BaseViewModel
     {
-        private readonly WorkspaceService _workspaceService;
+        private readonly IWorkspaceService _workspaceService;
+        private readonly INotificationService _notificationService;
 
         public ObservableCollection<Board> FilteredBoards { get; } = new();
-
         public ObservableCollection<Team> Teams => _workspaceService.Teams;
-        public ObservableCollection<Board> Boards => _workspaceService.Boards;
-
+        
         public Action RequestShowCreateTeam;
         public Action RequestShowCreateBoard;
+        public Action RequestClosePopup;
 
-        [ObservableProperty]
-        private bool isTeamDropdownOpen;
+        [ObservableProperty] private bool isTeamDropdownOpen;
+        [ObservableProperty] private Team selectedTeam;
+        [ObservableProperty] private string searchText;
 
-        [ObservableProperty]
-        private Team selectedTeam;
+        [ObservableProperty] private int activeBoardsCount;
+        [ObservableProperty] private int completedTasksCount;
+        [ObservableProperty] private int totalTasksCount;
+        [ObservableProperty] private int teamsCount;
 
-        [ObservableProperty]
-        private int activeBoardsCount;
+        public HomeViewModel(IWorkspaceService workspaceService, INotificationService notificationService)
+        {
+            _workspaceService = workspaceService;
+            _notificationService = notificationService;
 
-        [ObservableProperty]
-        private int completedTasksCount;
+            RefreshData();
+        }
 
-        [ObservableProperty]
-        private int totalTasksCount;
-
-        [ObservableProperty]
-        private int teamsCount;
-
-        [ObservableProperty]
-        private string searchText;
+        private void RefreshData()
+        {
+            PerformSearch(SearchText);
+            UpdateStats();
+        }
 
         partial void OnSearchTextChanged(string value)
         {
             PerformSearch(value);
         }
 
-        public HomeViewModel(WorkspaceService workspaceService)
-        {
-            _workspaceService = workspaceService;
-
-            PerformSearch("");
-
-            UpdateStats();
-        }
-
         private void PerformSearch(string query)
         {
             FilteredBoards.Clear();
+            var source = _workspaceService.Boards;
 
-            var allBoards = _workspaceService.Boards;
+            var items = string.IsNullOrWhiteSpace(query)
+                ? source
+                : source.Where(b => b.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
 
-            if (string.IsNullOrWhiteSpace(query))
+            foreach (var item in items)
             {
-                foreach (var board in allBoards)
-                {
-                    FilteredBoards.Add(board);
-                }
-            }
-            else
-            {
-                var matches = allBoards
-                    .Where(b => b.Name.Contains(query, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-
-                foreach (var board in matches)
-                {
-                    FilteredBoards.Add(board);
-                }
+                FilteredBoards.Add(item);
             }
         }
 
@@ -86,91 +68,58 @@ namespace kando_desktop.ViewModels
         {
             TeamsCount = _workspaceService.Teams.Count;
             ActiveBoardsCount = _workspaceService.Boards.Count;
-
-            CompletedTasksCount = 0;
-            TotalTasksCount = 0;
         }
+
 
         public void AddNewTeam(string name, string iconSource, Color teamColor)
         {
             if (string.IsNullOrWhiteSpace(name)) return;
 
-            var myself = new Member
-            {
-                Initials = "YO",
-                BaseColor = teamColor
-            };
+            _workspaceService.CreateTeam(name, iconSource, teamColor);
 
-            var newTeam = new Team
-            {
-                Name = name,
-                Icon = iconSource,
-                TeamColor = teamColor,
-                MemberCount = 1,
-                NumberBoards = 0,
-                Members = new List<Member> { myself }
-            };
+            var message = AppResources.TeamCreatedSuccessfully;
 
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                _workspaceService.AddTeam(newTeam);
+            _notificationService.Show(message);
 
-                TeamsCount = _workspaceService.Teams.Count;
-
-                OnPropertyChanged(nameof(Teams));
-            });
+            UpdateStats();
+            OnPropertyChanged(nameof(Teams));
         }
 
         public void AddNewBoard(string name, string iconSource, Team team)
         {
             if (string.IsNullOrWhiteSpace(name) || team == null) return;
 
-            var newBoard = new Board
-            {
-                Name = name,
-                Icon = iconSource,
-                TeamName = team,
-                TeamColor = team.TeamColor,
-                TaskCount = 0,
-                TotalTasks = 0,
-                TotalTaskPorcentage = 0
-            };
+            _workspaceService.CreateBoard(name, iconSource, team);
+            
+            var message = AppResources.BoardCreatedSuccessfully;
 
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                _workspaceService.AddBoard(newBoard);
-                team.NumberBoards++;
+            _notificationService.Show(message);
 
-                PerformSearch(SearchText);
-                UpdateStats();
-            });
+            RefreshData();
+        }
+
+        private void ErrorExample()
+        {
+            var message = AppResources.ErrorConnectingServer;
+            _notificationService.Show(message, true);
         }
 
         [RelayCommand]
-        private void CreateTeam()
-        {
-            RequestShowCreateTeam?.Invoke();
-        }
+        private void CreateTeam() => RequestShowCreateTeam?.Invoke();
 
         [RelayCommand]
         private void CreateBoard()
         {
-            if (Teams.Count > 0)
+            if (Teams.Count > 0 && SelectedTeam == null)
             {
-                if (SelectedTeam == null)
-                {
-                    SelectedTeam = Teams[0];
-                }
+                SelectedTeam = Teams[0];
             }
             IsTeamDropdownOpen = false;
             RequestShowCreateBoard?.Invoke();
         }
 
         [RelayCommand]
-        private void ToggleTeamDropdown()
-        {
-            IsTeamDropdownOpen = !IsTeamDropdownOpen;
-        }
+        private void ToggleTeamDropdown() => IsTeamDropdownOpen = !IsTeamDropdownOpen;
 
         [RelayCommand]
         private void SelectTeam(Team team)
@@ -178,5 +127,34 @@ namespace kando_desktop.ViewModels
             SelectedTeam = team;
             IsTeamDropdownOpen = false;
         }
+
+        [RelayCommand]
+        private async Task EditTeam(Team team)
+        {
+            RequestClosePopup?.Invoke();
+            await Task.Delay(200);
+
+            var member = team.Members?.FirstOrDefault();
+            if (member != null)
+            {
+                var editPopup = new Views.Popups.ModifyTeamPopup(team, member, this);
+                Shell.Current.CurrentPage.ShowPopup(editPopup);
+            }
+        }
+
+        [RelayCommand]
+        private async Task RemoveMember(Team team)
+        {
+            RequestClosePopup?.Invoke();
+            await Task.Delay(200);
+
+            var member = team.Members?.FirstOrDefault();
+
+            if (member != null)
+            {
+                var removePopup = new Views.Popups.RemoveMemberPopup(team, member, this);
+                Shell.Current.CurrentPage.ShowPopup(removePopup);
+            }
+        }   
     }
 }

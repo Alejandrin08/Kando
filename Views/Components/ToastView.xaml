@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kando_desktop.Views.Components.ToastView"
+             BackgroundColor="Transparent">
+
+    <Border x:Name="Container"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="1"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}"
+            Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+            Padding="15,10"
+            Margin="0,0,20,20"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            TranslationY="100" 
+            Opacity="0">
+
+        <Border.Shadow>
+            <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.1"/>
+        </Border.Shadow>
+
+        <HorizontalStackLayout Spacing="10">
+            <Image x:Name="IconImage"
+                   Source="{Binding CheckIconSource}" 
+                   HeightRequest="20" 
+                   WidthRequest="20"
+                   VerticalOptions="Center"/>
+
+            <Label x:Name="MessageLabel"
+                   Text="Acción realizada con éxito"
+                   FontSize="14"
+                   VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+        </HorizontalStackLayout>
+    </Border>
+</ContentView>

@@ -4,6 +4,8 @@ using kando_desktop.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using kando_desktop.Services;
+using kando_desktop.Services.Contracts;
+using kando_desktop.Services.Implementations;
 
 namespace kando_desktop
 {
@@ -30,7 +32,8 @@ namespace kando_desktop
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<HomePage>();
 
-            builder.Services.AddSingleton<WorkspaceService>();
+            builder.Services.AddSingleton<IWorkspaceService, WorkspaceService>();
+            builder.Services.AddSingleton<INotificationService, NotificationService>();
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
             {

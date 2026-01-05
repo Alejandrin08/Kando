@@ -9,13 +9,19 @@ namespace kando_desktop.Models
 {
     public partial class Team : ObservableObject
     {
-        public required string Name { get; set; }
-        public required ImageSource Icon { get; set; }
-        public int MemberCount { get; set; }
+        [ObservableProperty]
+        private string name;
+
+        [ObservableProperty]
+        private string icon;
+
+        [ObservableProperty]
+        private Color teamColor;
 
         [ObservableProperty]
         private int numberBoards;
-        public required Color TeamColor { get; set; }
+
+        public int MemberCount { get; set; }
         public List<Member> Members { get; set; } = new List<Member>();
     }
 }

@@ -88,6 +88,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ¡Tablero creado correctamente!.
+        /// </summary>
+        public static string BoardCreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("BoardCreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nombre del Tablero.
         /// </summary>
         public static string BoardName {
@@ -210,6 +219,15 @@ namespace kando_desktop.Resources.Strings {
         public static string EnterTeamName {
             get {
                 return ResourceManager.GetString("EnterTeamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al conectar con el servidor.
+        /// </summary>
+        public static string ErrorConnectingServer {
+            get {
+                return ResourceManager.GetString("ErrorConnectingServer", resourceCulture);
             }
         }
         
@@ -412,6 +430,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Guardar Cambios.
+        /// </summary>
+        public static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Buscar tableros....
         /// </summary>
         public static string SearchBoards {
@@ -489,6 +516,24 @@ namespace kando_desktop.Resources.Strings {
         public static string TeamColor {
             get {
                 return ResourceManager.GetString("TeamColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¡Equipo creado correctamente!.
+        /// </summary>
+        public static string TeamCreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("TeamCreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Miembros del Equipo -.
+        /// </summary>
+        public static string TeamMembers {
+            get {
+                return ResourceManager.GetString("TeamMembers", resourceCulture);
             }
         }
         

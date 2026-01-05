@@ -58,7 +58,7 @@
                             StrokeShape="RoundRectangle 10"
                             StrokeThickness="0"
                             VerticalOptions="Center"
-                            BackgroundColor="{Binding TeamColor}"/>
+                            BackgroundColor="{Binding TeamName.TeamColor}"/>
 
                     <Label Text="{Binding TeamName.Name}"
                            FontSize="12"

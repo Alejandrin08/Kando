@@ -77,6 +77,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.es.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Popups\RemoveMemberPopup.xaml.cs">
+	    <DependentUpon>RemoveMemberPopup.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -95,6 +98,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\TeamCardView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Components\ToastView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\ModifyTeamPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\RemoveMemberPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\TeamMenuPopup.xaml">

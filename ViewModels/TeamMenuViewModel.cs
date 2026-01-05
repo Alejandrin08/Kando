@@ -5,40 +5,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input; 
 
 namespace kando_desktop.ViewModels
 {
     public class TeamMenuViewModel
     {
-        private readonly Team _team;
-        private readonly HomeViewModel _mainViewModel;
-        private readonly Popup _popup;
+        public ICommand EditTeamCommand { get; }
+        public ICommand RemoveMemberCommand { get; }
 
-        public Command EditTeamCommand { get; }
-        public Command DeleteTeamCommand { get; }
-
-        public TeamMenuViewModel(Team team, HomeViewModel mainVm, Popup popup)
+        public TeamMenuViewModel(Team team, HomeViewModel vm, Popup popup)
         {
-            _team = team;
-            _mainViewModel = mainVm;
-            _popup = popup;
-
-            EditTeamCommand = new Command(() =>
+            EditTeamCommand = new Command(async () =>
             {
-                _popup.Close();
-                // Aquí llamarías a tu lógica de edición
-                Console.WriteLine($"Editar {_team.Name}");
+                if (vm.EditTeamCommand.CanExecute(team))
+                {
+                    await vm.EditTeamCommand.ExecuteAsync(team);
+                }
+                popup.Close(); 
             });
 
-            DeleteTeamCommand = new Command(() =>
+            RemoveMemberCommand = new Command(() =>
             {
-                _popup.Close();
-
-                // Llamamos al método borrar del ViewModel principal
-                // (Necesitarás crear este método en HomeViewModel)
-                // _mainViewModel.DeleteTeam(_team); 
-                Console.WriteLine($"Eliminar {_team.Name}");
+                if (vm.RemoveMemberCommand.CanExecute(team))
+                {
+                    vm.RemoveMemberCommand.Execute(team);
+                }
+                popup.Close();
             });
         }
-    }   
+    }
 }

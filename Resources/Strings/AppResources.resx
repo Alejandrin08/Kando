@@ -288,4 +288,19 @@
   <data name="DeleteTeam" xml:space="preserve">
     <value>Eliminar Equipo</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Guardar Cambios</value>
+  </data>
+  <data name="TeamMembers" xml:space="preserve">
+    <value>Miembros del Equipo -</value>
+  </data>
+  <data name="TeamCreatedSuccessfully" xml:space="preserve">
+    <value>¡Equipo creado correctamente!</value>
+  </data>
+  <data name="BoardCreatedSuccessfully" xml:space="preserve">
+    <value>¡Tablero creado correctamente!</value>
+  </data>
+  <data name="ErrorConnectingServer" xml:space="preserve">
+    <value>Error al conectar con el servidor</value>
+  </data>
 </root>

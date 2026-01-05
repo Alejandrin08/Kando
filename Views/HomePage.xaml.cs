@@ -1,6 +1,7 @@
 using kando_desktop.ViewModels;
 using CommunityToolkit.Maui.Views;
 using kando_desktop.Views.Popups;
+using kando_desktop.Services.Contracts;
 
 namespace kando_desktop.Views;
 
@@ -8,11 +9,23 @@ public partial class HomePage : ContentPage
 {
 
 	private HomeViewModel _viewModel;
-    public HomePage(HomeViewModel homeViewModel)
+
+    private readonly INotificationService _notificationService;
+
+    public HomePage(HomeViewModel homeViewModel, INotificationService notificationService)
 	{
 		InitializeComponent();
 		_viewModel = homeViewModel;
         BindingContext = homeViewModel;
+        _notificationService = notificationService;
+
+        _notificationService.OnShowNotification += async (msg, isError) =>
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await NotificationToast.ShowToast(msg, isError);
+            });
+        };
 
         _viewModel.RequestMenuOpen += OnRequestMenuOpen;
         _viewModel.RequestShowCreateTeam += OnRequestShowCreateTeam;

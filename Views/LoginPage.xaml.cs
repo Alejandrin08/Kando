@@ -1,17 +1,28 @@
 using kando_desktop.ViewModels;
 using kando_desktop.Controls;
+using kando_desktop.Services.Contracts;
 
 namespace kando_desktop.Views;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage(LoginViewModel loginViewModel)
+    private readonly INotificationService _notificationService;
+    public LoginPage(LoginViewModel loginViewModel, INotificationService notificationService)
 	{
 		InitializeComponent();
 		BindingContext = loginViewModel;
+        _notificationService = notificationService;
 
         UpdateDrawableTheme(Application.Current.RequestedTheme);
         Application.Current.RequestedThemeChanged += OnThemeChanged;
+
+        _notificationService.OnShowNotification += async (msg, isError) =>
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await NotificationToast.ShowToast(msg, isError);
+            });
+        };
     }
 
     private void OnThemeChanged(object sender, AppThemeChangedEventArgs e)

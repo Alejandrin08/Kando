@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="kando_desktop.Views.Popups.RemoveMemberPopup"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Color="Transparent">
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate1000}}"
+            WidthRequest="540"
+            HeightRequest="500"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=White, Dark=#263244}"
+            StrokeThickness="1"
+            Padding="25">
+
+        <Grid RowDefinitions="Auto, Auto, *">
+
+            <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, *, Auto">
+
+                <Border BackgroundColor="{Binding TeamSelected.TeamColor}"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        Grid.Column="0"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="{Binding TeamSelected.TeamColor}">
+                    <Image Source="{Binding TeamSelected.Icon}"
+                           Aspect="AspectFit"
+                           HeightRequest="30"
+                           WidthRequest="30"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                </Border>
+
+                <Label Grid.Column="1"
+                       Text="{x:Static strings:AppResources.TeamMembers}" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Margin="20,0,5,0" 
+                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+
+                <Label Grid.Column="2"
+                       Text="{Binding TeamSelected.Name}" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       LineBreakMode="TailTruncation"
+                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+
+                <ImageButton Source="close.png"
+                             Grid.Column="3"
+                             HeightRequest="30" WidthRequest="30"
+                             VerticalOptions="Start"
+                             HorizontalOptions="End"
+                             Background="Transparent"
+                             Clicked="OnCloseClicked">
+                    <ImageButton.Shadow>
+                        <Shadow Brush="Transparent"/>
+                    </ImageButton.Shadow>
+                </ImageButton>
+            </Grid>
+
+            <VerticalStackLayout Grid.Row="1"
+                                 Spacing="10"
+                                 BindableLayout.ItemsSource="{Binding TeamSelected.Members}">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!--<controls:MemberCardView />-->
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+
+                <BindableLayout.EmptyView>
+                    <Label Text="No hay miembros en este equipo" 
+                           TextColor="Gray" 
+                           HorizontalOptions="Center"/>
+                </BindableLayout.EmptyView>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </Border>
+</toolkit:Popup>

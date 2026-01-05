@@ -11,5 +11,10 @@ public partial class TeamMenuPopup : Popup
         InitializeComponent();
 
         this.BindingContext = new TeamMenuViewModel(team, viewModel, this);
+
+        viewModel.RequestClosePopup = () =>
+        {
+            this.Close();
+        };
     }
 }
