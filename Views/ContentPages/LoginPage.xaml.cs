@@ -1,8 +1,9 @@
 using kando_desktop.ViewModels;
 using kando_desktop.Controls;
 using kando_desktop.Services.Contracts;
+using kando_desktop.ViewModels.ContentPages;
 
-namespace kando_desktop.Views;
+namespace kando_desktop.Views.ContentPages;
 
 public partial class LoginPage : ContentPage
 {

@@ -232,6 +232,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Campo obligatorio.
+        /// </summary>
+        public static string FieldRequired {
+            get {
+                return ResourceManager.GetString("FieldRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a ¿Olvidaste tu contraseña?.
         /// </summary>
         public static string ForgotPassword {
@@ -309,6 +318,15 @@ namespace kando_desktop.Resources.Strings {
         public static string Logout {
             get {
                 return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a eliminado exitosamente.
+        /// </summary>
+        public static string MemberRemovedFromTeam {
+            get {
+                return ResourceManager.GetString("MemberRemovedFromTeam", resourceCulture);
             }
         }
         
@@ -457,6 +475,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Selecciona un equipo primero.
+        /// </summary>
+        public static string SelectTeamFirst {
+            get {
+                return ResourceManager.GetString("SelectTeamFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Iniciar sesión.
         /// </summary>
         public static string SignIn {
@@ -552,6 +579,15 @@ namespace kando_desktop.Resources.Strings {
         public static string TeamsCount {
             get {
                 return ResourceManager.GetString("TeamsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Equipo actualizado correctamente.
+        /// </summary>
+        public static string TeamUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("TeamUpdatedSuccessfully", resourceCulture);
             }
         }
         

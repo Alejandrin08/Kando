@@ -1,9 +1,9 @@
 namespace kando_desktop.Views.Popups;
 
 using CommunityToolkit.Maui.Views;
-public partial class CreateTeamPopup : Popup
+public partial class CreateBoardPopup : Popup
 {
-    public CreateTeamPopup()
+    public CreateBoardPopup()
     {
         InitializeComponent();
     }

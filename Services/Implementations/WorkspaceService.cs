@@ -2,7 +2,7 @@
 using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
 
-namespace kando_desktop.Services
+namespace kando_desktop.Services.Implementations
 {
     public class WorkspaceService : IWorkspaceService
     {
@@ -49,13 +49,63 @@ namespace kando_desktop.Services
             team.NumberBoards++;
         }
 
+        public void UpdateTeam(Team team, string newName, string newIconSource, Color newTeamColor)
+        {
+            if (team == null) return;
+
+            team.Name = newName;
+            team.Icon = newIconSource;
+            team.TeamColor = newTeamColor;
+
+            var associatedBoards = Boards.Where(b => b.TeamName == team);
+            foreach (var board in associatedBoards)
+            {
+                board.TeamColor = newTeamColor;
+            }
+
+            if (team.Members != null)
+            {
+                foreach (var member in team.Members)
+                {
+                    member.BaseColor = newTeamColor;
+                }
+            }
+        }
+
+        public void DeleteTeam(Team team)
+        {
+            if (team == null) return;
+
+            var associatedBoards = Boards.Where(b => b.TeamName == team).ToList();
+            foreach (var board in associatedBoards)
+            {
+                Boards.Remove(board);
+            }
+
+            Teams.Remove(team);
+        }
+
         public void DeleteMemberTeam(Member member, Team team)
         {
+            if (team?.Members == null || member == null) return;
+
             if (team.Members.Contains(member))
             {
                 team.Members.Remove(member);
                 team.MemberCount--;
             }
+        }
+
+        public void DeleteBoard(Board board)
+        {
+            if (board == null) return;
+
+            if (board.TeamName != null)
+            {
+                board.TeamName.NumberBoards--;
+            }
+
+            Boards.Remove(board);
         }
     }
 }

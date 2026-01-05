@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               x:Class="kando_desktop.Views.Popups.CreateBoardPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               xmlns:models="clr-namespace:kando_desktop.Models"
+               x:Name="BoardPopupRoot"
+               xmlns:controls="clr-namespace:kando_desktop.Controls"
+               Color="Transparent">
+
+    <toolkit:Popup.Resources>
+        <Style x:Key="OuterSelectionStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="HeightRequest" Value="58" />
+            <Setter Property="WidthRequest" Value="58" />
+        </Style>
+    </toolkit:Popup.Resources>
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate1000}}"
+            WidthRequest="540"
+            HeightRequest="580"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=White, Dark=#263244}"
+            StrokeThickness="1"
+            Padding="25">
+
+        <Border.Triggers>
+            <DataTrigger TargetType="Border" Binding="{Binding IsTeamDropdownOpen}" Value="True">
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </DataTrigger>
+            <DataTrigger TargetType="Border" Binding="{Binding IsTeamDropdownOpen}" Value="False">
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </DataTrigger>
+        </Border.Triggers>
+
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, *">
+
+            <Grid Grid.Row="0" ColumnDefinitions="*, *">
+                <Label Text="{x:Static strings:AppResources.CreateBoard}" 
+                       FontSize="20" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                       VerticalOptions="Center"/>
+                <ImageButton Source="close.png" Grid.Column="1" HeightRequest="30" WidthRequest="30"
+                             VerticalOptions="Center" HorizontalOptions="End" Background="Transparent"
+                             Command="{Binding CloseCommand}"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.Icon}" FontSize="14" Grid.Row="0" Margin="0,0,0,8" TextColor="{StaticResource Slate400}"/>
+
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Icons}" Grid.Row="1" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource OuterSelectionStyle}">
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectIconCommand, Source={x:Reference BoardPopupRoot}}" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="Stroke" Value="Transparent" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Stroke" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+
+                                    <Border StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                        <Border.Triggers>
+                                            <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="False">
+                                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}" />
+                                                <Setter Property="Stroke" Value="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+                                                <Setter Property="Stroke" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <Image Source="{Binding Source}" Aspect="AspectFit" Margin="8"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.BoardName}" FontSize="14" Grid.Row="0" Margin="0,0,0,4" TextColor="{StaticResource Slate400}"/>
+
+                    <Label Text="{x:Static strings:AppResources.FieldRequired}" Grid.Row="1" TextColor="#ef4444" FontSize="12" Margin="0,0,0,6" IsVisible="{Binding HasNameError}"/>
+
+                    <Border Grid.Row="2" Style="{StaticResource SimpleInputContainerStyle}">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference BoardNameEntry}, Path=IsFocused}" Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#0f1729}"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Border" Binding="{Binding HasNameError}" Value="True">
+                                <Setter Property="Stroke" Value="#ef4444"/>
+                                <Setter Property="StrokeThickness" Value="1"/>
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <controls:BorderlessEntry x:Name="BoardNameEntry" Text="{Binding BoardName}" Placeholder="{x:Static strings:AppResources.EnterBoardName}" Style="{StaticResource CleanEntryStyle}"/>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="0,15,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="{x:Static strings:AppResources.Team}" FontSize="14" Grid.Row="0" Margin="0,0,0,8" TextColor="{StaticResource Slate400}"/>
+
+                <Grid Grid.Row="1" VerticalOptions="Start">
+                    <Border Style="{StaticResource SimpleInputContainerStyle}" Stroke="{Binding IsTeamDropdownOpen, Converter={StaticResource BoolToColorConverter}}" HeightRequest="45" VerticalOptions="Start" ZIndex="1">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToggleTeamDropdownCommand}"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto, *, Auto" Padding="0">
+                            <Image Grid.Column="0" Source="{Binding SelectedTeam.Icon}" IsVisible="{Binding SelectedTeam, Converter={StaticResource IsNotNullConverter}}" HeightRequest="24" WidthRequest="24" Aspect="AspectFit" Margin="0,0,10,0"/>
+                            <Label Grid.Column="1" Text="{Binding SelectedTeam.Name}" VerticalOptions="Center" FontSize="14" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+                            <Image Grid.Column="2" Source="{AppThemeBinding Light=down_black.png, Dark=down_white.png}" HeightRequest="12" WidthRequest="12" VerticalOptions="Center" HorizontalOptions="End" Margin="10,0,0,0">
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsTeamDropdownOpen}" Value="True">
+                                        <Setter Property="Rotation" Value="180"/>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </Grid>
+                    </Border>
+
+                    <Border IsVisible="{Binding IsTeamDropdownOpen}" ZIndex="99" Margin="0,48,0,0" VerticalOptions="Start" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}" Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" StrokeShape="RoundRectangle 12" StrokeThickness="1" Padding="8" Shadow="{StaticResource Shadow}">
+                        <CollectionView ItemsSource="{Binding Teams}" HeightRequest="115" SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Team">
+                                    <Border StrokeThickness="0" StrokeShape="RoundRectangle 8" BackgroundColor="Transparent" Padding="12,10" Margin="4,2">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference BoardPopupRoot}, Path=BindingContext.SelectTeamCommand}" CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                                <VisualState x:Name="PointerOver">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#f0f9ff, Dark=#1e3a5f}" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12">
+                                            <Image Source="{Binding Icon}" HeightRequest="22" WidthRequest="22" Aspect="AspectFit" VerticalOptions="Center"/>
+                                            <Label Grid.Column="1" Text="{Binding Name}" FontSize="14" VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Button Text="{x:Static strings:AppResources.CreateBoard}" Style="{StaticResource PrimaryButton}" Grid.Row="4" VerticalOptions="End" Margin="0,15,0,0" Command="{Binding CreateCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="True">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="False">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+    </Border>
+</toolkit:Popup>

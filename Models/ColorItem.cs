@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace kando_desktop.Models
 {
-    public partial class Member : ObservableObject
+    public partial class ColorItem : ObservableObject
     {
-        [ObservableProperty] 
-        private string initials;
+        [ObservableProperty]
+        private string colorHex;
 
         [ObservableProperty]
-        private string name;
+        private bool isSelected;
 
-        [ObservableProperty]
-        private Color baseColor;
+        public Color Color => Color.FromArgb(ColorHex);
     }
 }

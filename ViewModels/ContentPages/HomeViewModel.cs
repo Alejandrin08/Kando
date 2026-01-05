@@ -1,13 +1,11 @@
-﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using kando_desktop.Models;
-using kando_desktop.Services;
-using kando_desktop.Resources.Strings;
 using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
-namespace kando_desktop.ViewModels
+namespace kando_desktop.ViewModels.ContentPages
 {
     public partial class HomeViewModel : BaseViewModel
     {
@@ -16,10 +14,9 @@ namespace kando_desktop.ViewModels
 
         public ObservableCollection<Board> FilteredBoards { get; } = new();
         public ObservableCollection<Team> Teams => _workspaceService.Teams;
-        
+
         public Action RequestShowCreateTeam;
         public Action RequestShowCreateBoard;
-        public Action RequestClosePopup;
 
         [ObservableProperty] private bool isTeamDropdownOpen;
         [ObservableProperty] private Team selectedTeam;
@@ -35,6 +32,14 @@ namespace kando_desktop.ViewModels
             _workspaceService = workspaceService;
             _notificationService = notificationService;
 
+            _workspaceService.Boards.CollectionChanged += OnDataChanged;
+            _workspaceService.Teams.CollectionChanged += OnDataChanged;
+
+            RefreshData();
+        }
+
+        private void OnDataChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             RefreshData();
         }
 
@@ -68,40 +73,8 @@ namespace kando_desktop.ViewModels
         {
             TeamsCount = _workspaceService.Teams.Count;
             ActiveBoardsCount = _workspaceService.Boards.Count;
-        }
 
-
-        public void AddNewTeam(string name, string iconSource, Color teamColor)
-        {
-            if (string.IsNullOrWhiteSpace(name)) return;
-
-            _workspaceService.CreateTeam(name, iconSource, teamColor);
-
-            var message = AppResources.TeamCreatedSuccessfully;
-
-            _notificationService.Show(message);
-
-            UpdateStats();
-            OnPropertyChanged(nameof(Teams));
-        }
-
-        public void AddNewBoard(string name, string iconSource, Team team)
-        {
-            if (string.IsNullOrWhiteSpace(name) || team == null) return;
-
-            _workspaceService.CreateBoard(name, iconSource, team);
-            
-            var message = AppResources.BoardCreatedSuccessfully;
-
-            _notificationService.Show(message);
-
-            RefreshData();
-        }
-
-        private void ErrorExample()
-        {
-            var message = AppResources.ErrorConnectingServer;
-            _notificationService.Show(message, true);
+            TotalTasksCount = _workspaceService.Boards.Sum(b => b.TotalTasks);
         }
 
         [RelayCommand]
@@ -128,33 +101,10 @@ namespace kando_desktop.ViewModels
             IsTeamDropdownOpen = false;
         }
 
-        [RelayCommand]
-        private async Task EditTeam(Team team)
+        ~HomeViewModel()
         {
-            RequestClosePopup?.Invoke();
-            await Task.Delay(200);
-
-            var member = team.Members?.FirstOrDefault();
-            if (member != null)
-            {
-                var editPopup = new Views.Popups.ModifyTeamPopup(team, member, this);
-                Shell.Current.CurrentPage.ShowPopup(editPopup);
-            }
+            _workspaceService.Boards.CollectionChanged -= OnDataChanged;
+            _workspaceService.Teams.CollectionChanged -= OnDataChanged;
         }
-
-        [RelayCommand]
-        private async Task RemoveMember(Team team)
-        {
-            RequestClosePopup?.Invoke();
-            await Task.Delay(200);
-
-            var member = team.Members?.FirstOrDefault();
-
-            if (member != null)
-            {
-                var removePopup = new Views.Popups.RemoveMemberPopup(team, member, this);
-                Shell.Current.CurrentPage.ShowPopup(removePopup);
-            }
-        }   
     }
 }

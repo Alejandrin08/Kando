@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace kando_desktop.Models
 {
-    public partial class Member : ObservableObject
+    public partial class IconItem : ObservableObject
     {
-        [ObservableProperty] 
-        private string initials;
+        [ObservableProperty]
+        private string source;
 
         [ObservableProperty]
-        private string name;
-
-        [ObservableProperty]
-        private Color baseColor;
+        private bool isSelected;
     }
 }

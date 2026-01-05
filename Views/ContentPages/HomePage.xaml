@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="kando_desktop.Views.HomePage"
+             x:Class="kando_desktop.Views.ContentPages.HomePage"
              Shell.NavBarIsVisible="False"
-             xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels"
+             xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels.ContentPages"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              xmlns:controls="clr-namespace:kando_desktop.Controls"
              xmlns:components="clr-namespace:kando_desktop.Views.Components"

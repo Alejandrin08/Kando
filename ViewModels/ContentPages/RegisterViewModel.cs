@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace kando_desktop.ViewModels
+namespace kando_desktop.ViewModels.ContentPages
 {
     public partial class RegisterViewModel : BaseViewModel
     {
-
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(EyeIconSource))]
         private bool isPasswordHidden = true;

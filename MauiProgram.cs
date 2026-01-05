@@ -1,11 +1,12 @@
 ﻿using kando_desktop.Controls;
-using kando_desktop.ViewModels;
 using kando_desktop.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using kando_desktop.Services;
 using kando_desktop.Services.Contracts;
 using kando_desktop.Services.Implementations;
+using kando_desktop.ViewModels.ContentPages;
+using kando_desktop.ViewModels.Popups;
+using kando_desktop.Views.ContentPages;
 
 namespace kando_desktop
 {
@@ -23,14 +24,21 @@ namespace kando_desktop
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddTransient<LoginViewModel>();
-            builder.Services.AddTransient<LoginPage>();
-
-            builder.Services.AddTransient<RegisterViewModel>();
-            builder.Services.AddTransient<RegisterPage>();
-
+            builder.Services.AddTransient<BaseViewModel>();
             builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+
+            builder.Services.AddTransient<CreateTeamPopupViewModel>();
+            builder.Services.AddTransient<CreateBoardPopupViewModel>();
+            builder.Services.AddTransient<ModifyTeamPopupViewModel>();
+            builder.Services.AddTransient<ProfileMenuPopupViewModel>();
+            builder.Services.AddTransient<RemoveMemberPopupViewModel>();
+            builder.Services.AddTransient<TeamMenuPopupViewModel>();
+
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegisterPage>();
 
             builder.Services.AddSingleton<IWorkspaceService, WorkspaceService>();
             builder.Services.AddSingleton<INotificationService, NotificationService>();

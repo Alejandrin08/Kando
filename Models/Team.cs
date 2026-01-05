@@ -21,7 +21,9 @@ namespace kando_desktop.Models
         [ObservableProperty]
         private int numberBoards;
 
+        [ObservableProperty]
+        private List<Member> members = new List<Member>();
+
         public int MemberCount { get; set; }
-        public List<Member> Members { get; set; } = new List<Member>();
     }
 }

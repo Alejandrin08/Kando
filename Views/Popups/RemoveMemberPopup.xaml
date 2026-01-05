@@ -55,7 +55,7 @@
                              VerticalOptions="Start"
                              HorizontalOptions="End"
                              Background="Transparent"
-                             Clicked="OnCloseClicked">
+                             Command="{Binding CloseCommand}">
                     <ImageButton.Shadow>
                         <Shadow Brush="Transparent"/>
                     </ImageButton.Shadow>

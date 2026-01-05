@@ -2,10 +2,12 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using kando_desktop.Resources.Strings;
+using kando_desktop.Services.Contracts;
+using kando_desktop.ViewModels.Popups;
 using kando_desktop.Views.Popups;
 using System.Globalization;
 
-namespace kando_desktop.ViewModels
+namespace kando_desktop.ViewModels.ContentPages
 {
     public partial class BaseViewModel : ObservableObject
     {
@@ -18,12 +20,9 @@ namespace kando_desktop.ViewModels
         [ObservableProperty]
         private string userEmail;
 
-        public Action RequestClosePopup;
-
         public BaseViewModel()
         {
             var currentLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToLower();
-
             LanguageCode = currentLang == "es" ? "ES" : "EN";
 
             if (Application.Current.UserAppTheme == AppTheme.Unspecified)
@@ -70,6 +69,18 @@ namespace kando_desktop.ViewModels
             OnPropertyChanged(nameof(CheckIconSource));
         }
 
+        [RelayCommand]
+        private void ToggleMenu(object anchor)
+        {
+            var notificationService = Shell.Current.Handler.MauiContext.Services.GetService<INotificationService>();
+            var viewModel = new ProfileMenuPopupViewModel(UserName, UserEmail, notificationService);
+            var popup = new ProfileMenuPopup();
+            popup.BindingContext = viewModel;
+            popup.Anchor = anchor as View;
+            viewModel.RequestClose = () => popup.Close();
+            Shell.Current.CurrentPage.ShowPopup(popup);
+        }
+
         public string ThemeIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "sun.png" : "moon.png";
         public string LanguageIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "language_light.png" : "language_dark.png";
         public string GoogleIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "google_dark.png" : "google_light.png";
@@ -80,26 +91,5 @@ namespace kando_desktop.ViewModels
         public string DownIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "down_white.png" : "down_black.png";
         public string ErrorIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "error_dark.png" : "error_light.png";
         public string CheckIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "check_dark.png" : "check_light.png";
-
-
-        public Action<object> RequestMenuOpen;
-
-        [RelayCommand]
-        private void ToggleMenu(object anchor)
-        {
-            var popup = new ProfileMenuPopup(this);
-            popup.Anchor = anchor as View;
-            Shell.Current.CurrentPage.ShowPopup(popup);
-        }
-
-        [RelayCommand]
-        private async Task Logout()
-        {
-            RequestClosePopup?.Invoke();
-
-            await Task.Delay(150);
-
-            await Shell.Current.GoToAsync("//LoginPage");
-        }
     }
 }

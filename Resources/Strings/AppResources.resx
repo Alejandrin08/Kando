@@ -303,4 +303,16 @@
   <data name="ErrorConnectingServer" xml:space="preserve">
     <value>Error al conectar con el servidor</value>
   </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>Campo obligatorio</value>
+  </data>
+  <data name="SelectTeamFirst" xml:space="preserve">
+    <value>Selecciona un equipo primero</value>
+  </data>
+  <data name="TeamUpdatedSuccessfully" xml:space="preserve">
+    <value>Equipo actualizado correctamente</value>
+  </data>
+  <data name="MemberRemovedFromTeam" xml:space="preserve">
+    <value>eliminado exitosamente</value>
+  </data>
 </root>

@@ -77,6 +77,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.es.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Popups\CreateBoardPopup.xaml.cs">
+	    <DependentUpon>CreateBoardPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Popups\RemoveMemberPopup.xaml.cs">
 	    <DependentUpon>RemoveMemberPopup.xaml</DependentUpon>
 	  </Compile>
@@ -112,13 +115,13 @@
 	  <MauiXaml Update="Views\Popups\TeamMenuPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\HomePage.xaml">
+	  <MauiXaml Update="Views\ContentPages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\LoginPage.xaml">
+	  <MauiXaml Update="Views\ContentPages\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Popups\CreateBoadPopup.xaml">
+	  <MauiXaml Update="Views\Popups\CreateBoardPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\CreateTeamPopup.xaml">
@@ -127,7 +130,7 @@
 	  <MauiXaml Update="Views\Popups\ProfileMenuPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\RegisterPage.xaml">
+	  <MauiXaml Update="Views\ContentPages\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

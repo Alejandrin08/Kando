@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:kando_desktop.Controls"
-             xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels"
+             xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels.ContentPages"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
-             x:Class="kando_desktop.Views.LoginPage"
+             x:Class="kando_desktop.Views.ContentPages.LoginPage"
              xmlns:components="clr-namespace:kando_desktop.Views.Components">
     <Grid>
         <Grid>
