@@ -115,6 +115,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cerrar.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Tareas completadas.
         /// </summary>
         public static string CompletedTasks {
@@ -444,6 +453,33 @@ namespace kando_desktop.Resources.Strings {
         public static string RemoveMember {
             get {
                 return ResourceManager.GetString("RemoveMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Miembro.
+        /// </summary>
+        public static string Role_Member {
+            get {
+                return ResourceManager.GetString("Role_Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Dueño.
+        /// </summary>
+        public static string Role_Owner {
+            get {
+                return ResourceManager.GetString("Role_Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pendiente.
+        /// </summary>
+        public static string Role_Pending {
+            get {
+                return ResourceManager.GetString("Role_Pending", resourceCulture);
             }
         }
         

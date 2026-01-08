@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace kando_desktop.Models
         private int numberBoards;
 
         [ObservableProperty]
-        private List<Member> members = new List<Member>();
+        private ObservableCollection<Member> members = new ObservableCollection<Member>();
 
         public int MemberCount { get; set; }
     }

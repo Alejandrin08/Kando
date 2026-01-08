@@ -32,17 +32,15 @@ namespace kando_desktop.ViewModels.Popups
         }
 
         [RelayCommand]
-        private void Confirm()
+        private void Confirm(Member memberToRemove)
         {
-            if (TeamSelected != null && MemberSelected != null)
+            if (TeamSelected != null && memberToRemove != null)
             {
-                _workspaceService.DeleteMemberTeam(MemberSelected, TeamSelected);
+                _workspaceService.DeleteMemberTeam(memberToRemove, TeamSelected);
 
-                var message = string.Format(MemberSelected.Name, " ", AppResources.MemberRemovedFromTeam);
+                var message = $"{memberToRemove.Name} {AppResources.MemberRemovedFromTeam}"; 
                 _notificationService.Show(message);
             }
-
-            RequestClose?.Invoke();
         }
 
         [RelayCommand]

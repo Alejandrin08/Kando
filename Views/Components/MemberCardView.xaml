@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:kando_desktop.Models"
+             xmlns:vm="clr-namespace:kando_desktop.ViewModels.Popups"
+             xmlns:converters="clr-namespace:kando_desktop.Converters" 
+             x:DataType="models:Member"
+             x:Class="kando_desktop.Views.Components.MemberCardView">
+
+    <ContentView.Resources>
+        <converters:TeamRoleToStringConverter x:Key="RoleConverter" />
+    </ContentView.Resources>
+
+    <Border StrokeThickness="0" 
+            StrokeShape="RoundRectangle 8"
+            BackgroundColor="Transparent"
+            Padding="12,10"
+            Margin="4,2">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal">
+                    <VisualState.Setters>
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PointerOver">
+                    <VisualState.Setters>
+                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#f0f9ff, Dark=#1e3a5f}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid ColumnDefinitions="Auto, *, Auto" 
+              ColumnSpacing="12">
+
+            <Border Grid.Column="0"
+                    StrokeShape="RoundRectangle 20"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    StrokeThickness="0"
+                    VerticalOptions="Center">
+                <Border.BackgroundColor>
+                    <Binding Path="BaseColor" />
+                </Border.BackgroundColor>
+                <Label Text="{Binding Initials}"
+                       TextColor="White"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" 
+                                 VerticalOptions="Center" 
+                                 Spacing="2">
+                <Label Text="{Binding Name}"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+                <Label Text="{Binding Role, Converter={StaticResource RoleConverter}}"
+                       FontSize="12"
+                       TextColor="{StaticResource Slate400}"/>
+            </VerticalStackLayout>
+
+            <Border Grid.Column="2"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 6"
+                    BackgroundColor="Transparent"
+                    Padding="8"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer>
+                        <TapGestureRecognizer.Command>
+                            <Binding Path="ConfirmCommand"
+                                     Source="{RelativeSource AncestorType={x:Type vm:RemoveMemberPopupViewModel}}" />
+                        </TapGestureRecognizer.Command>
+                        <TapGestureRecognizer.CommandParameter>
+                            <Binding Path="." />
+                        </TapGestureRecognizer.CommandParameter>
+                    </TapGestureRecognizer>
+                </Border.GestureRecognizers>
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                <Setter Property="Opacity" Value="0.6" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#fee2e2, Dark=#450a0a}" />
+                                <Setter Property="Opacity" Value="1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+
+                <Image WidthRequest="18"
+                       HeightRequest="18"
+                       Aspect="AspectFit"
+                       VerticalOptions="Center"
+                       Source="trash.png"
+                       HorizontalOptions="Center"/>
+
+            </Border>
+
+        </Grid>
+    </Border>
+</ContentView>

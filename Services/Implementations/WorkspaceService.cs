@@ -1,4 +1,5 @@
-﻿using kando_desktop.Models;
+﻿using kando_desktop.Enums;
+using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
 
@@ -15,17 +16,41 @@ namespace kando_desktop.Services.Implementations
             var myself = new Member
             {
                 Initials = "YO",
-                BaseColor = teamColor
+                Name = "Tú (Admin)",
+                BaseColor = teamColor,
+                Role = TeamRole.Owner
             };
+
+            var dummyMembers = new List<Member>();
+
+            var fakeNames = new[] { "Alice Johnson", "Bob Smith", "Carlos Ruiz", "Diana Prince" };
+            var random = new Random();
+
+            foreach (var fakeName in fakeNames)
+            {
+                dummyMembers.Add(new Member
+                {
+                    Name = fakeName,
+                    Initials = $"{fakeName.Split(' ')[0][0]}{fakeName.Split(' ')[1][0]}",
+                    BaseColor = teamColor,
+                    Role = TeamRole.Member
+                });
+            }
+
+            var allMembers = new ObservableCollection<Member> { myself };
+            foreach (var member in dummyMembers)
+            {
+                allMembers.Add(member);
+            }
 
             var newTeam = new Team
             {
                 Name = name,
                 Icon = iconSource,
                 TeamColor = teamColor,
-                MemberCount = 1,
+                MemberCount = allMembers.Count, 
                 NumberBoards = 0,
-                Members = new List<Member> { myself }
+                Members = allMembers
             };
 
             Teams.Add(newTeam);

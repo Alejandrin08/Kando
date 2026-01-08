@@ -315,4 +315,16 @@
   <data name="MemberRemovedFromTeam" xml:space="preserve">
     <value>eliminado exitosamente</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Role_Owner" xml:space="preserve">
+    <value>Dueño</value>
+  </data>
+  <data name="Role_Member" xml:space="preserve">
+    <value>Miembro</value>
+  </data>
+  <data name="Role_Pending" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
 </root>

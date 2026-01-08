@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using kando_desktop.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,8 @@ namespace kando_desktop.Models
 
         [ObservableProperty]
         private Color baseColor;
+
+        [ObservableProperty]
+        private TeamRole role;
     }
 }

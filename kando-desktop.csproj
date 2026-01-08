@@ -100,6 +100,9 @@
 	  <MauiXaml Update="Views\Components\BoardCardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Components\MemberCardView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\TeamCardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
