@@ -79,7 +79,8 @@
                                     Padding="5"
                                     HeightRequest="36"
                                     WidthRequest="36"
-                                    StrokeShape="RoundRectangle 8">
+                                    StrokeShape="RoundRectangle 8"
+                                    local:CursorBehavior.Cursor="Hand">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.ToggleThemeCommand, Source={RelativeSource TemplatedParent}}"/>
                                 </Border.GestureRecognizers>
@@ -94,7 +95,8 @@
                                     BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
                                     Padding="10,0"
                                     HeightRequest="36"
-                                    StrokeShape="RoundRectangle 8">
+                                    StrokeShape="RoundRectangle 8"
+                                    local:CursorBehavior.Cursor="Hand">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.ToggleLanguageCommand, Source={RelativeSource TemplatedParent}}"/>
                                 </Border.GestureRecognizers>
@@ -117,7 +119,8 @@
                                     HeightRequest="36" WidthRequest="36"
                                     Stroke="Transparent"
                                     BackgroundColor="{StaticResource Blue500}"
-                                    VerticalOptions="Center">
+                                    VerticalOptions="Center"
+                                    local:CursorBehavior.Cursor="Hand">
 
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer 

@@ -40,4 +40,10 @@ public partial class LoginPage : ContentPage
             BgGraphicsView.Invalidate();
         }
     }
+
+    protected override void OnDisappearing()
+    {
+        Application.Current.RequestedThemeChanged -= OnThemeChanged;
+        base.OnDisappearing();
+    }
 }

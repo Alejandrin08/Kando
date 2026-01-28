@@ -327,4 +327,52 @@
   <data name="Role_Pending" xml:space="preserve">
     <value>Pendiente</value>
   </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Correo o contraseña incorrectos</value>
+  </data>
+  <data name="NetworkError" xml:space="preserve">
+    <value>Error de conexión. Verifica tu internet</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Ocurrió un error inesperado</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>El correo es requerido</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>La contraseña es requerida</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>El correo no es válido</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>La contraseña debe tener al menos 6 caracteres</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Iniciando sesión...</value>
+  </data>
+  <data name="RegisterFailed" xml:space="preserve">
+    <value>No se pudo crear la cuenta. </value>
+  </data>
+  <data name="FillAllFieldsCorrectly" xml:space="preserve">
+    <value>Por favor corrige los campos marcados en rojo.</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Registrando...</value>
+  </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>El nombre es requerido</value>
+  </data>
+  <data name="InvalidName" xml:space="preserve">
+    <value>Solo letras y espacios</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Mín. 6 caracteres, 1 Mayús, 1 Minús, 1 Símbolo</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>Este correo ya está registrado</value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Registro exitoso</value>
+  </data>
 </root>

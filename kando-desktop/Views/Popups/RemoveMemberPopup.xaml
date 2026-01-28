@@ -2,6 +2,7 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="kando_desktop.Views.Popups.RemoveMemberPopup"
+               xmlns:local="clr-namespace:kando_desktop"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
                xmlns:controls="clr-namespace:kando_desktop.Views.Components"
@@ -56,7 +57,8 @@
                              VerticalOptions="Start"
                              HorizontalOptions="End"
                              Background="Transparent"
-                             Command="{Binding CloseCommand}">
+                             Command="{Binding CloseCommand}"
+                             local:CursorBehavior.Cursor="Hand">
                     <ImageButton.Shadow>
                         <Shadow Brush="Transparent"/>
                     </ImageButton.Shadow>
@@ -81,7 +83,8 @@
                     VerticalOptions="End"
                     HorizontalOptions="End"
                     Style="{StaticResource NewTeamButtonStyle}"
-                    Command="{Binding CloseCommand}"/>
+                    Command="{Binding CloseCommand}"
+                    local:CursorBehavior.Cursor="Hand"/>
 
         </Grid>
     </Border>

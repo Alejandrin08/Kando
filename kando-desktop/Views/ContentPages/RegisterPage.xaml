@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:kando_desktop"
              x:Class="kando_desktop.Views.ContentPages.RegisterPage"
              xmlns:controls="clr-namespace:kando_desktop.Controls"
              xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels.ContentPages"
-             xmlns:strings="clr-namespace:kando_desktop.Resources.Strings">
+             xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+             xmlns:converters="clr-namespace:kando_desktop.Converters"
+             xmlns:components="clr-namespace:kando_desktop.Views.Components"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BusyToTextConverter x:Key="BusyToTextConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -47,13 +58,13 @@
             </Grid>
 
             <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" Spacing="0">
-                <Label Text="{x:Static strings:AppResources.SloganLine1}" Style="{StaticResource TitleHuge}"/>
+                <Label Text="{x:Static strings:AppResources.SloganLine1}" Style="{StaticResource TitleHuge}" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"/>
                 <Label Text="{x:Static strings:AppResources.SloganLine2}" Style="{StaticResource TitleHuge}" TextColor="{StaticResource Blue500}"/>
-                <Label Text="{x:Static strings:AppResources.SubSlogan}" Style="{StaticResource SubtitleMuted}" Margin="0,15,0,0"/>
+                <Label Text="{x:Static strings:AppResources.SubSlogan}" Style="{StaticResource SubtitleMuted}" TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate300}}" Margin="0,15,0,0"/>
             </VerticalStackLayout>
 
             <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Start" Spacing="20">
-                <Border Style="{StaticResource InputBorderStyle}" Padding="10" WidthRequest="80">
+                <Border Style="{StaticResource InputBorderStyle}" Padding="10" WidthRequest="80" Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}" local:CursorBehavior.Cursor="Hand">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ToggleLanguageCommand}"/>
                     </Border.GestureRecognizers>
@@ -63,7 +74,7 @@
                                TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}" FontAttributes="Bold"/>
                     </Grid>
                 </Border>
-                <Border Style="{StaticResource InputBorderStyle}">
+                <Border Style="{StaticResource InputBorderStyle}" Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate800}}" local:CursorBehavior.Cursor="Hand">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ToggleThemeCommand}"/>
                     </Border.GestureRecognizers>
@@ -79,104 +90,207 @@
                     BackgroundColor="{AppThemeBinding Light={StaticResource GlassLight}, Dark={StaticResource GlassDark}}">
 
                 <VerticalStackLayout Spacing="20" VerticalOptions="Center" Padding="40,30">
+
                     <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
                         <Label Text="{x:Static strings:AppResources.CreateAccount}"
-                               Style="{StaticResource TitleHuge}" FontSize="24" HorizontalTextAlignment="Center"/>
+                               FontSize="24" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"/>
                         <Label Text="{x:Static strings:AppResources.CreateAccountSubtitle}"
-                               Style="{StaticResource SubtitleMuted}" FontSize="16" HorizontalTextAlignment="Center"/>
+                               FontSize="16" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate300}}"/>
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout>
-                        <Label Text="{x:Static strings:AppResources.FullName}" Style="{StaticResource FormLabel}"/>
-                        <Border Style="{StaticResource InputBorderStyle}">
+                    <Border IsVisible="{Binding HasRegisterError}"
+                            BackgroundColor="{AppThemeBinding Light=#fef2f2, Dark=#450a0a}"
+                            Stroke="{AppThemeBinding Light=#fca5a5, Dark=#991b1b}"
+                            StrokeThickness="1"
+                            Padding="12"
+                            StrokeShape="RoundRectangle 8">
+                        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="{Binding RegisterErrorMessage}"
+                                   TextColor="{AppThemeBinding Light=#991b1b, Dark=#fca5a5}"
+                                   FontSize="13"
+                                   VerticalOptions="Center"
+                                   LineBreakMode="WordWrap"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="Auto, *">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static strings:AppResources.FullName}" 
+                                   Style="{StaticResource FormLabel}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"/>
+
+                            <Label Grid.Column="1" 
+                                   Text="{Binding NameErrorText}" 
+                                   IsVisible="{Binding HasNameError}"
+                                   TextColor="#ef4444"
+                                   FontSize="12"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="End"/>
+                        </Grid>
+
+                        <Border Style="{StaticResource InputBorderStyle}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}">
                             <Border.Triggers>
-                                <DataTrigger TargetType="Border"
-                                   Binding="{Binding Source={x:Reference NameEntry}, Path=IsFocused}"
-                                   Value="True">
+                                <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference NameEntry}, Path=IsFocused}" Value="True">
                                     <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding HasNameError}" Value="True">
+                                    <Setter Property="Stroke" Value="#ef4444"/>
+                                    <Setter Property="StrokeThickness" Value="1"/>
+                                </DataTrigger>
                             </Border.Triggers>
+
                             <Grid ColumnDefinitions="Auto, *">
                                 <Image Grid.Column="0" Source="user.png" Style="{StaticResource InputIcon}"/>
                                 <controls:BorderlessEntry x:Name="NameEntry"
                                                           Grid.Column="1"
+                                                          Text="{Binding UserName}"
                                                           Placeholder="{x:Static strings:AppResources.FullNamePlaceholder}"
-                                                          PlaceholderColor="{StaticResource Slate400}"
+                                                          PlaceholderColor="{AppThemeBinding Light={StaticResource Slate400}, Dark={StaticResource Slate500}}"
                                                           TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
                                                           Keyboard="Text"
                                                           BackgroundColor="Transparent"
-                                                          VerticalOptions="Center" HeightRequest="40" Margin="-5,0"/>
+                                                          VerticalOptions="Center" HeightRequest="40" Margin="-5,0"
+                                                          ReturnType="Go"
+                                                          ReturnCommand="{Binding RegisterCommand}">
+                                    <controls:BorderlessEntry.Behaviors>
+                                        <toolkit:EventToCommandBehavior EventName="Unfocused" Command="{Binding ValidateNameCommand}"/>
+                                    </controls:BorderlessEntry.Behaviors>
+                                </controls:BorderlessEntry>
                             </Grid>
                         </Border>
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout>
-                        <Label Text="{x:Static strings:AppResources.EmailLabel}" Style="{StaticResource FormLabel}"/>
-                        <Border Style="{StaticResource InputBorderStyle}">
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="Auto, *">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static strings:AppResources.EmailLabel}" 
+                                   Style="{StaticResource FormLabel}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"/>
+
+                            <Label Grid.Column="1" 
+                                   Text="{Binding EmailErrorText}" 
+                                   IsVisible="{Binding HasEmailError}"
+                                   TextColor="#ef4444"
+                                   FontSize="12"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="End"/>
+                        </Grid>
+
+                        <Border Style="{StaticResource InputBorderStyle}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}">
                             <Border.Triggers>
-                                <DataTrigger TargetType="Border"
-                                   Binding="{Binding Source={x:Reference EmailEntry}, Path=IsFocused}"
-                                   Value="True">
+                                <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference EmailEntry}, Path=IsFocused}" Value="True">
                                     <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding HasEmailError}" Value="True">
+                                    <Setter Property="Stroke" Value="#ef4444"/>
+                                    <Setter Property="StrokeThickness" Value="1"/>
+                                </DataTrigger>
                             </Border.Triggers>
+
                             <Grid ColumnDefinitions="Auto, *">
                                 <Image Grid.Column="0" Source="mail.png" Style="{StaticResource InputIcon}"/>
                                 <controls:BorderlessEntry x:Name="EmailEntry"
                                                           Grid.Column="1"
+                                                          Text="{Binding Email}"
                                                           Placeholder="{x:Static strings:AppResources.EmailPlaceholder}"
-                                                          PlaceholderColor="{StaticResource Slate400}"
+                                                          PlaceholderColor="{AppThemeBinding Light={StaticResource Slate400}, Dark={StaticResource Slate500}}"
                                                           TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
                                                           Keyboard="Email"
                                                           BackgroundColor="Transparent"
-                                                          VerticalOptions="Center" HeightRequest="40" Margin="-5,0"/>
+                                                          VerticalOptions="Center" HeightRequest="40" Margin="-5,0"
+                                                          ReturnType="Go"
+                                                          ReturnCommand="{Binding RegisterCommand}">
+                                    <controls:BorderlessEntry.Behaviors>
+                                        <toolkit:EventToCommandBehavior EventName="Unfocused" Command="{Binding ValidateEmailCommand}"/>
+                                    </controls:BorderlessEntry.Behaviors>
+                                </controls:BorderlessEntry>
                             </Grid>
                         </Border>
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout>
-                        <Grid ColumnDefinitions="*" Margin="0,0,0,5">
-                            <Label Grid.Column="0" Text="{x:Static strings:AppResources.PasswordLabel}" Style="{StaticResource FormLabel}" Margin="0"/>
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="Auto, *">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static strings:AppResources.PasswordLabel}" 
+                                   Style="{StaticResource FormLabel}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                   VerticalOptions="Center"/>
+
+                            <Label Grid.Column="1" 
+                                   Text="{Binding PasswordErrorText}" 
+                                   IsVisible="{Binding HasPasswordError}"
+                                   TextColor="#ef4444"
+                                   FontSize="12"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"/>
                         </Grid>
-                        <Border Style="{StaticResource InputBorderStyle}">
+
+                        <Border Style="{StaticResource InputBorderStyle}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}">
                             <Border.Triggers>
-                                <DataTrigger TargetType="Border"
-                                   Binding="{Binding Source={x:Reference PasswordEntry}, Path=IsFocused}"
-                                   Value="True">
+                                <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference PasswordEntry}, Path=IsFocused}" Value="True">
                                     <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
                                 </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding HasPasswordError}" Value="True">
+                                    <Setter Property="Stroke" Value="#ef4444"/>
+                                    <Setter Property="StrokeThickness" Value="1"/>
+                                </DataTrigger>
                             </Border.Triggers>
+
                             <Grid ColumnDefinitions="Auto, *, Auto">
                                 <Image Grid.Column="0" Source="locked_computer.png" Style="{StaticResource InputIcon}"/>
                                 <controls:BorderlessEntry x:Name="PasswordEntry"
                                                           Grid.Column="1"
+                                                          Text="{Binding Password}"
                                                           Placeholder="***********"
-                                                          PlaceholderColor="{StaticResource Slate400}"
+                                                          PlaceholderColor="{AppThemeBinding Light={StaticResource Slate400}, Dark={StaticResource Slate500}}"
                                                           TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
                                                           IsPassword="{Binding IsPasswordHidden}"
                                                           BackgroundColor="Transparent"
-                                                          VerticalOptions="Center" HeightRequest="40" Margin="-5,0"/>
+                                                          VerticalOptions="Center" HeightRequest="40" Margin="-5,0"
+                                                          ReturnType="Go"
+                                                          ReturnCommand="{Binding RegisterCommand}">
+                                    <controls:BorderlessEntry.Behaviors>
+                                        <toolkit:EventToCommandBehavior EventName="Unfocused" Command="{Binding ValidatePasswordCommand}"/>
+                                    </controls:BorderlessEntry.Behaviors>
+                                </controls:BorderlessEntry>
                                 <ImageButton Grid.Column="2"
                                              Source="{Binding EyeIconSource}"
                                              Command="{Binding TogglePasswordVisibilityCommand}"
                                              HeightRequest="40" WidthRequest="40"
-                                             BackgroundColor="Transparent"/>
+                                             BackgroundColor="Transparent"
+                                             local:CursorBehavior.Cursor="Hand"/>
                             </Grid>
                         </Border>
                     </VerticalStackLayout>
 
-                    <Button Text="{x:Static strings:AppResources.CreateAccount}"
+                    <Button Text="{Binding IsBusy, Converter={StaticResource BusyToTextConverter}, ConverterParameter='Register'}"
                             Style="{StaticResource PrimaryButton}"
                             ImageSource="right_arrow.png"
-                            ContentLayout="Right, 10"/>
+                            ContentLayout="Right, 10"
+                            Command="{Binding RegisterCommand}"
+                            IsEnabled="{Binding CanRegister}"
+                            local:CursorBehavior.Cursor="Hand">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                                <Setter Property="Text" Value="{x:Static strings:AppResources.Registering}"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding CanRegister}" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
                     <Grid ColumnDefinitions="*, Auto, *" ColumnSpacing="10" VerticalOptions="Center">
                         <BoxView Grid.Column="0" HeightRequest="1" VerticalOptions="Center"
                                  Color="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" />
-
                         <Label Grid.Column="1" Text="{x:Static strings:AppResources.OrContinueWith}"
                                Style="{StaticResource TextMutedSmall}" />
-
                         <BoxView Grid.Column="2" HeightRequest="1" VerticalOptions="Center"
                                  Color="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}" />
                     </Grid>
@@ -185,19 +299,22 @@
                         <Button Grid.Column="0"
                                 Text="{x:Static strings:AppResources.GoogleBtn}"
                                 Style="{StaticResource SocialButton}"
-                                ImageSource="{Binding GoogleIconSource}"/>
-
+                                ImageSource="{Binding GoogleIconSource}"
+                                IsEnabled="{Binding IsNotBusy}"
+                                local:CursorBehavior.Cursor="Hand"/>
                         <Button Grid.Column="1"
                                 Text="{x:Static strings:AppResources.GitHubBtn}"
                                 Style="{StaticResource SocialButton}"
-                                ImageSource="{Binding GithubIconSource}"/>
+                                ImageSource="{Binding GithubIconSource}"
+                                IsEnabled="{Binding IsNotBusy}"
+                                local:CursorBehavior.Cursor="Hand"/>
                     </Grid>
 
                     <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
                         <Label Text="{x:Static strings:AppResources.AlreadyAccount}" 
                                Style="{StaticResource TextMutedSmall}" FontSize="14"/>
                         <Label Text="{x:Static strings:AppResources.SignIn}" 
-                               Style="{StaticResource LinkText}" FontSize="14" TextDecorations="Underline">
+                               Style="{StaticResource LinkText}" FontSize="14" TextDecorations="Underline" local:CursorBehavior.Cursor="Hand">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
                             </Label.GestureRecognizers>

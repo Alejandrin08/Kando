@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:kando_desktop"
              xmlns:models="clr-namespace:kando_desktop.Models"
              xmlns:vm="clr-namespace:kando_desktop.ViewModels.Popups"
              xmlns:converters="clr-namespace:kando_desktop.Converters" 
@@ -70,7 +71,8 @@
                     BackgroundColor="Transparent"
                     Padding="8"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center">
+                    HorizontalOptions="Center"
+                    local:CursorBehavior.Cursor="Hand">
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer>
@@ -106,7 +108,8 @@
                        Aspect="AspectFit"
                        VerticalOptions="Center"
                        Source="trash.png"
-                       HorizontalOptions="Center"/>
+                       HorizontalOptions="Center"              
+                       local:CursorBehavior.Cursor="Hand"/>
 
             </Border>
 

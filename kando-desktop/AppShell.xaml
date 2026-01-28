@@ -6,8 +6,17 @@
     xmlns:local="clr-namespace:kando_desktop.Views.ContentPages"
     Title="Kando">
 
-    <ShellContent
+    <ShellContent 
+        Route="LoginPage"
         ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage"/>
+        Shell.TabBarIsVisible="False"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <TabBar Route="Main">
+        <ShellContent 
+            Route="HomePage"
+            ContentTemplate="{DataTemplate local:HomePage}" />
+
+    </TabBar>
 
 </Shell>

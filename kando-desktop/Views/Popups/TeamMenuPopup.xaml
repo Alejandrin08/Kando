@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:kando_desktop"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
                x:Class="kando_desktop.Views.Popups.TeamMenuPopup"
@@ -25,7 +26,7 @@
 
         <VerticalStackLayout Spacing="2">
 
-            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="EditBtn">
+            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="EditBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding EditTeamCommand}"/>
                 </Border.GestureRecognizers>
@@ -59,7 +60,7 @@
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="RemoveBtn">
+            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="RemoveBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding RemoveMemberCommand}"/>
                 </Border.GestureRecognizers>
@@ -99,7 +100,7 @@
                      Margin="4,1" 
                      Color="{AppThemeBinding Light={StaticResource MenuSeparatorLight}, Dark={StaticResource MenuSeparatorDark}}"/>
 
-            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="DeleteBtn">
+            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="DeleteBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DeleteTeamCommand}"/>
                 </Border.GestureRecognizers>

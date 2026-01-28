@@ -5,6 +5,7 @@
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
                xmlns:controls="clr-namespace:kando_desktop.Controls"
                x:Class="kando_desktop.Views.Popups.CreateTeamPopup"
+               xmlns:local="clr-namespace:kando_desktop"
                CanBeDismissedByTappingOutsideOfPopup="False"
                Color="Transparent"
                x:Name="Root">
@@ -37,7 +38,7 @@
                        VerticalOptions="Center"/>
                 <ImageButton Source="close.png" Grid.Column="1" HeightRequest="30" WidthRequest="30"
                              VerticalOptions="Center" HorizontalOptions="End" Background="Transparent"
-                             Command="{Binding CloseCommand}"/>
+                             Command="{Binding CloseCommand}" local:CursorBehavior.Cursor="Hand"/>
             </Grid>
 
             <Grid Grid.Row="1" Margin="0,15,0,0">
@@ -49,7 +50,7 @@
 
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource OuterSelectionStyle}">
+                                <Border Style="{StaticResource OuterSelectionStyle}" local:CursorBehavior.Cursor="Hand">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding BindingContext.SelectIconCommand, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
@@ -88,7 +89,7 @@
                     <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Colors}" Grid.Row="1" Spacing="0" HorizontalOptions="Start">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource OuterSelectionStyle}">
+                                <Border Style="{StaticResource OuterSelectionStyle}" local:CursorBehavior.Cursor="Hand">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding BindingContext.SelectColorCommand, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
@@ -135,7 +136,7 @@
                                 <Setter Property="StrokeThickness" Value="1"/>
                             </DataTrigger>
                         </Border.Triggers>
-                        <controls:BorderlessEntry x:Name="TeamNameEntry" Text="{Binding TeamName}" Placeholder="{x:Static strings:AppResources.EnterTeamName}" Style="{StaticResource CleanEntryStyle}"/>
+                        <controls:BorderlessEntry x:Name="TeamNameEntry" Text="{Binding TeamName}" Placeholder="{x:Static strings:AppResources.EnterTeamName}" Style="{StaticResource CleanEntryStyle}" ReturnType="Go" ReturnCommand="{Binding CreateCommand}"/>
                     </Border>
                 </Grid>
             </Grid>

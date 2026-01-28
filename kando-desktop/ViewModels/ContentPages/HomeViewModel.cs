@@ -27,7 +27,7 @@ namespace kando_desktop.ViewModels.ContentPages
         [ObservableProperty] private int totalTasksCount;
         [ObservableProperty] private int teamsCount;
 
-        public HomeViewModel(IWorkspaceService workspaceService, INotificationService notificationService)
+        public HomeViewModel(IWorkspaceService workspaceService, INotificationService notificationService, ISessionService sessionService) : base(sessionService)
         {
             _workspaceService = workspaceService;
             _notificationService = notificationService;

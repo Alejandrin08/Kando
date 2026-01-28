@@ -4,6 +4,7 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
                x:Class="kando_desktop.Views.Popups.ProfileMenuPopup"
+               xmlns:local="clr-namespace:kando_desktop"
                Color="Transparent">
 
     <Border StrokeShape="RoundRectangle 12"
@@ -39,7 +40,7 @@
                      Margin="4,1" 
                      Color="{AppThemeBinding Light={StaticResource MenuSeparatorLight}, Dark={StaticResource MenuSeparatorDark}}"/>
 
-            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="EditProfileBtn">
+            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="EditProfileBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding EditProfileCommand}"/>
                 </Border.GestureRecognizers>
@@ -77,7 +78,7 @@
                      Margin="4,1" 
                      Color="{AppThemeBinding Light={StaticResource MenuSeparatorLight}, Dark={StaticResource MenuSeparatorDark}}"/>
 
-            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="LogoutBtn">
+            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="LogoutBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
                 </Border.GestureRecognizers>

@@ -20,9 +20,5 @@ namespace kando_desktop.Models
 
         [ObservableProperty]
         private string userinitials;
-
-        public string UserPhoneNumber { get; set; }
-
-        public string UserPassword { get; set; }
     }
 }

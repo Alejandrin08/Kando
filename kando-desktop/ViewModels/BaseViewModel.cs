@@ -11,6 +11,9 @@ namespace kando_desktop.ViewModels.ContentPages
 {
     public partial class BaseViewModel : ObservableObject
     {
+
+        private readonly ISessionService _sessionService;
+
         [ObservableProperty]
         private string languageCode;
 
@@ -20,8 +23,10 @@ namespace kando_desktop.ViewModels.ContentPages
         [ObservableProperty]
         private string userEmail;
 
-        public BaseViewModel()
+        public BaseViewModel(ISessionService sessionService)
         {
+            _sessionService = sessionService;
+
             var currentLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToLower();
             LanguageCode = currentLang == "es" ? "ES" : "EN";
 
@@ -30,8 +35,8 @@ namespace kando_desktop.ViewModels.ContentPages
                 Application.Current.UserAppTheme = AppTheme.Dark;
             }
 
-            UserName = "Usuario";
-            UserEmail = "usuario@gmail.com";
+            UserName = _sessionService.CurrentUser?.UserName ?? string.Empty;
+            UserEmail = _sessionService.CurrentUser?.Email ?? string.Empty;
         }
 
         [RelayCommand]
@@ -72,8 +77,11 @@ namespace kando_desktop.ViewModels.ContentPages
         [RelayCommand]
         private void ToggleMenu(object anchor)
         {
+            var currentName = _sessionService.CurrentUser?.UserName ?? "Usuario";
+            var currentEmail = _sessionService.CurrentUser?.Email ?? "usuario@kando.app";
             var notificationService = Shell.Current.Handler.MauiContext.Services.GetService<INotificationService>();
-            var viewModel = new ProfileMenuPopupViewModel(UserName, UserEmail, notificationService);
+            var authService = Shell.Current.Handler.MauiContext.Services.GetService<IAuthService>();
+            var viewModel = new ProfileMenuPopupViewModel(currentName, currentEmail, notificationService, _sessionService);
             var popup = new ProfileMenuPopup();
             popup.BindingContext = viewModel;
             popup.Anchor = anchor as View;

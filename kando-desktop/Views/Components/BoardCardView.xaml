@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kando_desktop.Views.Components.BoardCardView"
+             xmlns:local="clr-namespace:kando_desktop"
              xmlns:models="clr-namespace:kando_desktop.Models"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              xmlns:converters="clr-namespace:kando_desktop.Converters"
@@ -43,7 +44,8 @@
                        HorizontalOptions="End"
                        VerticalOptions="Start"
                        Margin="0,-10,10,0"
-                       Opacity="0"/>
+                       Opacity="0"
+                       local:CursorBehavior.Cursor="Hand"/>
             </Grid>
 
             <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">

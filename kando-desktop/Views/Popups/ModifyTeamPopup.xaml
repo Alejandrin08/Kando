@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:kando_desktop"
                x:Class="kando_desktop.Views.Popups.ModifyTeamPopup"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
@@ -39,7 +40,7 @@
                        VerticalOptions="Center"/>
                 <ImageButton Source="close.png" Grid.Column="1" HeightRequest="30" WidthRequest="30"
                              VerticalOptions="Center" HorizontalOptions="End" Background="Transparent"
-                             Command="{Binding CloseCommand}"/>
+                             Command="{Binding CloseCommand}" local:CursorBehavior.Cursor="Hand"/>
             </Grid>
 
             <Grid Grid.Row="1" Margin="0,15,0,0">
@@ -48,7 +49,7 @@
                     <FlexLayout BindableLayout.ItemsSource="{Binding Icons}" Grid.Row="1" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource OuterSelectionStyle}">
+                                <Border Style="{StaticResource OuterSelectionStyle}" local:CursorBehavior.Cursor="Hand">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding BindingContext.SelectIconCommand, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
@@ -86,7 +87,7 @@
                     <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Colors}" Grid.Row="1" Spacing="0" HorizontalOptions="Start">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource OuterSelectionStyle}">
+                                <Border Style="{StaticResource OuterSelectionStyle}" local:CursorBehavior.Cursor="Hand">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding BindingContext.SelectColorCommand, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
@@ -132,12 +133,12 @@
                                 <Setter Property="StrokeThickness" Value="1"/>
                             </DataTrigger>
                         </Border.Triggers>
-                        <controls:BorderlessEntry x:Name="TeamNameEntry" Text="{Binding TeamName}" Placeholder="{x:Static strings:AppResources.EnterTeamName}" Style="{StaticResource CleanEntryStyle}"/>
+                        <controls:BorderlessEntry x:Name="TeamNameEntry" Text="{Binding TeamName}" Placeholder="{x:Static strings:AppResources.EnterTeamName}" Style="{StaticResource CleanEntryStyle}" ReturnType="Go" ReturnCommand="{Binding ModifyCommand}"/>
                     </Border>
                 </Grid>
             </Grid>
 
-            <Button Text="{x:Static strings:AppResources.SaveChanges}" Style="{StaticResource PrimaryButton}" Grid.Row="4" Margin="0,25,0,0" Command="{Binding ModifyCommand}">
+            <Button Text="{x:Static strings:AppResources.SaveChanges}" Style="{StaticResource PrimaryButton}" Grid.Row="4" Margin="0,25,0,0" Command="{Binding ModifyCommand}" local:CursorBehavior.Cursor="Hand">
                 <Button.Triggers>
                     <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="True">
                         <Setter Property="IsEnabled" Value="False"/>

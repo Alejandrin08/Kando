@@ -145,7 +145,7 @@
     <value>Password</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Forgot password?</value>
+    <value>Forgot your password?</value>
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Sign In</value>
@@ -326,5 +326,53 @@
   </data>
   <data name="Role_Pending" xml:space="preserve">
     <value>Pending</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Invalid email or password</value>
+  </data>
+  <data name="NetworkError" xml:space="preserve">
+    <value>Connection error. Check your internet</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email format</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Password must be at least 6 characters</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Signing in...</value>
+  </data>
+  <data name="RegisterFailed" xml:space="preserve">
+    <value>The account could not be created.</value>
+  </data>
+  <data name="FillAllFieldsCorrectly" xml:space="preserve">
+    <value>Please correct the fields marked in red.</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
+  <data name="InvalidName" xml:space="preserve">
+    <value>Only letters and spaces</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Min. 6 characters, 1 uppercase, 1 lowercase, 1 symbol</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>This email is already registered.</value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Successful registration</value>
   </data>
 </root>

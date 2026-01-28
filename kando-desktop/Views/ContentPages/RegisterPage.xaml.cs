@@ -28,4 +28,10 @@ public partial class RegisterPage : ContentPage
             BgGraphicsView.Invalidate();
         }
     }
+
+    protected override void OnDisappearing()
+    {
+        Application.Current.RequestedThemeChanged -= OnThemeChanged;
+        base.OnDisappearing();
+    }
 }

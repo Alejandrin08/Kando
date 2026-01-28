@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               xmlns:local="clr-namespace:kando_desktop"
                x:Class="kando_desktop.Views.Popups.CreateBoardPopup"
                CanBeDismissedByTappingOutsideOfPopup="False"
                xmlns:models="clr-namespace:kando_desktop.Models"
@@ -48,7 +49,7 @@
                        VerticalOptions="Center"/>
                 <ImageButton Source="close.png" Grid.Column="1" HeightRequest="30" WidthRequest="30"
                              VerticalOptions="Center" HorizontalOptions="End" Background="Transparent"
-                             Command="{Binding CloseCommand}"/>
+                             Command="{Binding CloseCommand}" local:CursorBehavior.Cursor="Hand"/>
             </Grid>
 
             <Grid Grid.Row="1" Margin="0,15,0,0">
@@ -58,7 +59,7 @@
                     <FlexLayout BindableLayout.ItemsSource="{Binding Icons}" Grid.Row="1" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource OuterSelectionStyle}">
+                                <Border Style="{StaticResource OuterSelectionStyle}" local:CursorBehavior.Cursor="Hand">
 
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding BindingContext.SelectIconCommand, Source={x:Reference BoardPopupRoot}}" CommandParameter="{Binding .}" />
@@ -110,7 +111,7 @@
                                 <Setter Property="StrokeThickness" Value="1"/>
                             </DataTrigger>
                         </Border.Triggers>
-                        <controls:BorderlessEntry x:Name="BoardNameEntry" Text="{Binding BoardName}" Placeholder="{x:Static strings:AppResources.EnterBoardName}" Style="{StaticResource CleanEntryStyle}"/>
+                        <controls:BorderlessEntry x:Name="BoardNameEntry" Text="{Binding BoardName}" Placeholder="{x:Static strings:AppResources.EnterBoardName}" Style="{StaticResource CleanEntryStyle}" ReturnType="Go" ReturnCommand="{Binding CreateCommand}"/>
                     </Border>
                 </Grid>
             </Grid>
@@ -163,7 +164,7 @@
                                                 </VisualState>
                                             </VisualStateGroup>
                                         </VisualStateManager.VisualStateGroups>
-                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12">
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12" local:CursorBehavior.Cursor="Hand">
                                             <Image Source="{Binding Icon}" HeightRequest="22" WidthRequest="22" Aspect="AspectFit" VerticalOptions="Center"/>
                                             <Label Grid.Column="1" Text="{Binding Name}" FontSize="14" VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
                                         </Grid>
@@ -175,7 +176,7 @@
                 </Grid>
             </Grid>
 
-            <Button Text="{x:Static strings:AppResources.CreateBoard}" Style="{StaticResource PrimaryButton}" Grid.Row="4" VerticalOptions="End" Margin="0,15,0,0" Command="{Binding CreateCommand}">
+            <Button Text="{x:Static strings:AppResources.CreateBoard}" Style="{StaticResource PrimaryButton}" Grid.Row="4" VerticalOptions="End" Margin="0,15,0,0" Command="{Binding CreateCommand}" local:CursorBehavior.Cursor="Hand">
                 <Button.Triggers>
                     <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="True">
                         <Setter Property="IsEnabled" Value="False"/>

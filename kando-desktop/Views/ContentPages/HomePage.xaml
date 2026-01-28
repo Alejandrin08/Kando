@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kando_desktop.Views.ContentPages.HomePage"
              Shell.NavBarIsVisible="False"
+             xmlns:local="clr-namespace:kando_desktop"
              xmlns:viewmodels="clr-namespace:kando_desktop.ViewModels.ContentPages"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              xmlns:controls="clr-namespace:kando_desktop.Controls"
@@ -154,7 +155,8 @@
                                 Text="{x:Static strings:AppResources.NewTeamButton}"
                                 Style="{StaticResource NewTeamButtonStyle}"
                                 WidthRequest="160"
-                                Command="{Binding CreateTeamCommand}"/>
+                                Command="{Binding CreateTeamCommand}"
+                                local:CursorBehavior.Cursor="Hand"/>
                     </Grid>
 
                     <FlexLayout BindableLayout.ItemsSource="{Binding Teams}"
@@ -219,7 +221,8 @@
                                 ContentLayout="Left, 10"
                                 WidthRequest="160"
                                 FontAttributes="None"
-                                Command="{Binding CreateBoardCommand}">
+                                Command="{Binding CreateBoardCommand}"
+                                local:CursorBehavior.Cursor="Hand">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding Teams.Count}" Value="0">
                                     <Setter Property="IsEnabled" Value="False" />
