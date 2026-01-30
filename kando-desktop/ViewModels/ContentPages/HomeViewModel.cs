@@ -27,6 +27,9 @@ namespace kando_desktop.ViewModels.ContentPages
         [ObservableProperty] private int totalTasksCount;
         [ObservableProperty] private int teamsCount;
 
+        [ObservableProperty]
+        private bool isBusy;
+
         public HomeViewModel(IWorkspaceService workspaceService, INotificationService notificationService, ISessionService sessionService) : base(sessionService)
         {
             _workspaceService = workspaceService;
@@ -36,6 +39,16 @@ namespace kando_desktop.ViewModels.ContentPages
             _workspaceService.Teams.CollectionChanged += OnDataChanged;
 
             RefreshData();
+
+            LoadData();
+        }
+
+        private async void LoadData()
+        {
+            IsBusy = true;
+            await _workspaceService.InitializeDataAsync();
+            RefreshData(); 
+            IsBusy = false;
         }
 
         private void OnDataChanged(object sender, NotifyCollectionChangedEventArgs e)

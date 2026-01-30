@@ -21,5 +21,8 @@ namespace kando_desktop.Services.Contracts
         void DeleteTeam(Team team);
         void DeleteMemberTeam(Member member, Team team);
         void DeleteBoard(Board board);
+
+        Task InitializeDataAsync();
+        Task ForceRefreshAsync();
     }
 }

@@ -10,6 +10,10 @@ namespace kando_desktop.Models
 {
     public partial class Team : ObservableObject
     {
+
+        [ObservableProperty]
+        private int id;
+
         [ObservableProperty]
         private string name;
 

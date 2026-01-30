@@ -12,6 +12,65 @@ namespace kando_desktop.Services.Implementations
         public ObservableCollection<Board> Boards { get; } = new();
         public ObservableCollection<Member> Members { get; } = new();
 
+
+        private readonly ITeamService _teamService;
+        private readonly ISessionService _sessionService;
+
+        private bool _isDataLoaded = false;
+
+        public WorkspaceService(ITeamService teamService, ISessionService sessionService)
+        {
+            _teamService = teamService;
+            _sessionService = sessionService;
+        }
+
+        public async Task InitializeDataAsync()
+        {
+            if (_isDataLoaded) return;
+
+            await ForceRefreshAsync();
+        }
+
+        public async Task ForceRefreshAsync()
+        {
+            var teamsDtos = await _teamService.GetMyTeamsAsync();
+
+            Teams.Clear();
+
+            var currentUser = _sessionService.CurrentUser;
+            var userName = currentUser?.UserName;
+            var initials = GetInitials(userName);
+
+            foreach (var dto in teamsDtos)
+            {
+                Color teamColor;
+                try { teamColor = Color.FromArgb(dto.Color); }
+                catch { teamColor = Color.FromHex("#8f45ef"); } 
+
+                var ownerMember = new Member
+                {
+                    Name = userName,
+                    Initials = initials,
+                    BaseColor = teamColor,
+                    Role = TeamRole.Owner
+                };
+
+                var team = new Team
+                {
+                    Id = dto.Id, 
+                    Name = dto.Name,
+                    Icon = dto.Icon,
+                    TeamColor = teamColor,
+                    MemberCount = 1,
+                    Members = new ObservableCollection<Member> { ownerMember }
+                };
+
+                Teams.Add(team);
+            }
+
+            _isDataLoaded = true;
+        }
+
         public void CreateTeam(CreateTeamDto dto, UserSession currentUser)
         {
             string userName = currentUser?.UserName ?? "Tú";

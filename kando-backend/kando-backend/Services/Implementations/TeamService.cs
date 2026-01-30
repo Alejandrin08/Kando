@@ -1,6 +1,8 @@
 ﻿using kando_backend.DTOs.Requests;
+using kando_backend.DTOs.Responses;
 using kando_backend.Models;
 using kando_backend.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace kando_backend.Services.Implementations
 {
@@ -28,6 +30,23 @@ namespace kando_backend.Services.Implementations
             _context.Teams.Add(team);
 
             await _context.SaveChangesAsync();
+
+            return team;
+        }
+
+        public async Task<List<TeamResponseDto>> GetTeamsUserAsync(int ownerId)
+        {
+            var team = await _context.Teams
+                .Where(t => t.OwnerId == ownerId && (t.IsDeleted == false || t.IsDeleted == null))
+                .AsNoTracking()
+                .Select(t => new TeamResponseDto
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Icon = t.Icon,
+                    Color = t.Color,
+                    CreatedAt = t.CreatedAt.GetValueOrDefault(DateTime.UtcNow)
+                }).ToListAsync();
 
             return team;
         }

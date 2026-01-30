@@ -1,4 +1,5 @@
 ﻿using kando_desktop.DTOs.Requests;
+using kando_desktop.DTOs.Responses;
 using kando_desktop.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,25 @@ namespace kando_desktop.Services.Implementations
                 response.EnsureSuccessStatusCode();
             }
             return true;
+        }
+
+        public async Task<List<TeamResponseDto>> GetMyTeamsAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("team");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<List<TeamResponseDto>>();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error obteniendo equipos: {ex.Message}");
+            }
+
+            return new List<TeamResponseDto>(); 
         }
     }
 }

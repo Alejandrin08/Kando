@@ -378,4 +378,7 @@
   <data name="FailedToCreateTeam" xml:space="preserve">
     <value>Error creating the team</value>
   </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
 </root>

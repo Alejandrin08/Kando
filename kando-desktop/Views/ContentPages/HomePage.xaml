@@ -269,6 +269,21 @@
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>
+
+        <Grid BackgroundColor="{AppThemeBinding Light=#80FFFFFF, Dark=#80000000}"
+              IsVisible="{Binding IsBusy}"
+              InputTransparent="False"
+              ZIndex="99">
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                                   Color="{StaticResource Blue500}"
+                                   HeightRequest="50" WidthRequest="50"/>
+                <Label Text="{x:Static strings:AppResources.Loading}" 
+                       TextColor="{AppThemeBinding Light={StaticResource Slate500}, Dark={StaticResource Slate400}}"
+                       FontSize="16" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </Grid>
+        
         <Grid InputTransparent="True" 
               VerticalOptions="End" 
               HorizontalOptions="End"

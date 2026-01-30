@@ -19,25 +19,48 @@ namespace kando_backend.Controllers
             _teamService = teamService;
         }
 
+        private int? GetCurrentUserId()
+        {
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+            if (claim != null && int.TryParse(claim.Value, out int userId))
+            {
+                return userId;
+            }
+            return null;
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateTeam([FromBody] CreateTeamDto createTeamDto)
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
-
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
-            {
-                return Unauthorized(new { message = "Token inválido o usuario no identificado." });
-            }
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
 
             try
             {
-                var createdTeam = await _teamService.CreateTeamAsync(createTeamDto, userId);
+                var createdTeam = await _teamService.CreateTeamAsync(createTeamDto, userId.Value);
 
-                return CreatedAtAction(nameof(CreateTeam), new { id = createdTeam.Id }, createdTeam);
+                return StatusCode(201, createdTeam);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, new { message = "Ocurrió un error al crear el equipo." });
+                return StatusCode(500, new { message = "Internal error while creating the team." });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMyTeams()
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
+
+            try
+            {
+                var teams = await _teamService.GetTeamsUserAsync(userId.Value);
+                return Ok(teams);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal error while retrieving teams." });
             }
         }
     }

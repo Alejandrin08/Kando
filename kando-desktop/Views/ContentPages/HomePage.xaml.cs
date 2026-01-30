@@ -12,11 +12,15 @@ namespace kando_desktop.Views.ContentPages
         private HomeViewModel _viewModel;
         private readonly INotificationService _notificationService;
         private readonly IWorkspaceService _workspaceService;
+        private readonly ITeamService _teamService;
+        private readonly ISessionService _sessionService;
 
         public HomePage(
             HomeViewModel homeViewModel,
             INotificationService notificationService,
-            IWorkspaceService workspaceService)
+            IWorkspaceService workspaceService,
+            ITeamService teamService,
+            ISessionService sessionService)
         {
             InitializeComponent();
             _viewModel = homeViewModel;
@@ -34,11 +38,13 @@ namespace kando_desktop.Views.ContentPages
 
             _viewModel.RequestShowCreateTeam += OnRequestShowCreateTeam;
             _viewModel.RequestShowCreateBoard += OnRequestShowCreateBoard;
+            _teamService = teamService;
+            _sessionService = sessionService;
         }
 
         private void OnRequestShowCreateTeam()
         {
-            var viewModel = new CreateTeamPopupViewModel(_workspaceService, _notificationService);
+            var viewModel = new CreateTeamPopupViewModel(_workspaceService, _notificationService, _teamService, _sessionService);
             var popup = new CreateTeamPopup();
             popup.BindingContext = viewModel;
 
