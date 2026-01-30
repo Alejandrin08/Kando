@@ -71,6 +71,14 @@ namespace kando_desktop.Services.Implementations
             _isDataLoaded = true;
         }
 
+        public void ClearData()
+        {
+            Teams.Clear();
+            Boards.Clear();
+            Members.Clear();
+            _isDataLoaded = false; 
+        }
+
         public void CreateTeam(CreateTeamDto dto, UserSession currentUser)
         {
             string userName = currentUser?.UserName ?? "Tú";

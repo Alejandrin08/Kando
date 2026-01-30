@@ -10,6 +10,7 @@ namespace kando_desktop.ViewModels.Popups
 
         private readonly INotificationService _notificationService;
         private readonly ISessionService _sessionService;
+        private readonly IWorkspaceService _workspaceService;
 
         [ObservableProperty]
         private string userName;
@@ -19,12 +20,13 @@ namespace kando_desktop.ViewModels.Popups
 
         public Action RequestClose;
 
-        public ProfileMenuPopupViewModel(string userName, string userEmail, INotificationService notificationService, ISessionService sessionService)
+        public ProfileMenuPopupViewModel(string userName, string userEmail, INotificationService notificationService, ISessionService sessionService, IWorkspaceService workspaceService)
         {
             UserName = userName;
             UserEmail = userEmail;
             _notificationService = notificationService;
             _sessionService = sessionService;
+            _workspaceService = workspaceService;
         }
 
         [RelayCommand]
@@ -33,7 +35,8 @@ namespace kando_desktop.ViewModels.Popups
             RequestClose?.Invoke();
 
             await Task.Delay(150);
-
+            
+            _workspaceService.ClearData();
             _sessionService.Logout();
             await Shell.Current.GoToAsync("//LoginPage");
 

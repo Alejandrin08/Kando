@@ -100,9 +100,8 @@ namespace kando_desktop.ViewModels.Popups
                     var currentUser = _sessionService.CurrentUser;
 
                     _workspaceService.CreateTeam(team, currentUser);
-
-                    _notificationService.Show(AppResources.TeamCreatedSuccessfully);
                     RequestClose?.Invoke();
+                    _notificationService.Show(AppResources.TeamCreatedSuccessfully);
                 }
                 else
                 {

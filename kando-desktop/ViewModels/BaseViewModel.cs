@@ -80,8 +80,9 @@ namespace kando_desktop.ViewModels.ContentPages
             var currentName = _sessionService.CurrentUser?.UserName ?? "Usuario";
             var currentEmail = _sessionService.CurrentUser?.Email ?? "usuario@kando.app";
             var notificationService = Shell.Current.Handler.MauiContext.Services.GetService<INotificationService>();
+            var workspaceService = Shell.Current.Handler.MauiContext.Services.GetService<IWorkspaceService>();
             var authService = Shell.Current.Handler.MauiContext.Services.GetService<IAuthService>();
-            var viewModel = new ProfileMenuPopupViewModel(currentName, currentEmail, notificationService, _sessionService);
+            var viewModel = new ProfileMenuPopupViewModel(currentName, currentEmail, notificationService, _sessionService, workspaceService);
             var popup = new ProfileMenuPopup();
             popup.BindingContext = viewModel;
             popup.Anchor = anchor as View;
