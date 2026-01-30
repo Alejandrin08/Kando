@@ -1,13 +1,13 @@
-﻿using kando_desktop.Controls;
-using CommunityToolkit.Maui;
-using Microsoft.Extensions.Configuration;
-using System.Reflection;
-using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using kando_desktop.Controls;
 using kando_desktop.Services.Contracts;
 using kando_desktop.Services.Implementations;
 using kando_desktop.ViewModels.ContentPages;
 using kando_desktop.ViewModels.Popups;
 using kando_desktop.Views.ContentPages;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace kando_desktop
 {
@@ -16,6 +16,15 @@ namespace kando_desktop
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            builder
+                .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                });
 
             var a = Assembly.GetExecutingAssembly();
             using var stream = a.GetManifestResourceStream("kando_desktop.appsettings.json");
@@ -36,44 +45,37 @@ namespace kando_desktop
 
             builder.Services.AddTransient<AuthenticatedHttpMessageHandler>();
 
-            builder.Services.AddHttpClient("KandoApi", client =>
+            Action<HttpClient> httpClientConfig = client =>
             {
                 client.BaseAddress = new Uri(baseUrl);
                 client.Timeout = TimeSpan.FromSeconds(30);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-            })
-            .ConfigurePrimaryHttpMessageHandler(() =>
+            };
+
+            Func<HttpClientHandler> handlerConfig = () => new HttpClientHandler
             {
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-                return handler;
-            })
-            .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
 
-            builder.Services.AddScoped(sp =>
-                sp.GetRequiredService<IHttpClientFactory>().CreateClient("KandoApi"));
+            builder.Services.AddHttpClient<IAuthService, AuthService>(httpClientConfig)
+                   .ConfigurePrimaryHttpMessageHandler(handlerConfig);
 
+            builder.Services.AddHttpClient<ITeamService, TeamService>(httpClientConfig)
+                   .ConfigurePrimaryHttpMessageHandler(handlerConfig)
+                   .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
 
-            builder
-                .UseMauiApp<App>()
-                .UseMauiCommunityToolkit()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+            builder.Services.AddHttpClient<IUserService, UserService>(httpClientConfig)
+                   .ConfigurePrimaryHttpMessageHandler(handlerConfig)
+                   .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
 
+            builder.Services.AddSingleton<ISessionService, SessionService>();
             builder.Services.AddSingleton<IWorkspaceService, WorkspaceService>();
             builder.Services.AddSingleton<INotificationService, NotificationService>();
-            builder.Services.AddSingleton<IAuthService, AuthService>();
-            builder.Services.AddSingleton<IUserService, UserService>();
-            builder.Services.AddSingleton<ISessionService, SessionService>();
-            builder.Services.AddSingleton<ITeamService, TeamService>();
 
             builder.Services.AddTransient<BaseViewModel>();
-            builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<HomeViewModel>();
 
             builder.Services.AddTransient<CreateTeamPopupViewModel>();
             builder.Services.AddTransient<CreateBoardPopupViewModel>();
@@ -82,9 +84,9 @@ namespace kando_desktop
             builder.Services.AddTransient<RemoveMemberPopupViewModel>();
             builder.Services.AddTransient<TeamMenuPopupViewModel>();
 
-            builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
+            builder.Services.AddTransient<HomePage>();
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
             {

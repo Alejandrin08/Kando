@@ -21,22 +21,10 @@ namespace kando_desktop.Services.Implementations
             _httpClient = httpClient;
         }
 
-        private async Task SetTokenAsync()
-        {
-            var token = await SecureStorage.GetAsync("auth_token");
-            if (!string.IsNullOrEmpty(token))
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token);
-            }
-        }
-
         public async Task<List<TeamResponseDto>> GetMyTeamsAsync()
         {
             try
             {
-                await SetTokenAsync(); 
-
                 var response = await _httpClient.GetAsync("team");
 
                 if (response.IsSuccessStatusCode)
@@ -53,7 +41,6 @@ namespace kando_desktop.Services.Implementations
 
         public async Task<bool> CreateTeamAsync(CreateTeamDto createTeamDto)
         {
-            await SetTokenAsync();
 
             var response = await _httpClient.PostAsJsonAsync("team", createTeamDto);
 
