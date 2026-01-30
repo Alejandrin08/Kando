@@ -375,4 +375,7 @@
   <data name="RegistrationSuccess" xml:space="preserve">
     <value>Successful registration</value>
   </data>
+  <data name="FailedToCreateTeam" xml:space="preserve">
+    <value>Error creating the team</value>
+  </data>
 </root>

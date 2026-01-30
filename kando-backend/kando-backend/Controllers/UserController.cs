@@ -34,7 +34,7 @@ namespace kando_backend.Controllers
                 return StatusCode(500, new { message = "Error creating user" });
             }
 
-            return Ok(new { message = "User created successfully" });
+            return CreatedAtAction(nameof(GetUserByEmail), new { email = dto.UserEmail }, created);
         }
 
         [HttpGet("{email}")]

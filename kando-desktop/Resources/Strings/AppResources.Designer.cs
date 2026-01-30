@@ -259,6 +259,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error al crear el equipo.
+        /// </summary>
+        public static string FailedToCreateTeam {
+            get {
+                return ResourceManager.GetString("FailedToCreateTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Campo obligatorio.
         /// </summary>
         public static string FieldRequired {

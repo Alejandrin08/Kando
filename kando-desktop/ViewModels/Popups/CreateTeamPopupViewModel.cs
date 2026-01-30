@@ -1,6 +1,7 @@
 ﻿
     using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using kando_desktop.DTOs.Requests;
 using kando_desktop.Models;
 using kando_desktop.Resources.Strings;
 using kando_desktop.Services.Contracts;
@@ -12,6 +13,8 @@ namespace kando_desktop.ViewModels.Popups
     {
         private readonly IWorkspaceService _workspaceService;
         private readonly INotificationService _notificationService;
+        private readonly ITeamService _teamService;
+        private readonly ISessionService _sessionService;
 
         [ObservableProperty]
         private string teamName;
@@ -24,6 +27,9 @@ namespace kando_desktop.ViewModels.Popups
 
         [ObservableProperty]
         private bool hasNameError;
+
+        [ObservableProperty] 
+        private bool isBusy;
 
         public Action RequestClose;
 
@@ -56,14 +62,18 @@ namespace kando_desktop.ViewModels.Popups
 
         public CreateTeamPopupViewModel(
             IWorkspaceService workspaceService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            ITeamService teamService, 
+            ISessionService sessionService)
         {
             _workspaceService = workspaceService;
             _notificationService = notificationService;
+            _teamService = teamService;
+            _sessionService = sessionService;
         }
 
         [RelayCommand]
-        private void Create()
+        private async void Create()
         {
             if (string.IsNullOrWhiteSpace(TeamName))
             {
@@ -71,14 +81,40 @@ namespace kando_desktop.ViewModels.Popups
                 return;
             }
 
+            IsBusy = true;
             HasNameError = false;
 
-            _workspaceService.CreateTeam(TeamName, SelectedIconSource, SelectedTeamColor);
+            try
+            {
+                var team = new CreateTeamDto
+                {
+                    Name = TeamName,
+                    Icon = SelectedIconSource,
+                    Color = SelectedTeamColor.ToHex()
+                };
 
-            var message = AppResources.TeamCreatedSuccessfully;
-            _notificationService.Show(message);
+                var success = await _teamService.CreateTeamAsync(team);
 
-            RequestClose?.Invoke();
+                if (success)
+                {
+                    var currentUser = _sessionService.CurrentUser;
+
+                    _workspaceService.CreateTeam(team, currentUser);
+
+                    _notificationService.Show(AppResources.TeamCreatedSuccessfully);
+                    RequestClose?.Invoke();
+                }
+                else
+                {
+                    _notificationService.Show(AppResources.FailedToCreateTeam);
+                }
+
+            } catch (Exception ex) {
+                _notificationService.Show(AppResources.UnexpectedError);
+            } finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]

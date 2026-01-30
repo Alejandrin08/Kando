@@ -13,7 +13,7 @@ public partial class User
 
     public string PasswordHash { get; set; } = null!;
 
-    public string? UserIcon { get; set; }
+    public string UserIcon { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
 

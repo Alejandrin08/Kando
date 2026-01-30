@@ -26,7 +26,6 @@ GO
 CREATE TABLE [Teams] (
     [Id] INT PRIMARY KEY IDENTITY(1, 1),
     [Name] NVARCHAR(255) NOT NULL,
-    [Description] NVARCHAR(MAX),
     [Icon] NVARCHAR(255),
     [Color] NVARCHAR(50),
     [OwnerId] INT NOT NULL,

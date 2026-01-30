@@ -1,4 +1,5 @@
-﻿using kando_desktop.Enums;
+﻿using kando_desktop.DTOs.Requests;
+using kando_desktop.Enums;
 using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
@@ -11,49 +12,30 @@ namespace kando_desktop.Services.Implementations
         public ObservableCollection<Board> Boards { get; } = new();
         public ObservableCollection<Member> Members { get; } = new();
 
-        public void CreateTeam(string name, string iconSource, Color teamColor)
+        public void CreateTeam(CreateTeamDto dto, UserSession currentUser)
         {
+            string userName = currentUser?.UserName ?? "Tú";
+            string initials = GetInitials(userName);
+
             var myself = new Member
             {
-                Initials = "YO",
-                Name = "Tú (Admin)",
-                BaseColor = teamColor,
-                Role = TeamRole.Owner
+                Initials = initials,
+                Name = $"{userName} (Admin)",
+                BaseColor = Color.FromArgb(dto.Color), 
+                Role = Enums.TeamRole.Owner
             };
-
-            var dummyMembers = new List<Member>();
-
-            var fakeNames = new[] { "Alice Johnson", "Bob Smith", "Carlos Ruiz", "Diana Prince" };
-            var random = new Random();
-
-            foreach (var fakeName in fakeNames)
-            {
-                dummyMembers.Add(new Member
-                {
-                    Name = fakeName,
-                    Initials = $"{fakeName.Split(' ')[0][0]}{fakeName.Split(' ')[1][0]}",
-                    BaseColor = teamColor,
-                    Role = TeamRole.Member
-                });
-            }
-
-            var allMembers = new ObservableCollection<Member> { myself };
-            foreach (var member in dummyMembers)
-            {
-                allMembers.Add(member);
-            }
 
             var newTeam = new Team
             {
-                Name = name,
-                Icon = iconSource,
-                TeamColor = teamColor,
-                MemberCount = allMembers.Count, 
+                Name = dto.Name,
+                Icon = dto.Icon,
+                TeamColor = Color.FromArgb(dto.Color),
+                MemberCount = 1,
                 NumberBoards = 0,
-                Members = allMembers
+                Members = new ObservableCollection<Member> { myself }
             };
 
-            Teams.Add(newTeam);
+            Teams.Insert(0, newTeam);
         }
 
         public void CreateBoard(string name, string iconSource, Team team)
@@ -131,6 +113,14 @@ namespace kando_desktop.Services.Implementations
             }
 
             Boards.Remove(board);
+        }
+
+        private string GetInitials(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return "YO";
+            var parts = name.Trim().Split(' ');
+            if (parts.Length == 1) return parts[0][0].ToString().ToUpper();
+            return $"{parts[0][0]}{parts[1][0]}".ToUpper();
         }
     }
 }

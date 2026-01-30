@@ -68,6 +68,7 @@ namespace kando_desktop
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<ISessionService, SessionService>();
+            builder.Services.AddSingleton<ITeamService, TeamService>();
 
             builder.Services.AddTransient<BaseViewModel>();
             builder.Services.AddTransient<HomeViewModel>();

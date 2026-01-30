@@ -9,11 +9,9 @@ public partial class Team
 
     public string Name { get; set; } = null!;
 
-    public string? Description { get; set; }
+    public string Icon { get; set; } = null!;
 
-    public string? Icon { get; set; }
-
-    public string? Color { get; set; }
+    public string Color { get; set; } = null!;
 
     /// <summary>
     /// El creador del equipo (Dueño)
