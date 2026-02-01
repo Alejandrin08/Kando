@@ -10,8 +10,10 @@ namespace kando_desktop.Services.Contracts
 {
     public interface ITeamService
     {
-        Task<bool> CreateTeamAsync(CreateTeamDto createTeamDto);
+        Task<TeamResponseDto?> CreateTeamAsync(CreateTeamDto createTeamDto);
 
         Task<List<TeamResponseDto>> GetMyTeamsAsync();
+
+        Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto);
     }
 }

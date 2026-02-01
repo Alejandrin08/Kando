@@ -63,5 +63,25 @@ namespace kando_backend.Controllers
                 return StatusCode(500, new { message = "Internal error while retrieving teams." });
             }
         }
+
+        [HttpPut("{teamId}")]
+        public async Task<IActionResult> UpdateTeam(int teamId, [FromBody] UpdateTeamDto updateTeamDto)
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
+            try
+            {
+                var updated = await _teamService.UpdateTeamAsync(teamId, updateTeamDto, userId.Value);
+                if (!updated)
+                {
+                    return NotFound(new { message = "Team not found or you do not have permission to update it." });
+                }
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal error while updating the team." });
+            }
+        }
     }
 }

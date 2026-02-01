@@ -39,10 +39,23 @@ namespace kando_desktop.Services.Implementations
             return new List<TeamResponseDto>();
         }
 
-        public async Task<bool> CreateTeamAsync(CreateTeamDto createTeamDto)
+        public async Task<TeamResponseDto?> CreateTeamAsync(CreateTeamDto createTeamDto)
         {
 
             var response = await _httpClient.PostAsJsonAsync("team", createTeamDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Error API: {errorContent}");
+                return null;
+            }
+            return await response.Content.ReadFromJsonAsync<TeamResponseDto>();
+        }
+
+        public async Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"team/{teamId}", updateTeamDto);
 
             if (!response.IsSuccessStatusCode)
             {

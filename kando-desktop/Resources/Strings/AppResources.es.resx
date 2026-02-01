@@ -381,4 +381,7 @@
   <data name="Loading" xml:space="preserve">
     <value>Cargando...</value>
   </data>
+  <data name="FailedToUpdateTeam" xml:space="preserve">
+    <value>Error al actualizar el equipo</value>
+  </data>
 </root>

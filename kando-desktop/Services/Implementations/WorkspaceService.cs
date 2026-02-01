@@ -1,4 +1,5 @@
 ﻿using kando_desktop.DTOs.Requests;
+using kando_desktop.DTOs.Responses;
 using kando_desktop.Enums;
 using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
@@ -79,10 +80,14 @@ namespace kando_desktop.Services.Implementations
             _isDataLoaded = false; 
         }
 
-        public void CreateTeam(CreateTeamDto dto, UserSession currentUser)
+        public void CreateTeam(TeamResponseDto dto, UserSession currentUser)
         {
             string userName = currentUser?.UserName ?? "Tú";
             string initials = GetInitials(userName);
+
+            Color teamColor;
+            try { teamColor = Color.FromArgb(dto.Color); }
+            catch { teamColor = Color.FromArgb("#8f45ef"); }
 
             var myself = new Member
             {
@@ -94,9 +99,10 @@ namespace kando_desktop.Services.Implementations
 
             var newTeam = new Team
             {
+                Id = dto.Id,
                 Name = dto.Name,
                 Icon = dto.Icon,
-                TeamColor = Color.FromArgb(dto.Color),
+                TeamColor = teamColor,  
                 MemberCount = 1,
                 NumberBoards = 0,
                 Members = new ObservableCollection<Member> { myself }
@@ -123,26 +129,24 @@ namespace kando_desktop.Services.Implementations
             team.NumberBoards++;
         }
 
-        public void UpdateTeam(Team team, string newName, string newIconSource, Color newTeamColor)
+        public void UpdateTeam(int teamId, UpdateTeamDto updateTeamDto)
         {
+            var team = Teams.FirstOrDefault(t => t.Id == teamId);
             if (team == null) return;
-
-            team.Name = newName;
-            team.Icon = newIconSource;
-            team.TeamColor = newTeamColor;
-
-            var associatedBoards = Boards.Where(b => b.TeamName == team);
-            foreach (var board in associatedBoards)
+            team.Name = updateTeamDto.Name;
+            team.Icon = updateTeamDto.Icon;
+            try
             {
-                board.TeamColor = newTeamColor;
+                team.TeamColor = Color.FromArgb(updateTeamDto.Color);
+            }
+            catch
+            {
+                team.TeamColor = Color.FromHex("#8f45ef");
             }
 
-            if (team.Members != null)
+            foreach (var member in team.Members)
             {
-                foreach (var member in team.Members)
-                {
-                    member.BaseColor = newTeamColor;
-                }
+                member.BaseColor = team.TeamColor;
             }
         }
 

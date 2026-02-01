@@ -5,6 +5,9 @@ using kando_desktop.Services.Contracts;
 using kando_desktop.Resources.Strings;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using kando_desktop.Converters;
+using kando_desktop.DTOs.Requests;
 
 namespace kando_desktop.ViewModels.Popups
 {
@@ -12,6 +15,7 @@ namespace kando_desktop.ViewModels.Popups
     {
         private readonly IWorkspaceService _workspaceService;
         private readonly INotificationService _notificationService;
+        private readonly ITeamService _teamService;
         private readonly Team _teamToEdit;
 
         [ObservableProperty]
@@ -25,6 +29,9 @@ namespace kando_desktop.ViewModels.Popups
 
         [ObservableProperty]
         private bool hasNameError;
+
+        [ObservableProperty]
+        private bool isBusy;
 
         public Action RequestClose;
 
@@ -58,7 +65,8 @@ namespace kando_desktop.ViewModels.Popups
         public ModifyTeamPopupViewModel(
             Team team,
             IWorkspaceService workspaceService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            ITeamService teamService)
         {
             _teamToEdit = team;
             _workspaceService = workspaceService;
@@ -73,6 +81,7 @@ namespace kando_desktop.ViewModels.Popups
 
             var colorToSelect = Colors.FirstOrDefault(c => AreColorsEqual(c.Color, SelectedTeamColor)) ?? Colors.First();
             colorToSelect.IsSelected = true;
+            _teamService = teamService;
         }
 
         private bool AreColorsEqual(Color a, Color b)
@@ -83,7 +92,7 @@ namespace kando_desktop.ViewModels.Popups
         }
 
         [RelayCommand]
-        private void Modify()
+        private async Task Modify()
         {
             if (string.IsNullOrWhiteSpace(TeamName))
             {
@@ -91,14 +100,37 @@ namespace kando_desktop.ViewModels.Popups
                 return;
             }
 
+            IsBusy = true; 
             HasNameError = false;
 
-            _workspaceService.UpdateTeam(_teamToEdit, TeamName, SelectedIconSource, SelectedTeamColor);
+            var teamToUpdate = new UpdateTeamDto()
+            {
+                Name = TeamName,
+                Icon = SelectedIconSource,
+                Color = SelectedTeamColor.ToHex()
+            };
 
-            var message = AppResources.TeamUpdatedSuccessfully;
-            _notificationService.Show(message); 
+            try
+            {
 
-            RequestClose?.Invoke();
+                var success = await _teamService.UpdateTeamAsync(_teamToEdit.Id, teamToUpdate);
+                if (success) {
+                    _workspaceService.UpdateTeam(_teamToEdit.Id, teamToUpdate);
+                    RequestClose?.Invoke();
+                    _notificationService.Show(AppResources.TeamUpdatedSuccessfully);
+                } else
+                {
+                    _notificationService.Show(AppResources.FailedToUpdateTeam);
+                }
+            }
+            catch (Exception ex)
+            {
+                _notificationService.Show(AppResources.UnexpectedError);
+            }
+            finally
+            {
+                IsBusy = false;
+            }   
         }
 
         [RelayCommand]

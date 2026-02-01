@@ -9,5 +9,7 @@ namespace kando_backend.Services.Interfaces
         Task<Team> CreateTeamAsync(CreateTeamDto createTeamDto, int ownerId);
 
         Task<List<TeamResponseDto>> GetTeamsUserAsync(int ownerId);  
+
+        Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto, int ownerId);
     }
 }

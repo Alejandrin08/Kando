@@ -93,13 +93,13 @@ namespace kando_desktop.ViewModels.Popups
                     Color = SelectedTeamColor.ToHex()
                 };
 
-                var success = await _teamService.CreateTeamAsync(team);
+                var createdTeamResponse = await _teamService.CreateTeamAsync(team);
 
-                if (success)
+                if (createdTeamResponse != null)
                 {
                     var currentUser = _sessionService.CurrentUser;
 
-                    _workspaceService.CreateTeam(team, currentUser);
+                    _workspaceService.CreateTeam(createdTeamResponse, currentUser);
                     RequestClose?.Invoke();
                     _notificationService.Show(AppResources.TeamCreatedSuccessfully);
                 }

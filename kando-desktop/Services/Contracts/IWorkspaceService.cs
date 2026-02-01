@@ -1,4 +1,5 @@
 ﻿using kando_desktop.DTOs.Requests;
+using kando_desktop.DTOs.Responses;
 using kando_desktop.Models;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace kando_desktop.Services.Contracts
         ObservableCollection<Board> Boards { get; }
         ObservableCollection<Member> Members { get; }
 
-        void CreateTeam(CreateTeamDto dto, UserSession currentUser);
+        void CreateTeam(TeamResponseDto dto, UserSession currentUser);
         void CreateBoard(string name, string iconSource, Team team);
-        void UpdateTeam(Team team, string newName, string newIconSource, Color newTeamColor);
+        void UpdateTeam(int teamId, UpdateTeamDto updateTeamDto);
         void DeleteTeam(Team team);
         void DeleteMemberTeam(Member member, Team team);
         void DeleteBoard(Board board);

@@ -268,6 +268,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error al actualizar el equipo.
+        /// </summary>
+        public static string FailedToUpdateTeam {
+            get {
+                return ResourceManager.GetString("FailedToUpdateTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Campo obligatorio.
         /// </summary>
         public static string FieldRequired {

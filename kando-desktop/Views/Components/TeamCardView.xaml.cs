@@ -58,13 +58,15 @@ namespace kando_desktop.Views.Components
         {
             var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
             var notificationService = ServiceHelper.GetService<INotificationService>();
+            var teamService = ServiceHelper.GetService<ITeamService>();
 
             if (workspaceService != null && notificationService != null)
             {
                 var viewModel = new ModifyTeamPopupViewModel(
                     team,
                     workspaceService,
-                    notificationService);
+                    notificationService,
+                    teamService);
 
                 var popup = new ModifyTeamPopup();
                 popup.BindingContext = viewModel;
