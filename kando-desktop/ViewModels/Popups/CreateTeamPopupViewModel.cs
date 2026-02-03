@@ -72,8 +72,8 @@ namespace kando_desktop.ViewModels.Popups
             _sessionService = sessionService;
         }
 
-        [RelayCommand]
-        private async void Create()
+        [RelayCommand(AllowConcurrentExecutions = false)]
+        private async Task Create()
         {
             if (string.IsNullOrWhiteSpace(TeamName))
             {
@@ -105,7 +105,7 @@ namespace kando_desktop.ViewModels.Popups
                 }
                 else
                 {
-                    _notificationService.Show(AppResources.FailedToCreateTeam);
+                    _notificationService.Show(AppResources.FailedToCreateTeam, true);
                 }
 
             } catch (Exception ex) {

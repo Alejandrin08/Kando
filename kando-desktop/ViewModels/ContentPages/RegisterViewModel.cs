@@ -99,7 +99,7 @@ namespace kando_desktop.ViewModels.ContentPages
             OnPropertyChanged(nameof(CanRegister));
         }
 
-        [RelayCommand]
+        [RelayCommand(AllowConcurrentExecutions = false)]
         private async Task Register()
         {
             if (IsBusy) return;

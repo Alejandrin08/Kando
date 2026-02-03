@@ -12,5 +12,6 @@ namespace kando_desktop.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string UserIcon { get; set; }
+        public string UserInitials { get; set; }
     }
 }

@@ -23,6 +23,9 @@ namespace kando_desktop.ViewModels.ContentPages
         [ObservableProperty]
         private string userEmail;
 
+        [ObservableProperty]
+        private string userInitials;
+
         public BaseViewModel(ISessionService sessionService)
         {
             _sessionService = sessionService;
@@ -37,6 +40,7 @@ namespace kando_desktop.ViewModels.ContentPages
 
             UserName = _sessionService.CurrentUser?.UserName ?? string.Empty;
             UserEmail = _sessionService.CurrentUser?.Email ?? string.Empty;
+            UserInitials = _sessionService.CurrentUser?.UserInitials ?? "YO";
         }
 
         [RelayCommand]

@@ -259,6 +259,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error al crear el tablero.
+        /// </summary>
+        public static string FailedToCreateBoard {
+            get {
+                return ResourceManager.GetString("FailedToCreateBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error al crear el equipo.
         /// </summary>
         public static string FailedToCreateTeam {

@@ -91,7 +91,7 @@ namespace kando_desktop.ViewModels.Popups
                    Math.Abs(a.Blue - b.Blue) < 0.01;
         }
 
-        [RelayCommand]
+        [RelayCommand(AllowConcurrentExecutions = false)]
         private async Task Modify()
         {
             if (string.IsNullOrWhiteSpace(TeamName))
@@ -120,7 +120,7 @@ namespace kando_desktop.ViewModels.Popups
                     _notificationService.Show(AppResources.TeamUpdatedSuccessfully);
                 } else
                 {
-                    _notificationService.Show(AppResources.FailedToUpdateTeam);
+                    _notificationService.Show(AppResources.FailedToUpdateTeam, true);
                 }
             }
             catch (Exception ex)

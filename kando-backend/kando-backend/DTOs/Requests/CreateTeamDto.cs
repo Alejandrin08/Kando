@@ -4,14 +4,14 @@ namespace kando_backend.DTOs.Requests
 {
     public class CreateTeamDto
     {
-        [Required(ErrorMessage = "El nombre del equipo es obligatorio.")]
-        [StringLength(255, ErrorMessage = "El nombre no puede exceder los 255 caracteres.")]
+        [Required(ErrorMessage = "The team name is required.")]
+        [StringLength(255, ErrorMessage = "The name cannot exceed 255 characters.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "El ícono del equipo es obligatorio.")]
+        [Required(ErrorMessage = "The team icon is required.")]
         public string Icon { get; set; }
 
-        [Required(ErrorMessage = "El color del equipo es obligatorio.")]
+        [Required(ErrorMessage = "The team color is required.")]
         [StringLength(50)]
         public string Color { get; set; }
     }

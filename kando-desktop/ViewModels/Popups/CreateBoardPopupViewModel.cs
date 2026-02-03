@@ -4,6 +4,7 @@ using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
 using kando_desktop.Resources.Strings;
 using System.Collections.ObjectModel;
+using kando_desktop.DTOs.Requests;
 
 namespace kando_desktop.ViewModels.Popups
 {
@@ -11,6 +12,7 @@ namespace kando_desktop.ViewModels.Popups
     {
         private readonly IWorkspaceService _workspaceService;
         private readonly INotificationService _notificationService;
+        private readonly IBoardService _boardService;
 
         [ObservableProperty]
         private string boardName;
@@ -23,6 +25,9 @@ namespace kando_desktop.ViewModels.Popups
 
         [ObservableProperty]
         private bool hasNameError;
+
+        [ObservableProperty]
+        private bool isBusy;
 
         [ObservableProperty] 
         private bool isTeamDropdownOpen;
@@ -52,15 +57,17 @@ namespace kando_desktop.ViewModels.Popups
         public CreateBoardPopupViewModel(
             IWorkspaceService workspaceService,
             INotificationService notificationService,
+            IBoardService boardService,
             Team selectedTeam)
         {
             _workspaceService = workspaceService;
             _notificationService = notificationService;
+            _boardService = boardService;
             SelectedTeam = selectedTeam;
         }
 
-        [RelayCommand]
-        private void Create()
+        [RelayCommand(AllowConcurrentExecutions = false)]
+        private async Task Create()
         {
             if (string.IsNullOrWhiteSpace(BoardName))
             {
@@ -70,19 +77,43 @@ namespace kando_desktop.ViewModels.Popups
 
             if (SelectedTeam == null)
             {
-                var messageError = AppResources.SelectTeamFirst;
-                _notificationService.Show(messageError, true);
+                _notificationService.Show(AppResources.SelectTeamFirst, true);
                 return;
             }
 
             HasNameError = false;
+            IsBusy = true;
 
-            _workspaceService.CreateBoard(BoardName, SelectedIconSource, SelectedTeam);
+            try
+            {
+                var dto = new CreateBoardDto
+                {
+                    Name = BoardName,
+                    Icon = SelectedIconSource,
+                    TeamId = SelectedTeam.Id 
+                };
 
-            var message = AppResources.BoardCreatedSuccessfully;
-            _notificationService.Show(message);
+                var createdBoard = await _boardService.CreateBoardAsync(dto);
 
-            RequestClose?.Invoke();
+                if (createdBoard != null)
+                {
+                    _workspaceService.CreateBoard(createdBoard);
+                    RequestClose?.Invoke();
+                    _notificationService.Show(AppResources.BoardCreatedSuccessfully);
+                }
+                else
+                {
+                    _notificationService.Show(AppResources.FailedToCreateBoard, true);
+                }
+            }
+            catch (Exception)
+            {
+                _notificationService.Show(AppResources.UnexpectedError, true);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]

@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IBoardService, BoardService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

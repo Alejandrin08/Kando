@@ -384,4 +384,7 @@
   <data name="FailedToUpdateTeam" xml:space="preserve">
     <value>Error al actualizar el equipo</value>
   </data>
+  <data name="FailedToCreateBoard" xml:space="preserve">
+    <value>Error al crear el tablero</value>
+  </data>
 </root>

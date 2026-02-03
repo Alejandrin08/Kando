@@ -140,7 +140,8 @@ namespace kando_desktop.ViewModels.ContentPages
                         UserId = response.Id,
                         UserName = response.Username,
                         Email = response.Email,
-                        UserIcon = response.UserIcon
+                        UserIcon = response.UserIcon,
+                        UserInitials = GetInitials(response.Username)
                     };
 
                     await _sessionService.SaveSessionAsync(session, response.Token);
@@ -171,6 +172,14 @@ namespace kando_desktop.ViewModels.ContentPages
             if (string.IsNullOrWhiteSpace(email)) return false;
             var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, emailPattern);
+        }
+
+        private string GetInitials(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return "YO";
+            var parts = name.Trim().Split(' ');
+            if (parts.Length == 1) return parts[0][0].ToString().ToUpper();
+            return $"{parts[0][0]}{parts[1][0]}".ToUpper();
         }
 
         private void ShowLoginError(string message)

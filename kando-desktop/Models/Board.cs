@@ -10,6 +10,9 @@ namespace kando_desktop.Models
     public partial class Board : ObservableObject
     {
         [ObservableProperty]
+        private int id;
+
+        [ObservableProperty]
         private string name;
 
         [ObservableProperty]
@@ -28,6 +31,6 @@ namespace kando_desktop.Models
         private int taskCount;
 
         [ObservableProperty]
-        private int totalTaskPorcentage;
+        private double totalTaskPorcentage;
     }
 }

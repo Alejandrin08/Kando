@@ -128,7 +128,7 @@
                                             CommandParameter="{Binding Source={x:Reference AvatarBorder}}"/>
                                 </Border.GestureRecognizers>
 
-                                <Label Text="U" TextColor="White" 
+                                <Label Text="{Binding BindingContext.UserInitials, Source={RelativeSource TemplatedParent}}"
                                        HorizontalOptions="Center" 
                                        VerticalOptions="Center" 
                                        FontAttributes="Bold"/>

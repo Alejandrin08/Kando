@@ -17,7 +17,7 @@ namespace kando_desktop.Services.Contracts
         ObservableCollection<Member> Members { get; }
 
         void CreateTeam(TeamResponseDto dto, UserSession currentUser);
-        void CreateBoard(string name, string iconSource, Team team);
+        void CreateBoard(BoardResponseDto boardDto);
         void UpdateTeam(int teamId, UpdateTeamDto updateTeamDto);
         void DeleteTeam(Team team);
         void DeleteMemberTeam(Member member, Team team);

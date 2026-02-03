@@ -16,13 +16,15 @@ namespace kando_desktop.Services.Implementations
 
         private readonly ITeamService _teamService;
         private readonly ISessionService _sessionService;
+        private readonly IBoardService _boardService;
 
         private bool _isDataLoaded = false;
 
-        public WorkspaceService(ITeamService teamService, ISessionService sessionService)
+        public WorkspaceService(ITeamService teamService, ISessionService sessionService, IBoardService boardService)
         {
             _teamService = teamService;
             _sessionService = sessionService;
+            _boardService = boardService;
         }
 
         public async Task InitializeDataAsync()
@@ -35,8 +37,10 @@ namespace kando_desktop.Services.Implementations
         public async Task ForceRefreshAsync()
         {
             var teamsDtos = await _teamService.GetMyTeamsAsync();
+            var boardsDtos = await _boardService.GetMyBoardsAsync();
 
             Teams.Clear();
+            Boards.Clear();
 
             var currentUser = _sessionService.CurrentUser;
             var userName = currentUser?.UserName;
@@ -69,6 +73,24 @@ namespace kando_desktop.Services.Implementations
                 Teams.Add(team);
             }
 
+            foreach (var boardDto in boardsDtos)
+            {
+                var team = Teams.FirstOrDefault(t => t.Id == boardDto.TeamId);
+                if (team == null) continue;
+                var board = new Board
+                {
+                    Name = boardDto.Name,
+                    Icon = boardDto.Icon,
+                    TeamName = team,
+                    TeamColor = team.TeamColor,
+                    TaskCount = boardDto.TaskCount,
+                    TotalTasks = boardDto.TotalTasks,
+                    TotalTaskPorcentage = boardDto.TotalTaskPorcentage
+                };
+                Boards.Add(board);
+                team.NumberBoards++;
+            }
+
             _isDataLoaded = true;
         }
 
@@ -92,7 +114,7 @@ namespace kando_desktop.Services.Implementations
             var myself = new Member
             {
                 Initials = initials,
-                Name = $"{userName} (Admin)",
+                Name =  userName,
                 BaseColor = Color.FromArgb(dto.Color), 
                 Role = Enums.TeamRole.Owner
             };
@@ -111,22 +133,28 @@ namespace kando_desktop.Services.Implementations
             Teams.Insert(0, newTeam);
         }
 
-        public void CreateBoard(string name, string iconSource, Team team)
+        public void CreateBoard(BoardResponseDto boardDto)
         {
+            var parentTeam = Teams.FirstOrDefault(t => t.Id == boardDto.TeamId);
+
+            if (parentTeam == null) return;
+
+
             var newBoard = new Board
             {
-                Name = name,
-                Icon = iconSource,
-                TeamName = team,
-                TeamColor = team.TeamColor,
-                TaskCount = 0,
-                TotalTasks = 0,
-                TotalTaskPorcentage = 0
+                Id = boardDto.Id,
+                Name = boardDto.Name,
+                Icon = boardDto.Icon,
+                TeamName = parentTeam,
+                TeamColor = parentTeam.TeamColor,
+                TaskCount = boardDto.TaskCount,
+                TotalTasks = boardDto.TotalTasks,
+                TotalTaskPorcentage = boardDto.TotalTaskPorcentage
             };
 
             Boards.Add(newBoard);
 
-            team.NumberBoards++;
+            parentTeam.NumberBoards++;
         }
 
         public void UpdateTeam(int teamId, UpdateTeamDto updateTeamDto)

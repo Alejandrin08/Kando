@@ -145,7 +145,8 @@
                     Style="{StaticResource PrimaryButton}"
                     Grid.Row="4"
                     Margin="0,25,0,0"
-                    Command="{Binding CreateCommand}">
+                    Command="{Binding CreateCommand}"
+                    local:CursorBehavior.Cursor="Hand">
 
                 <Button.Triggers>
                     <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="True">

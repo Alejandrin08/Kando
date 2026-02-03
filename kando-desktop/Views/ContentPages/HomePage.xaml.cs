@@ -13,6 +13,7 @@ namespace kando_desktop.Views.ContentPages
         private readonly INotificationService _notificationService;
         private readonly IWorkspaceService _workspaceService;
         private readonly ITeamService _teamService;
+        private readonly IBoardService _boardService;
         private readonly ISessionService _sessionService;
 
         public HomePage(
@@ -20,6 +21,7 @@ namespace kando_desktop.Views.ContentPages
             INotificationService notificationService,
             IWorkspaceService workspaceService,
             ITeamService teamService,
+            IBoardService boardService,
             ISessionService sessionService)
         {
             InitializeComponent();
@@ -40,6 +42,7 @@ namespace kando_desktop.Views.ContentPages
             _viewModel.RequestShowCreateBoard += OnRequestShowCreateBoard;
             _teamService = teamService;
             _sessionService = sessionService;
+            _boardService = boardService;
         }
 
         private void OnRequestShowCreateTeam()
@@ -58,6 +61,7 @@ namespace kando_desktop.Views.ContentPages
             var viewModel = new CreateBoardPopupViewModel(
                 _workspaceService,
                 _notificationService,
+                _boardService,
                 _viewModel.SelectedTeam);
 
             var popup = new CreateBoardPopup();
