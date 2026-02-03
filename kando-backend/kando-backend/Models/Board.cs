@@ -19,6 +19,10 @@ public partial class Board
 
     public DateTime? CreatedAt { get; set; }
 
+    public int TotalTasks { get; set; }
+
+    public int CompletedTasks { get; set; }
+
     public virtual ICollection<BoardList> BoardLists { get; set; } = new List<BoardList>();
 
     public virtual Team Team { get; set; } = null!;

@@ -28,7 +28,7 @@ namespace kando_desktop.Models
         private int totalTasks;
 
         [ObservableProperty]
-        private int taskCount;
+        private int completedTasks;
 
         [ObservableProperty]
         private double totalTaskPorcentage;

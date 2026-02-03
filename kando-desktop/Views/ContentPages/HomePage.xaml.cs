@@ -74,9 +74,12 @@ namespace kando_desktop.Views.ContentPages
 
         protected override void OnDisappearing()
         {
+            base.OnDisappearing();
+
             _viewModel.RequestShowCreateTeam -= OnRequestShowCreateTeam;
             _viewModel.RequestShowCreateBoard -= OnRequestShowCreateBoard;
-            base.OnDisappearing();
+
+            _viewModel.Unsubscribe();
         }
     }
 }

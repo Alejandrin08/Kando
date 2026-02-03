@@ -97,7 +97,7 @@
                                         <Label Style="{StaticResource StatNumberStyle}">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding CompletedTasksCount}" />
+                                                    <Span Text="{Binding CompletedTasks}" />
                                                     <Span Text="/" />
                                                     <Span Text="{Binding TotalTasksCount}" />
                                                 </FormattedString>

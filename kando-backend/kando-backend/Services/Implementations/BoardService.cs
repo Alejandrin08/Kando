@@ -51,7 +51,7 @@ namespace kando_backend.Services.Implementations
                 TeamId = board.TeamId,
                 CreatedAt = board.CreatedAt.GetValueOrDefault(DateTime.UtcNow),
 
-                TaskCount = 0,
+                CompletedTasks = 0,
                 TotalTasks = 0,
                 TotalTaskPorcentage = 0
             };
@@ -69,14 +69,9 @@ namespace kando_backend.Services.Implementations
                     Icon = b.Icon,
                     TeamId = b.TeamId,
                     CreatedAt = b.CreatedAt.GetValueOrDefault(DateTime.UtcNow),
-
-                    TotalTasks = b.BoardLists
-                        .SelectMany(list => list.Tasks)
-                        .Count(t => t.IsDeleted == false || t.IsDeleted == null),
-
-                    TaskCount = 0,
-
-                    TotalTaskPorcentage = 0 
+                    TotalTasks = b.TotalTasks,
+                    CompletedTasks = b.CompletedTasks, 
+                    TotalTaskPorcentage = 0
                 })
                 .ToListAsync();
 
@@ -84,7 +79,7 @@ namespace kando_backend.Services.Implementations
             {
                 if (b.TotalTasks > 0)
                 {
-                    b.TotalTaskPorcentage = (double)b.TaskCount / b.TotalTasks;
+                    b.TotalTaskPorcentage = (double)b.CompletedTasks / b.TotalTasks;
                 }
             }
 

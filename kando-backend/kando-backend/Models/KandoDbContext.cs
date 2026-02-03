@@ -35,6 +35,8 @@ public partial class KandoDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Boards__3214EC071B0BF669");
 
+            entity.HasIndex(e => e.TeamId, "IX_Boards_TeamId");
+
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Icon).HasMaxLength(255);
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
@@ -49,6 +51,8 @@ public partial class KandoDbContext : DbContext
         modelBuilder.Entity<BoardList>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__BoardLis__3214EC0703C551FB");
+
+            entity.HasIndex(e => e.BoardId, "IX_BoardLists_BoardId");
 
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Name).HasMaxLength(255);
@@ -86,6 +90,8 @@ public partial class KandoDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Tasks__3214EC07FBDB87E9");
 
+            entity.HasIndex(e => e.ListId, "IX_Tasks_ListId");
+
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Icon).HasMaxLength(255);
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
@@ -114,6 +120,8 @@ public partial class KandoDbContext : DbContext
         modelBuilder.Entity<Team>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Teams__3214EC072215F376");
+
+            entity.HasIndex(e => e.OwnerId, "IX_Teams_OwnerId");
 
             entity.Property(e => e.Color).HasMaxLength(50);
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");

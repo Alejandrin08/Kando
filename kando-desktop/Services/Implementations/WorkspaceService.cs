@@ -1,4 +1,5 @@
-﻿using kando_desktop.DTOs.Requests;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using kando_desktop.DTOs.Requests;
 using kando_desktop.DTOs.Responses;
 using kando_desktop.Enums;
 using kando_desktop.Models;
@@ -7,24 +8,39 @@ using System.Collections.ObjectModel;
 
 namespace kando_desktop.Services.Implementations
 {
-    public class WorkspaceService : IWorkspaceService
+    public class WorkspaceService : ObservableObject, IWorkspaceService
     {
-        public ObservableCollection<Team> Teams { get; } = new();
-        public ObservableCollection<Board> Boards { get; } = new();
+
+        private ObservableCollection<Team> _teams = new();
+        public ObservableCollection<Team> Teams
+        {
+            get => _teams;
+            set => SetProperty(ref _teams, value);
+        }
+
+        private ObservableCollection<Board> _boards = new();
+        public ObservableCollection<Board> Boards
+        {
+            get => _boards;
+            set => SetProperty(ref _boards, value);
+        }
+
         public ObservableCollection<Member> Members { get; } = new();
 
 
         private readonly ITeamService _teamService;
         private readonly ISessionService _sessionService;
         private readonly IBoardService _boardService;
+        private readonly IDashboardService _dashboardService;
 
         private bool _isDataLoaded = false;
 
-        public WorkspaceService(ITeamService teamService, ISessionService sessionService, IBoardService boardService)
+        public WorkspaceService(ITeamService teamService, ISessionService sessionService, IBoardService boardService, IDashboardService dashboardService)
         {
             _teamService = teamService;
             _sessionService = sessionService;
             _boardService = boardService;
+            _dashboardService = dashboardService;
         }
 
         public async Task InitializeDataAsync()
@@ -33,14 +49,17 @@ namespace kando_desktop.Services.Implementations
 
             await ForceRefreshAsync();
         }
-
         public async Task ForceRefreshAsync()
         {
-            var teamsDtos = await _teamService.GetMyTeamsAsync();
-            var boardsDtos = await _boardService.GetMyBoardsAsync();
+            var dashboardData = await _dashboardService.GetDashboardAsync();
 
-            Teams.Clear();
-            Boards.Clear();
+            if (dashboardData == null) return;
+
+            var teamsDtos = dashboardData.Teams;
+            var boardsDtos = dashboardData.Boards;
+
+            var tempTeams = new List<Team>();
+            var tempBoards = new List<Board>();
 
             var currentUser = _sessionService.CurrentUser;
             var userName = currentUser?.UserName;
@@ -50,7 +69,7 @@ namespace kando_desktop.Services.Implementations
             {
                 Color teamColor;
                 try { teamColor = Color.FromArgb(dto.Color); }
-                catch { teamColor = Color.FromHex("#8f45ef"); } 
+                catch { teamColor = Color.FromHex("#8f45ef"); }
 
                 var ownerMember = new Member
                 {
@@ -62,44 +81,47 @@ namespace kando_desktop.Services.Implementations
 
                 var team = new Team
                 {
-                    Id = dto.Id, 
+                    Id = dto.Id,
                     Name = dto.Name,
                     Icon = dto.Icon,
                     TeamColor = teamColor,
                     MemberCount = 1,
                     Members = new ObservableCollection<Member> { ownerMember }
                 };
-
-                Teams.Add(team);
+                tempTeams.Add(team); 
             }
 
             foreach (var boardDto in boardsDtos)
             {
-                var team = Teams.FirstOrDefault(t => t.Id == boardDto.TeamId);
+                var team = tempTeams.FirstOrDefault(t => t.Id == boardDto.TeamId);
                 if (team == null) continue;
+
                 var board = new Board
                 {
                     Name = boardDto.Name,
                     Icon = boardDto.Icon,
                     TeamName = team,
                     TeamColor = team.TeamColor,
-                    TaskCount = boardDto.TaskCount,
+                    CompletedTasks = boardDto.CompletedTasks,
                     TotalTasks = boardDto.TotalTasks,
                     TotalTaskPorcentage = boardDto.TotalTaskPorcentage
                 };
-                Boards.Add(board);
+                tempBoards.Add(board);
                 team.NumberBoards++;
             }
+
+            Teams = new ObservableCollection<Team>(tempTeams);
+            Boards = new ObservableCollection<Board>(tempBoards);
 
             _isDataLoaded = true;
         }
 
         public void ClearData()
         {
-            Teams.Clear();
-            Boards.Clear();
+            Teams = new ObservableCollection<Team>();
+            Boards = new ObservableCollection<Board>();
             Members.Clear();
-            _isDataLoaded = false; 
+            _isDataLoaded = false;
         }
 
         public void CreateTeam(TeamResponseDto dto, UserSession currentUser)
@@ -147,7 +169,7 @@ namespace kando_desktop.Services.Implementations
                 Icon = boardDto.Icon,
                 TeamName = parentTeam,
                 TeamColor = parentTeam.TeamColor,
-                TaskCount = boardDto.TaskCount,
+                CompletedTasks = boardDto.CompletedTasks,
                 TotalTasks = boardDto.TotalTasks,
                 TotalTaskPorcentage = boardDto.TotalTaskPorcentage
             };

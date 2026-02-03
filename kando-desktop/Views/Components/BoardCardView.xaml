@@ -92,7 +92,7 @@
                 <Label FontSize="12" VerticalOptions="Center" TextColor="{StaticResource Slate400}">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="{Binding TaskCount}" TextColor="{StaticResource Slate400}"/>
+                            <Span Text="{Binding CompletedTasks}" TextColor="{StaticResource Slate400}"/>
                             <Span Text="/" TextColor="{StaticResource Slate400}"/>
                             <Span Text="{Binding TotalTasks}" TextColor="{StaticResource Slate400}" />
                             <Span Text=" " />
