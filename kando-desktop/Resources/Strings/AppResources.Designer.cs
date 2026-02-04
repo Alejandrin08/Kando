@@ -88,6 +88,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ¿Estás seguro?.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a ¡Tablero creado correctamente!.
         /// </summary>
         public static string BoardCreatedSuccessfully {
@@ -111,6 +120,15 @@ namespace kando_desktop.Resources.Strings {
         public static string Boards {
             get {
                 return ResourceManager.GetString("Boards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancelar.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace kando_desktop.Resources.Strings {
         public static string DeleteTeam {
             get {
                 return ResourceManager.GetString("DeleteTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esto eliminará permanentemente el equipo y todos sus datos..
+        /// </summary>
+        public static string DeleteTeamConfirmationMessage {
+            get {
+                return ResourceManager.GetString("DeleteTeamConfirmationMessage", resourceCulture);
             }
         }
         
@@ -273,6 +300,15 @@ namespace kando_desktop.Resources.Strings {
         public static string FailedToCreateTeam {
             get {
                 return ResourceManager.GetString("FailedToCreateTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al eliminar el equipo.
+        /// </summary>
+        public static string FailedToDeleteTeam {
+            get {
+                return ResourceManager.GetString("FailedToDeleteTeam", resourceCulture);
             }
         }
         
@@ -759,6 +795,15 @@ namespace kando_desktop.Resources.Strings {
         public static string TeamCreatedSuccessfully {
             get {
                 return ResourceManager.GetString("TeamCreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Equipo eliminado correctamente.
+        /// </summary>
+        public static string TeamDeleteSuccessfully {
+            get {
+                return ResourceManager.GetString("TeamDeleteSuccessfully", resourceCulture);
             }
         }
         

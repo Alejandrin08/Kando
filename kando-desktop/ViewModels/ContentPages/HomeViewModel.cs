@@ -69,6 +69,12 @@ namespace kando_desktop.ViewModels.ContentPages
                     _workspaceService.Boards.CollectionChanged += OnDataChanged;
                 }
 
+                if (e.PropertyName == nameof(IWorkspaceService.Teams))
+                {
+                    _workspaceService.Teams.CollectionChanged -= OnDataChanged;
+                    _workspaceService.Teams.CollectionChanged += OnDataChanged;
+                }
+
                 OnPropertyChanged(nameof(Teams));
                 OnPropertyChanged(nameof(FilteredBoards)); 
 

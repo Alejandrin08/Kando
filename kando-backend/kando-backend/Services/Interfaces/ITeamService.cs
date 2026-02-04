@@ -11,5 +11,7 @@ namespace kando_backend.Services.Interfaces
         Task<List<TeamResponseDto>> GetTeamsUserAsync(int ownerId);  
 
         Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto, int ownerId);
+
+        Task<bool> DeleteTeamAsync(int teamId, int ownerId);
     }
 }

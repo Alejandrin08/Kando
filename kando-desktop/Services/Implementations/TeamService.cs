@@ -65,5 +65,19 @@ namespace kando_desktop.Services.Implementations
             }
             return true;
         }
+
+        public async Task<bool> DeleteTeamAsync(int teamId)
+        {
+            var response = await _httpClient.DeleteAsync($"team/{teamId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Error API: {errorContent}");
+                return false;
+            }
+
+            return true;
+        }
     }
 }

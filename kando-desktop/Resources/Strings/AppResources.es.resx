@@ -387,4 +387,19 @@
   <data name="FailedToCreateBoard" xml:space="preserve">
     <value>Error al crear el tablero</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>¿Estás seguro?</value>
+  </data>
+  <data name="DeleteTeamConfirmationMessage" xml:space="preserve">
+    <value>Esto eliminará permanentemente el equipo y todos sus datos.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="FailedToDeleteTeam" xml:space="preserve">
+    <value>Error al eliminar el equipo</value>
+  </data>
+  <data name="TeamDeleteSuccessfully" xml:space="preserve">
+    <value>Equipo eliminado correctamente</value>
+  </data>
 </root>

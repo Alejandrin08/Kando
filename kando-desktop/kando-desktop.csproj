@@ -119,6 +119,9 @@
 	  <MauiXaml Update="Views\Components\ToastView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\DeleteTeamPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\ModifyTeamPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -14,6 +14,8 @@ namespace kando_desktop.Services.Contracts
 
         Task<List<TeamResponseDto>> GetMyTeamsAsync();
 
-        Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto);
+        Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto); 
+
+        Task<bool> DeleteTeamAsync(int teamId);
     }
 }

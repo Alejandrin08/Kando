@@ -49,6 +49,11 @@ namespace kando_desktop.Views.Components
                     ShowRemoveMemberPopup(selectedTeam);
                 };
 
+                viewModel.RequestDeleteTeam = (selectedTeam) =>
+                {
+                    ShowDeleteTeamPopup(selectedTeam);
+                };
+
                 Page currentPage = Shell.Current.CurrentPage ?? App.Current.MainPage;
                 currentPage.ShowPopup(popup);
             }
@@ -97,6 +102,30 @@ namespace kando_desktop.Views.Components
                 popup.BindingContext = viewModel;
 
                 viewModel.RequestClose = () => popup.Close();
+
+                Page currentPage = Shell.Current.CurrentPage ?? App.Current.MainPage;
+                currentPage.ShowPopup(popup);
+            }
+        }
+
+        private void ShowDeleteTeamPopup(Team team)
+        {
+            var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+            var notificationService = ServiceHelper.GetService<INotificationService>();
+            var teamService = ServiceHelper.GetService<ITeamService>();
+
+            if (workspaceService != null && notificationService != null)
+            {
+                var viewMododel = new DeleteTeamPopupViewModel(
+                    workspaceService, 
+                    notificationService, 
+                    teamService, 
+                    team);
+
+                var popup = new DeleteTeamPopup();
+                popup.BindingContext = viewMododel;
+
+                viewMododel.RequestClose = () => popup.Close();
 
                 Page currentPage = Shell.Current.CurrentPage ?? App.Current.MainPage;
                 currentPage.ShowPopup(popup);

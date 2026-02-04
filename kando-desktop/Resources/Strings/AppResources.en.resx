@@ -387,4 +387,19 @@
   <data name="FailedToCreateBoard" xml:space="preserve">
     <value>Error creating the board</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="DeleteTeamConfirmationMessage" xml:space="preserve">
+    <value>This will permanently delete the team and all its data.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="FailedToDeleteTeam" xml:space="preserve">
+    <value>Error deleting the team</value>
+  </data>
+  <data name="TeamDeleteSuccessfully" xml:space="preserve">
+    <value>Team deleted successfully </value>
+  </data>
 </root>

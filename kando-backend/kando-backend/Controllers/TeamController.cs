@@ -83,5 +83,26 @@ namespace kando_backend.Controllers
                 return StatusCode(500, new { message = "Internal error while updating the team." });
             }
         }
+
+        [HttpDelete("{teamId}")]
+        public async Task<IActionResult> DeleteTeam(int teamId)
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
+
+            try
+            {
+                var deleted = await _teamService.DeleteTeamAsync(teamId, userId.Value);
+                if (!deleted)
+                {
+                    return NotFound(new { message = "Team not found or you do not have permission to delete it." });
+                }
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal error while deleting the team." });
+            }
+        }
     }
 }

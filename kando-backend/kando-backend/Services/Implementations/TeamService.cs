@@ -65,5 +65,50 @@ namespace kando_backend.Services.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> DeleteTeamAsync(int teamId, int ownerId)
+        {
+            var existingTeam = await _context.Teams
+                .Include(t => t.Boards)
+                    .ThenInclude(b => b.BoardLists)
+                        .ThenInclude(l => l.Tasks)
+                .FirstOrDefaultAsync(t => t.Id == teamId && t.OwnerId == ownerId && (t.IsDeleted == false || t.IsDeleted == null));
+
+            if (existingTeam == null) return false;
+
+            var now = DateTime.UtcNow;
+
+            var allLists = existingTeam.Boards
+                .SelectMany(b => b.BoardLists)
+                .Where(l => l.IsDeleted != true) 
+                .ToList();
+
+            var allTasks = allLists
+                .SelectMany(l => l.Tasks)
+                .Where(t => t.IsDeleted != true)
+                .ToList();
+
+            foreach (var task in allTasks)
+            {
+                task.IsDeleted = true;
+            }
+
+            foreach (var list in allLists)
+            {
+                list.IsDeleted = true;
+            }
+
+            foreach (var board in existingTeam.Boards.Where(b => b.IsDeleted != true))
+            {
+                board.IsDeleted = true;
+                board.DeletedAt = now;
+            }
+
+            existingTeam.IsDeleted = true;
+            existingTeam.DeletedAt = now;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

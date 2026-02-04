@@ -11,6 +11,7 @@ namespace kando_desktop.ViewModels.Popups
         public Action RequestClose;
         public Action<Team> RequestEditTeam;
         public Action<Team> RequestRemoveMember;
+        public Action<Team> RequestDeleteTeam;
 
         public TeamMenuPopupViewModel(Team team)
         {
@@ -29,6 +30,13 @@ namespace kando_desktop.ViewModels.Popups
         {
             RequestClose?.Invoke();
             RequestRemoveMember?.Invoke(_team);
+        }
+
+        [RelayCommand]
+        private void DeleteTeam()
+        {
+            RequestClose?.Invoke();
+            RequestDeleteTeam?.Invoke(_team);
         }
 
         [RelayCommand]
