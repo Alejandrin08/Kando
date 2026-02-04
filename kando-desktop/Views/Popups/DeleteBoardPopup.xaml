@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:kando_desktop"
+               x:Class="kando_desktop.Views.Popups.DeleteBoardPopup"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               xmlns:controls="clr-namespace:kando_desktop.Controls"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Color="Transparent"
+               x:Name="Root">
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource MenuBgDark}}"
+            WidthRequest="550" 
+            HeightRequest="175"
+            VerticalOptions="Center"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource BorderDark}}"
+            StrokeThickness="1" 
+            Padding="25">
+
+        <Border.Shadow>
+            <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.3" />
+        </Border.Shadow>
+
+        <Grid RowDefinitions="Auto, *, Auto">
+            <Label Grid.Row="0"
+                   Text="{x:Static strings:AppResources.AreYouSure}" 
+                   FontSize="18" 
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                   VerticalOptions="Center"/>
+
+            <Label Grid.Row="1"
+                   Text="{x:Static strings:AppResources.DeleteBoardConfirmationMessage}" 
+                   FontSize="14"
+                   TextColor="{StaticResource Slate400}"
+                   VerticalOptions="Center"
+                   Margin="0,5,0,15"/>
+
+            <HorizontalStackLayout Grid.Row="2" HorizontalOptions="End" Spacing="12">
+                <Button Text="{x:Static strings:AppResources.Cancel}" 
+                        Style="{StaticResource CancelButtonStyle}"
+                        Command="{Binding CancelCommand}" 
+                        local:CursorBehavior.Cursor="Hand"/>
+
+                <Button Text="{x:Static strings:AppResources.DeleteBoard}" 
+                        Style="{StaticResource DeleteButtonStyle}"
+                        Command="{Binding DeleteBoardCommand}" 
+                        local:CursorBehavior.Cursor="Hand"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </Border>
+</toolkit:Popup>

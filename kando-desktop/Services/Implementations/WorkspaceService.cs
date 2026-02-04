@@ -98,6 +98,7 @@ namespace kando_desktop.Services.Implementations
 
                 var board = new Board
                 {
+                    Id = boardDto.Id,
                     Name = boardDto.Name,
                     Icon = boardDto.Icon,
                     TeamName = team,

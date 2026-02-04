@@ -66,7 +66,7 @@
 
             <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="DeleteBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DeleteTeamCommand}"/>
+                    <TapGestureRecognizer Command="{Binding DeleteBoardCommand}"/>
                 </Border.GestureRecognizers>
 
                 <Grid ColumnDefinitions="24, *">

@@ -32,6 +32,20 @@ namespace kando_desktop.Services.Implementations
             return await response.Content.ReadFromJsonAsync<BoardResponseDto>();
         }
 
+        public async Task<bool> DeleteBoardAsync(int boardId)
+        {
+            var response = await _httpClient.DeleteAsync($"board/{boardId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Error API: {errorContent}");
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<List<BoardResponseDto>> GetMyBoardsAsync()
         {
             try

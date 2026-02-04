@@ -408,4 +408,13 @@
   <data name="DeleteBoard" xml:space="preserve">
     <value>Delete Board</value>
   </data>
+  <data name="DeleteBoardConfirmationMessage" xml:space="preserve">
+    <value>This will permanently delete this board and all its tasks.</value>
+  </data>
+  <data name="BoardDeleteSuccessfully" xml:space="preserve">
+    <value>Board deleted successfully </value>
+  </data>
+  <data name="FailedToDeleteBoard" xml:space="preserve">
+    <value>Error deleting the board</value>
+  </data>
 </root>

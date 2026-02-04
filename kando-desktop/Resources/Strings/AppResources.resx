@@ -408,4 +408,13 @@
   <data name="DeleteBoard" xml:space="preserve">
     <value>Eliminar Tablero</value>
   </data>
+  <data name="DeleteBoardConfirmationMessage" xml:space="preserve">
+    <value>Esto eliminará permanentemente este tablero y todas sus tareas.</value>
+  </data>
+  <data name="BoardDeleteSuccessfully" xml:space="preserve">
+    <value>Tablero eliminado correctamente</value>
+  </data>
+  <data name="FailedToDeleteBoard" xml:space="preserve">
+    <value>Error al eliminar el tablero</value>
+  </data>
 </root>

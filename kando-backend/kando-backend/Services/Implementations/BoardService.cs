@@ -57,11 +57,53 @@ namespace kando_backend.Services.Implementations
             };
         }
 
+        public async Task<bool> DeleteBoardAsync(int boardId, int userId)
+        {
+            var existingBoard = await _context.Boards
+                    .Include(b => b.Team)
+                    .Include(b => b.BoardLists)
+                        .ThenInclude(bl => bl.Tasks)
+                    .FirstOrDefaultAsync(b => b.Id == boardId &&
+                                              b.Team.OwnerId == userId && 
+                                              (b.IsDeleted == false || b.IsDeleted == null));
+
+            if (existingBoard == null) return false;
+
+            var now = DateTime.UtcNow;
+
+            var listsToDelete = existingBoard.BoardLists
+                    .Where(l => l.IsDeleted != true)
+                    .ToList();
+
+            var tasksToDelete = listsToDelete
+                    .SelectMany(l => l.Tasks)
+                    .Where(t => t.IsDeleted != true)
+                    .ToList();
+
+            foreach (var task in tasksToDelete)
+            {
+                task.IsDeleted = true;
+            }
+
+            foreach (var list in listsToDelete)
+            {
+                list.IsDeleted = true;
+            }
+
+            existingBoard.IsDeleted = true;
+            existingBoard.DeletedAt = now;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<List<BoardResponseDto>> GetBoardsUserAsync(int ownerId)
         {
             var boards = await _context.Boards
-                .Where(b => b.Team.OwnerId == ownerId && (b.Team.IsDeleted == false || b.Team.IsDeleted == null))
-                .AsNoTracking()
+                .Where(b => b.Team.OwnerId == ownerId
+                                    && (b.Team.IsDeleted == false || b.Team.IsDeleted == null) 
+                                    && (b.IsDeleted == false || b.IsDeleted == null))       
+                        .AsNoTracking()
                 .Select(b => new BoardResponseDto
                 {
                     Id = b.Id,

@@ -106,6 +106,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tablero eliminado correctamente.
+        /// </summary>
+        public static string BoardDeleteSuccessfully {
+            get {
+                return ResourceManager.GetString("BoardDeleteSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nombre del Tablero.
         /// </summary>
         public static string BoardName {
@@ -201,6 +210,15 @@ namespace kando_desktop.Resources.Strings {
         public static string DeleteBoard {
             get {
                 return ResourceManager.GetString("DeleteBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esto eliminará permanentemente este tablero y todas sus tareas..
+        /// </summary>
+        public static string DeleteBoardConfirmationMessage {
+            get {
+                return ResourceManager.GetString("DeleteBoardConfirmationMessage", resourceCulture);
             }
         }
         
@@ -309,6 +327,15 @@ namespace kando_desktop.Resources.Strings {
         public static string FailedToCreateTeam {
             get {
                 return ResourceManager.GetString("FailedToCreateTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al eliminar el tablero.
+        /// </summary>
+        public static string FailedToDeleteBoard {
+            get {
+                return ResourceManager.GetString("FailedToDeleteBoard", resourceCulture);
             }
         }
         

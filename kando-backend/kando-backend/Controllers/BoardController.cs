@@ -1,4 +1,5 @@
 ﻿using kando_backend.DTOs.Requests;
+using kando_backend.Services.Implementations;
 using kando_backend.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -60,6 +61,28 @@ namespace kando_backend.Controllers
             catch (Exception)
             {
                 return StatusCode(500, new { message = "An error occurred while retrieving the boards." });
+            }
+        }
+
+        [HttpDelete("{boardId}")]
+        public async Task<IActionResult> DeleteTeam(int boardId)
+        {
+
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
+
+            try
+            {
+                var deleted = await _boardService.DeleteBoardAsync(boardId, userId.Value);
+                if (!deleted)
+                {
+                    return NotFound(new { message = "Board not found or you do not have permission to delete it." });
+                }
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal error while deleting the board." });
             }
         }
     }

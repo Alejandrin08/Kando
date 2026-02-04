@@ -1,5 +1,7 @@
 using CommunityToolkit.Maui.Views;
+using kando_desktop.Helpers;
 using kando_desktop.Models;
+using kando_desktop.Services.Contracts;
 using kando_desktop.ViewModels.Popups;
 using kando_desktop.Views.Popups;
 
@@ -32,6 +34,35 @@ public partial class BoardCardView : ContentView
             var popup = new BoardMenuPopup();
             popup.BindingContext = viewModel;
             popup.Anchor = anchor;
+
+            viewModel.RequestClose = () => popup.Close();
+
+            viewModel.RequestDeleteBoard = (selectedBoard) =>
+            {
+                ShowDeleteBoardPopup(selectedBoard);
+            };
+
+            Page currentPage = Shell.Current.CurrentPage ?? App.Current.MainPage;
+            currentPage.ShowPopup(popup);
+        }
+    }
+
+    private void ShowDeleteBoardPopup(Board board)
+    {
+        var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+        var notificationService = ServiceHelper.GetService<INotificationService>();
+        var boardService = ServiceHelper.GetService<IBoardService>();
+
+        if (workspaceService != null && notificationService != null)
+        {
+            var viewModel = new DeleteBoardPopupViewModel(
+                workspaceService,
+                notificationService,
+                boardService,
+                board);
+
+            var popup = new DeleteBoardPopup();
+            popup.BindingContext = viewModel;
 
             viewModel.RequestClose = () => popup.Close();
 

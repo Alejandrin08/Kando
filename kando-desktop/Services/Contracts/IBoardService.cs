@@ -13,5 +13,7 @@ namespace kando_desktop.Services.Contracts
         Task<BoardResponseDto?> CreateBoardAsync(CreateBoardDto createBoardDto);
 
         Task<List<BoardResponseDto>> GetMyBoardsAsync();
+
+        Task<bool> DeleteBoardAsync(int boardId);
     }
 }
