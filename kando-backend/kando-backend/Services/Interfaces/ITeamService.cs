@@ -13,5 +13,7 @@ namespace kando_backend.Services.Interfaces
         Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto, int ownerId);
 
         Task<bool> DeleteTeamAsync(int teamId, int ownerId);
+
+        Task<bool> InviteMemberAsync(int teamId, string emailToInvite, int ownerId);
     }
 }

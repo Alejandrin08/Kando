@@ -1,5 +1,6 @@
 ﻿using kando_backend.DTOs.Requests;
 using kando_backend.DTOs.Responses;
+using kando_backend.Helpers;
 using kando_backend.Models;
 using kando_backend.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,12 @@ namespace kando_backend.Services.Implementations
     {
 
         private readonly KandoDbContext _context;
+        private readonly IEmailService _emailService;
 
-        public TeamService(KandoDbContext context)
+        public TeamService(KandoDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<Team> CreateTeamAsync(CreateTeamDto createTeamDto, int ownerId)
@@ -108,6 +111,62 @@ namespace kando_backend.Services.Implementations
             existingTeam.DeletedAt = now;
 
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> InviteMemberAsync(int teamId, string emailToInvite, int ownerId)
+        {
+            var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == teamId && t.OwnerId == ownerId);
+            if (team == null) throw new Exception("Team not found or unauthorized.");
+
+            var userToInvite = await _context.Users.FirstOrDefaultAsync(u => u.Email == emailToInvite);
+            if (userToInvite == null)
+            {
+                throw new Exception("User not found via email.");
+            }
+
+            if (userToInvite.Id == ownerId) throw new Exception("You cannot invite yourself.");
+
+            var existingMembership = await _context.TeamMembers
+                .FirstOrDefaultAsync(tm => tm.TeamId == teamId && tm.UserId == userToInvite.Id);
+
+            if (existingMembership != null)
+            {
+                if (existingMembership.Status == "Active") throw new Exception("User is already in the team.");
+                if (existingMembership.Status == "Pending") throw new Exception("Invitation already sent.");
+            }
+
+            var newMember = new TeamMember
+            {
+                UserId = userToInvite.Id,
+                TeamId = teamId,
+                Role = "Member",       
+                Status = "Pending",    
+                JoinedAt = null        
+            };
+            _context.TeamMembers.Add(newMember);
+
+            var notification = new Notification
+            {
+                FromUserId = ownerId,
+                ToUserId = userToInvite.Id,
+                TeamId = teamId,
+                Type = "InviteTeam", 
+                IsRead = false,
+                CreatedAt = DateTime.UtcNow
+            };
+            _context.Notifications.Add(notification);
+
+            await _context.SaveChangesAsync(); 
+
+            var ownerUser = await _context.Users.FindAsync(ownerId);
+            string ownerName = ownerUser?.Username;
+
+            string htmlBody = EmailTemplates.GetInvitationTemplate(team.Name, ownerName);
+            string subject = $"Kando: Invitación al equipo {team.Name}";
+
+            await _emailService.SendEmailAsync(emailToInvite, subject, htmlBody);
+
             return true;
         }
     }

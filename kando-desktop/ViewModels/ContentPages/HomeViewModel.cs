@@ -4,6 +4,7 @@ using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using kando_desktop.ViewModels.Components;
 
 namespace kando_desktop.ViewModels.ContentPages
 {
@@ -11,15 +12,14 @@ namespace kando_desktop.ViewModels.ContentPages
     {
         private readonly IWorkspaceService _workspaceService;
         private readonly INotificationService _notificationService;
-
-        public ObservableCollection<Board> FilteredBoards { get; } = new();
-        public ObservableCollection<Team> Teams => _workspaceService.Teams;
+        public ObservableCollection<BoardCardViewModel> FilteredBoards { get; } = new();
+        public ObservableCollection<TeamCardViewModel> TeamCards { get; } = new();
 
         public Action RequestShowCreateTeam;
         public Action RequestShowCreateBoard;
 
         [ObservableProperty] private bool isTeamDropdownOpen;
-        [ObservableProperty] private Team selectedTeam;
+        [ObservableProperty] private TeamCardViewModel selectedTeam;
         [ObservableProperty] private string searchText;
 
         [ObservableProperty] private int activeBoardsCount;
@@ -75,8 +75,6 @@ namespace kando_desktop.ViewModels.ContentPages
                     _workspaceService.Teams.CollectionChanged += OnDataChanged;
                 }
 
-                OnPropertyChanged(nameof(Teams));
-                OnPropertyChanged(nameof(FilteredBoards)); 
 
                 RefreshData();
             }
@@ -91,8 +89,24 @@ namespace kando_desktop.ViewModels.ContentPages
 
         private void RefreshData()
         {
+            UpdateTeamCards();
+
             PerformSearch(SearchText);
             UpdateStats();
+        }
+
+        private void UpdateTeamCards()
+        {
+            TeamCards.Clear();
+            foreach (var team in _workspaceService.Teams)
+            {
+                TeamCards.Add(new TeamCardViewModel(team));
+            }
+
+            if (SelectedTeam != null && !_workspaceService.Teams.Contains(SelectedTeam.Team))
+            {
+                SelectedTeam = null;
+            }
         }
 
         partial void OnSearchTextChanged(string value)
@@ -111,16 +125,18 @@ namespace kando_desktop.ViewModels.ContentPages
 
             foreach (var item in items)
             {
-                FilteredBoards.Add(item);
+                FilteredBoards.Add(new BoardCardViewModel(item));
             }
+            OnPropertyChanged(nameof(FilteredBoards));
         }
 
         private void UpdateStats()
         {
             TeamsCount = _workspaceService.Teams.Count;
             ActiveBoardsCount = _workspaceService.Boards.Count;
-
             TotalTasksCount = _workspaceService.Boards.Sum(b => b.TotalTasks);
+
+            CompletedTasks = _workspaceService.Boards.Sum(b => b.CompletedTasks);
         }
 
         [RelayCommand]
@@ -129,9 +145,9 @@ namespace kando_desktop.ViewModels.ContentPages
         [RelayCommand]
         private void CreateBoard()
         {
-            if (Teams.Count > 0 && SelectedTeam == null)
+            if (TeamCards.Count > 0 && SelectedTeam == null)
             {
-                SelectedTeam = Teams[0];
+                SelectedTeam = TeamCards[0]; 
             }
             IsTeamDropdownOpen = false;
             RequestShowCreateBoard?.Invoke();
@@ -141,10 +157,15 @@ namespace kando_desktop.ViewModels.ContentPages
         private void ToggleTeamDropdown() => IsTeamDropdownOpen = !IsTeamDropdownOpen;
 
         [RelayCommand]
-        private void SelectTeam(Team team)
+        private void SelectTeam(TeamCardViewModel teamVm)
         {
-            SelectedTeam = team;
+            SelectedTeam = teamVm;
             IsTeamDropdownOpen = false;
+        }
+
+        public Team GetSelectedTeamModel()
+        {
+            return SelectedTeam?.Team;
         }
     }
 }

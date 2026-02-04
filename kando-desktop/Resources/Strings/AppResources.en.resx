@@ -423,4 +423,10 @@
   <data name="BoardUpdatedSuccessfully" xml:space="preserve">
     <value>Board updated successfully</value>
   </data>
+  <data name="InviteMember" xml:space="preserve">
+    <value>Invite Member</value>
+  </data>
+  <data name="SendInvitation" xml:space="preserve">
+    <value>Send Invitation</value>
+  </data>
 </root>

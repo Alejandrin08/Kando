@@ -493,6 +493,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Invitar Miembro.
+        /// </summary>
+        public static string InviteMember {
+            get {
+                return ResourceManager.GetString("InviteMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cargando....
         /// </summary>
         public static string Loading {
@@ -786,6 +795,15 @@ namespace kando_desktop.Resources.Strings {
         public static string SelectTeamFirst {
             get {
                 return ResourceManager.GetString("SelectTeamFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enviar Invitación.
+        /// </summary>
+        public static string SendInvitation {
+            get {
+                return ResourceManager.GetString("SendInvitation", resourceCulture);
             }
         }
         

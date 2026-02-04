@@ -159,14 +159,14 @@
                                 local:CursorBehavior.Cursor="Hand"/>
                     </Grid>
 
-                    <FlexLayout BindableLayout.ItemsSource="{Binding Teams}"
+                    <FlexLayout BindableLayout.ItemsSource="{Binding TeamCards}"
                                 Wrap="Wrap"
                                 Direction="Row"
                                 JustifyContent="Start"
                                 AlignItems="Start"
                                 Margin="0, 0, -20, 0">
                         <FlexLayout.Triggers>
-                            <DataTrigger TargetType="FlexLayout" Binding="{Binding Teams.Count}" Value="0">
+                            <DataTrigger TargetType="FlexLayout" Binding="{Binding TeamCards.Count}" Value="0">
                                 <Setter Property="IsVisible" Value="False"/>
                             </DataTrigger>
                         </FlexLayout.Triggers>
@@ -180,7 +180,7 @@
 
                     <VerticalStackLayout IsVisible="False" Spacing="10" Margin="0,0,0,20">
                         <VerticalStackLayout.Triggers>
-                            <DataTrigger TargetType="VerticalStackLayout" Binding="{Binding Teams.Count}" Value="0">
+                            <DataTrigger TargetType="VerticalStackLayout" Binding="{Binding TeamCards.Count}" Value="0">
                                 <Setter Property="IsVisible" Value="True"/>
                             </DataTrigger>
                         </VerticalStackLayout.Triggers>
@@ -224,7 +224,7 @@
                                 Command="{Binding CreateBoardCommand}"
                                 local:CursorBehavior.Cursor="Hand">
                             <Button.Triggers>
-                                <DataTrigger TargetType="Button" Binding="{Binding Teams.Count}" Value="0">
+                                <DataTrigger TargetType="Button" Binding="{Binding TeamCards.Count}" Value="0">
                                     <Setter Property="IsEnabled" Value="False" />
                                     <Setter Property="Opacity" Value="0.5" />
                                 </DataTrigger>

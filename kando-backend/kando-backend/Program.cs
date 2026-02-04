@@ -12,6 +12,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IBoardService, BoardService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

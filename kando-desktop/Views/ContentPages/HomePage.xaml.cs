@@ -58,11 +58,14 @@ namespace kando_desktop.Views.ContentPages
 
         private void OnRequestShowCreateBoard()
         {
+
+            var selectedTeamModel = _viewModel.GetSelectedTeamModel(); 
+
             var viewModel = new CreateBoardPopupViewModel(
                 _workspaceService,
                 _notificationService,
                 _boardService,
-                _viewModel.SelectedTeam);
+                selectedTeamModel);
 
             var popup = new CreateBoardPopup();
             popup.BindingContext = viewModel;

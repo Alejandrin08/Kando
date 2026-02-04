@@ -104,5 +104,22 @@ namespace kando_backend.Controllers
                 return StatusCode(500, new { message = "Internal error while deleting the team." });
             }
         }
+
+        [HttpPost("invite")]
+        public async Task<IActionResult> InviteMember([FromBody] InviteMemberRequestDto request)
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized();
+
+            try
+            {
+                await _teamService.InviteMemberAsync(request.TeamId, request.EmailToInvite, userId.Value);
+                return Ok(new { message = "Invitation sent successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }
