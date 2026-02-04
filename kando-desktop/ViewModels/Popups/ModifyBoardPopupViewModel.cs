@@ -1,31 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using kando_desktop.Models;
-using kando_desktop.Services.Contracts;
-using kando_desktop.Resources.Strings;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using kando_desktop.Converters;
 using kando_desktop.DTOs.Requests;
+using kando_desktop.Models;
+using kando_desktop.Resources.Strings;
+using kando_desktop.Services.Contracts;
+using System.Collections.ObjectModel;
 
 namespace kando_desktop.ViewModels.Popups
 {
-    public partial class ModifyTeamPopupViewModel : ObservableObject
+    public partial class ModifyBoardPopupViewModel : ObservableObject
     {
+
         private readonly IWorkspaceService _workspaceService;
         private readonly INotificationService _notificationService;
-        private readonly ITeamService _teamService;
-        private readonly Team _teamToEdit;
+        private readonly IBoardService _boardService;
+        private readonly Board _boardToEdit;
 
         [ObservableProperty]
-        private string teamName;
+        private string boardName;
 
         [ObservableProperty]
         private string selectedIconSource;
-
-        [ObservableProperty]
-        private Color selectedTeamColor;
 
         [ObservableProperty]
         private bool hasNameError;
@@ -53,74 +48,57 @@ namespace kando_desktop.ViewModels.Popups
             new IconItem { Source = "alien.png" },
         };
 
-        public ObservableCollection<ColorItem> Colors { get; } = new()
-        {
-            new ColorItem { ColorHex = "#8f45ef" },
-            new ColorItem { ColorHex = "#e7336a" },
-            new ColorItem { ColorHex = "#158ddf" },
-            new ColorItem { ColorHex = "#ee770b" },
-            new ColorItem { ColorHex = "#13ad64" },
-        };
-
-        public ModifyTeamPopupViewModel(
-            Team team,
+        public ModifyBoardPopupViewModel(
+            Board board,
             IWorkspaceService workspaceService,
             INotificationService notificationService,
-            ITeamService teamService)
+            IBoardService boardService)
         {
-            _teamToEdit = team;
+            _boardToEdit = board;
             _workspaceService = workspaceService;
             _notificationService = notificationService;
 
-            TeamName = team.Name;
-            SelectedIconSource = !string.IsNullOrEmpty(team.Icon) ? team.Icon : "cat.png";
-            SelectedTeamColor = team.TeamColor;
+            BoardName = board.Name;
+            SelectedIconSource = !string.IsNullOrEmpty(board.Icon) ? board.Icon : "cat.png";
 
             var iconToSelect = Icons.FirstOrDefault(i => i.Source == SelectedIconSource) ?? Icons.First();
             iconToSelect.IsSelected = true;
 
-            var colorToSelect = Colors.FirstOrDefault(c => AreColorsEqual(c.Color, SelectedTeamColor)) ?? Colors.First();
-            colorToSelect.IsSelected = true;
-            _teamService = teamService;
-        }
-
-        private bool AreColorsEqual(Color a, Color b)
-        {
-            return Math.Abs(a.Red - b.Red) < 0.01 &&
-                   Math.Abs(a.Green - b.Green) < 0.01 &&
-                   Math.Abs(a.Blue - b.Blue) < 0.01;
+            _boardService = boardService;
         }
 
         [RelayCommand(AllowConcurrentExecutions = false)]
         private async Task Modify()
         {
-            if (string.IsNullOrWhiteSpace(TeamName))
+            if (string.IsNullOrWhiteSpace(BoardName))
             {
                 HasNameError = true;
                 return;
             }
 
-            IsBusy = true; 
+            IsBusy = true;
             HasNameError = false;
 
-            var teamToUpdate = new UpdateTeamDto()
+            var boardToUpdate = new UpdateBoardDto()
             {
-                Name = TeamName,
+                Name = BoardName,
                 Icon = SelectedIconSource,
-                Color = SelectedTeamColor.ToHex()
             };
 
             try
             {
 
-                var success = await _teamService.UpdateTeamAsync(_teamToEdit.Id, teamToUpdate);
-                if (success) {
-                    _workspaceService.UpdateTeam(_teamToEdit.Id, teamToUpdate);
-                    RequestClose?.Invoke();
-                    _notificationService.Show(AppResources.TeamUpdatedSuccessfully);
-                } else
+                var success = await _boardService.UpdateBoardAsync(_boardToEdit.Id, boardToUpdate);
+
+                if (success)
                 {
-                    _notificationService.Show(AppResources.FailedToUpdateTeam, true);
+                    _workspaceService.UpdateBoard(_boardToEdit.Id, boardToUpdate);
+                    RequestClose?.Invoke();
+                    _notificationService.Show(AppResources.BoardUpdatedSuccessfully);
+                }
+                else
+                {
+                    _notificationService.Show(AppResources.FailedToUpdateBoard, true);
                 }
             }
             catch (Exception ex)
@@ -130,8 +108,9 @@ namespace kando_desktop.ViewModels.Popups
             finally
             {
                 IsBusy = false;
-            }   
+            }
         }
+
 
         [RelayCommand]
         private void Close() => RequestClose?.Invoke();
@@ -144,15 +123,7 @@ namespace kando_desktop.ViewModels.Popups
             SelectedIconSource = icon.Source;
         }
 
-        [RelayCommand]
-        private void SelectColor(ColorItem colorItem)
-        {
-            foreach (var item in Colors) item.IsSelected = false;
-            colorItem.IsSelected = true;
-            SelectedTeamColor = colorItem.Color;
-        }
-
-        partial void OnTeamNameChanged(string value)
+        partial void OnBoardNameChanged(string value)
         {
             if (!string.IsNullOrWhiteSpace(value)) HasNameError = false;
         }

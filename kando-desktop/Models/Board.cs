@@ -16,7 +16,7 @@ namespace kando_desktop.Models
         private string name;
 
         [ObservableProperty]
-        private ImageSource icon;
+        private string icon;
 
         [ObservableProperty]
         private Team teamName;

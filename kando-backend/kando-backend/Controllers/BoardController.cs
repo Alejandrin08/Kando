@@ -64,6 +64,26 @@ namespace kando_backend.Controllers
             }
         }
 
+        [HttpPut("{boardId}")]
+        public async Task<IActionResult> UpdateBoard(int boardId, [FromBody] UpdateBoardDto updateBoardDto)
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
+            try
+            {
+                var updatedBoard = await _boardService.UpdateBoardAsync(boardId, updateBoardDto, userId.Value);
+                if (updatedBoard == null)
+                {
+                    return NotFound(new { message = "Board not found or you do not have permission to update it." });
+                }
+                return Ok(updatedBoard);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal error while updating the board." });
+            }
+        }
+
         [HttpDelete("{boardId}")]
         public async Task<IActionResult> DeleteTeam(int boardId)
         {

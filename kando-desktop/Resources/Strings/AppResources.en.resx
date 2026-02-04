@@ -417,4 +417,10 @@
   <data name="FailedToDeleteBoard" xml:space="preserve">
     <value>Error deleting the board</value>
   </data>
+  <data name="FailedToUpdateBoard" xml:space="preserve">
+    <value>Error updating the board</value>
+  </data>
+  <data name="BoardUpdatedSuccessfully" xml:space="preserve">
+    <value>Board updated successfully</value>
+  </data>
 </root>

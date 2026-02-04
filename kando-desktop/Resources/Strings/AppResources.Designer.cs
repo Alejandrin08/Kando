@@ -133,6 +133,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tablero actualizado correctamente.
+        /// </summary>
+        public static string BoardUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("BoardUpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cancelar.
         /// </summary>
         public static string Cancel {
@@ -345,6 +354,15 @@ namespace kando_desktop.Resources.Strings {
         public static string FailedToDeleteTeam {
             get {
                 return ResourceManager.GetString("FailedToDeleteTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al actualizar el tablero.
+        /// </summary>
+        public static string FailedToUpdateBoard {
+            get {
+                return ResourceManager.GetString("FailedToUpdateBoard", resourceCulture);
             }
         }
         

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:kando_desktop"
+               x:Class="kando_desktop.Views.Popups.ModifyBoardPopup"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               xmlns:controls="clr-namespace:kando_desktop.Controls"
+               x:Name="Root"
+               Color="Transparent">
+    
+    <toolkit:Popup.Resources>
+        <Style x:Key="OuterSelectionStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="HeightRequest" Value="58" />
+            <Setter Property="WidthRequest" Value="58" />
+        </Style>
+    </toolkit:Popup.Resources>
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate1000}}"
+            WidthRequest="540"
+            HeightRequest="450"
+            VerticalOptions="Center"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=White, Dark=#263244}"
+            StrokeThickness="1"
+            Padding="25">
+
+        <Grid RowDefinitions="Auto, Auto, Auto, *">
+
+            <Grid Grid.Row="0" ColumnDefinitions="*, *">
+                <Label Text="{x:Static strings:AppResources.ModifyBoard}" 
+                       FontSize="20" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                       VerticalOptions="Center"/>
+                <ImageButton Source="close.png" Grid.Column="1" HeightRequest="30" WidthRequest="30"
+                             VerticalOptions="Center" HorizontalOptions="End" Background="Transparent"
+                             Command="{Binding CloseCommand}" local:CursorBehavior.Cursor="Hand"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.Icon}" FontSize="14" Grid.Row="0" Margin="0,0,0,8" TextColor="{StaticResource Slate400}"/>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Icons}" Grid.Row="1" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource OuterSelectionStyle}" local:CursorBehavior.Cursor="Hand">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectIconCommand, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Stroke" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="Stroke" Value="Transparent" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Border StrokeThickness="1" StrokeShape="RoundRectangle 8">
+                                        <Border.Triggers>
+                                            <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+                                                <Setter Property="Stroke" Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="False">
+                                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}" />
+                                                <Setter Property="Stroke" Value="{AppThemeBinding Light=#f3f4f6, Dark=#1d283a}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <Image Source="{Binding Source}" Aspect="AspectFit" Margin="8"/>
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0,15,0,0">
+                <Grid RowDefinitions="Auto, Auto, Auto">
+                    <Label Text="{x:Static strings:AppResources.BoardName}" FontSize="14" Grid.Row="0" Margin="0,0,0,4" TextColor="{StaticResource Slate400}"/>
+                    <Label Text="{x:Static strings:AppResources.FieldRequired}" Grid.Row="1" TextColor="#ef4444" FontSize="12" Margin="0,0,0,6" IsVisible="{Binding HasNameError}"/>
+                    <Border Grid.Row="2" Style="{StaticResource SimpleInputContainerStyle}">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference BoardNameEntry}, Path=IsFocused}" Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Blue500}"/>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#0f1729}"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Border" Binding="{Binding HasNameError}" Value="True">
+                                <Setter Property="Stroke" Value="#ef4444"/>
+                                <Setter Property="StrokeThickness" Value="1"/>
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <controls:BorderlessEntry x:Name="BoardNameEntry" Text="{Binding BoardName}" Placeholder="{x:Static strings:AppResources.EnterBoardName}" Style="{StaticResource CleanEntryStyle}" ReturnType="Go" ReturnCommand="{Binding ModifyCommand}"/>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Button Text="{x:Static strings:AppResources.SaveChanges}" Style="{StaticResource PrimaryButton}" Grid.Row="3" Margin="0,25,0,0" Command="{Binding ModifyCommand}" local:CursorBehavior.Cursor="Hand">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="True">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="False">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="False">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+    </Border>
+</toolkit:Popup>

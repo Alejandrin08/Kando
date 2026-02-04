@@ -20,6 +20,7 @@ namespace kando_desktop.Services.Contracts
         void CreateTeam(TeamResponseDto dto, UserSession currentUser);
         void CreateBoard(BoardResponseDto boardDto);
         void UpdateTeam(int teamId, UpdateTeamDto updateTeamDto);
+        void UpdateBoard(int boardId, UpdateBoardDto updateBoardDto);
         void DeleteTeam(Team team);
         void DeleteMemberTeam(Member member, Team team);
         void DeleteBoard(Board board);

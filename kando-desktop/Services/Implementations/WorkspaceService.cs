@@ -201,6 +201,14 @@ namespace kando_desktop.Services.Implementations
             }
         }
 
+        public void UpdateBoard(int boardId, UpdateBoardDto updateBoardDto)
+        {
+            var board = Boards.FirstOrDefault(b => b.Id == boardId);
+            if (board == null) return;
+            board.Name = updateBoardDto.Name;
+            board.Icon = updateBoardDto.Icon;
+        }
+
         public void DeleteTeam(Team team)
         {
             if (team == null) return;

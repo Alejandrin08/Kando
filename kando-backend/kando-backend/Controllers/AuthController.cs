@@ -22,7 +22,7 @@ namespace kando_backend.Controllers
             var result = await _authService.LoginAsync(request);
             if (result == null)
             {
-                return Unauthorized(new { message = "Credenciales inválidas." });
+                return Unauthorized(new { message = "Invalid credentials." });
             }
 
             return Ok(result);

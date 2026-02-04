@@ -109,7 +109,7 @@ namespace kando_desktop.ViewModels.Popups
                 }
 
             } catch (Exception ex) {
-                _notificationService.Show(AppResources.UnexpectedError);
+                _notificationService.Show(AppResources.UnexpectedError, true);
             } finally
             {
                 IsBusy = false;

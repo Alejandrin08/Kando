@@ -10,6 +10,8 @@ namespace kando_backend.Services.Interfaces
 
         Task<List<BoardResponseDto>> GetBoardsUserAsync(int ownerId);
 
+        Task<bool> UpdateBoardAsync(int boardId, UpdateBoardDto updateBoardDto, int ownerId);
+
         Task<bool> DeleteBoardAsync(int boardId, int userId);
     }
 }

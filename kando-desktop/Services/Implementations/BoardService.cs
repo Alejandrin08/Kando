@@ -63,5 +63,18 @@ namespace kando_desktop.Services.Implementations
             }
             return new List<BoardResponseDto>();
         }
+
+        public async Task<bool> UpdateBoardAsync(int boardId, UpdateBoardDto updateBoardDto)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"board/{boardId}", updateBoardDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Error API: {errorContent}");
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace kando_desktop.ViewModels.Popups
         }
 
         [RelayCommand]
-        private void EditTeam()
+        private void EditBoard()
         {
             RequestClose?.Invoke();
             RequestEditBoard?.Invoke(_board);

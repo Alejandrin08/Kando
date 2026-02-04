@@ -52,7 +52,7 @@ namespace kando_desktop.ViewModels.Popups
             }
             catch (Exception)
             {
-                _notificationService.Show(AppResources.UnexpectedError);
+                _notificationService.Show(AppResources.UnexpectedError, true);
             }
             finally
             {

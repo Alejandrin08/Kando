@@ -127,5 +127,23 @@ namespace kando_backend.Services.Implementations
 
             return boards;
         }
+
+        public async Task<bool> UpdateBoardAsync(int boardId, UpdateBoardDto updateBoardDto, int ownerId)
+        {
+            var existingBoard = await _context.Boards
+                .Include(b => b.Team)
+                .FirstOrDefaultAsync(b => b.Id == boardId &&
+                                          b.Team.OwnerId == ownerId &&
+                                          (b.IsDeleted == false || b.IsDeleted == null));
+            if (existingBoard == null)
+            {
+                return false;
+            }
+
+            existingBoard.Name = updateBoardDto.Name;
+            existingBoard.Icon = updateBoardDto.Icon;
+            await _context.SaveChangesAsync();
+            return true;    
+        }
     }
 }

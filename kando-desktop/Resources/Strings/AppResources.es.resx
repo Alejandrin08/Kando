@@ -417,4 +417,10 @@
   <data name="FailedToDeleteBoard" xml:space="preserve">
     <value>Error al eliminar el tablero</value>
   </data>
+  <data name="FailedToUpdateBoard" xml:space="preserve">
+    <value>Error al actualizar el tablero</value>
+  </data>
+  <data name="BoardUpdatedSuccessfully" xml:space="preserve">
+    <value>Tablero actualizado correctamente</value>
+  </data>
 </root>

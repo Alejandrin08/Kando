@@ -37,6 +37,11 @@ public partial class BoardCardView : ContentView
 
             viewModel.RequestClose = () => popup.Close();
 
+            viewModel.RequestEditBoard = (selectedBoard) =>
+            {
+                ShowModifyBoardPopup(selectedBoard);
+            };
+
             viewModel.RequestDeleteBoard = (selectedBoard) =>
             {
                 ShowDeleteBoardPopup(selectedBoard);
@@ -46,6 +51,31 @@ public partial class BoardCardView : ContentView
             currentPage.ShowPopup(popup);
         }
     }
+
+    private void ShowModifyBoardPopup(Board board)
+    {
+        var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+        var notificationService = ServiceHelper.GetService<INotificationService>();
+        var boardService = ServiceHelper.GetService<IBoardService>();
+
+        if (workspaceService != null && notificationService != null)
+        {
+            var viewModel = new ModifyBoardPopupViewModel(
+                board,
+                workspaceService,
+                notificationService,
+                boardService);
+
+            var popup = new ModifyBoardPopup();
+            popup.BindingContext = viewModel;
+
+            viewModel.RequestClose = () => popup.Close();
+
+            Page currentPage = Shell.Current.CurrentPage ?? App.Current.MainPage;
+            currentPage.ShowPopup(popup);
+        }
+    }
+
 
     private void ShowDeleteBoardPopup(Board board)
     {
