@@ -402,4 +402,10 @@
   <data name="TeamDeleteSuccessfully" xml:space="preserve">
     <value>Team deleted successfully </value>
   </data>
+  <data name="ModifyBoard" xml:space="preserve">
+    <value>Modify Board</value>
+  </data>
+  <data name="DeleteBoard" xml:space="preserve">
+    <value>Delete Board</value>
+  </data>
 </root>

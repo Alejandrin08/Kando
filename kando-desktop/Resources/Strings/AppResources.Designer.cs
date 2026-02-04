@@ -196,6 +196,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Eliminar Tablero.
+        /// </summary>
+        public static string DeleteBoard {
+            get {
+                return ResourceManager.GetString("DeleteBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Eliminar Equipo.
         /// </summary>
         public static string DeleteTeam {
@@ -480,6 +489,15 @@ namespace kando_desktop.Resources.Strings {
         public static string MemberRemovedFromTeam {
             get {
                 return ResourceManager.GetString("MemberRemovedFromTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Modificar Tablero.
+        /// </summary>
+        public static string ModifyBoard {
+            get {
+                return ResourceManager.GetString("ModifyBoard", resourceCulture);
             }
         }
         

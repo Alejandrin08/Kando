@@ -402,4 +402,10 @@
   <data name="TeamDeleteSuccessfully" xml:space="preserve">
     <value>Equipo eliminado correctamente</value>
   </data>
+  <data name="ModifyBoard" xml:space="preserve">
+    <value>Modificar Tablero</value>
+  </data>
+  <data name="DeleteBoard" xml:space="preserve">
+    <value>Eliminar Tablero</value>
+  </data>
 </root>

@@ -4,10 +4,10 @@
                xmlns:local="clr-namespace:kando_desktop"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
-               x:Class="kando_desktop.Views.Popups.TeamMenuPopup"
+               x:Class="kando_desktop.Views.Popups.BoardMenuPopup"
                Color="Transparent"
                CanBeDismissedByTappingOutsideOfPopup="True">
-
+    
     <Border StrokeShape="RoundRectangle 12"
             StrokeThickness="1"
             BackgroundColor="{AppThemeBinding Light={StaticResource MenuBgLight}, Dark={StaticResource MenuBgDark}}"
@@ -15,8 +15,8 @@
             Padding="4"
             Margin="0"
             WidthRequest="180" 
-            HeightRequest="120"
-            TranslationY="155"
+            HeightRequest="80"
+            TranslationY="120"
             TranslationX="-80"
             HorizontalOptions="Start">
 
@@ -28,7 +28,7 @@
 
             <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="EditBtn" local:CursorBehavior.Cursor="Hand">
                 <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding EditTeamCommand}"/>
+                    <TapGestureRecognizer Command="{Binding EditBoardCommand}"/>
                 </Border.GestureRecognizers>
 
                 <Grid ColumnDefinitions="24, *">
@@ -46,49 +46,13 @@
                     </Image>
 
                     <Label Grid.Column="1" 
-                           Text="{x:Static strings:AppResources.ModifyTeam}" 
+                           Text="{x:Static strings:AppResources.ModifyBoard}" 
                            Style="{StaticResource MenuItemLabelStyle}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference EditBtn}, Path=BackgroundColor}" Value="#0b64f4">
                                 <Setter Property="TextColor" Value="White"/>
                             </DataTrigger>
                             <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference EditBtn}, Path=BackgroundColor}" Value="#3c83f6">
-                                <Setter Property="TextColor" Value="Black"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </Grid>
-            </Border>
-
-            <Border Style="{StaticResource MenuItemBorderStyle}" x:Name="RemoveBtn" local:CursorBehavior.Cursor="Hand">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RemoveMemberCommand}"/>
-                </Border.GestureRecognizers>
-
-                <Grid ColumnDefinitions="24, *">
-                    <Image Source="{AppThemeBinding Light=delete_member_black.png, Dark=delete_member_white.png}"
-                           HeightRequest="16" WidthRequest="16"
-                           HorizontalOptions="Center" VerticalOptions="Center">
-                        <Image.Triggers>
-                            <DataTrigger TargetType="Image" Binding="{Binding Source={x:Reference RemoveBtn}, Path=BackgroundColor}" Value="#0b64f4">
-                                <Setter Property="Source" Value="delete_member_white.png"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Image" Binding="{Binding Source={x:Reference RemoveBtn}, Path=BackgroundColor}" Value="#3c83f6">
-                                <Setter Property="Source" Value="delete_member_black.png"/>
-                            </DataTrigger>
-                        </Image.Triggers>
-                    </Image>
-
-                    <Label Grid.Column="1" 
-                           Text="{x:Static strings:AppResources.RemoveMember}"
-                           Style="{StaticResource MenuItemLabelStyle}"
-                           VerticalOptions="Center"
-                           VerticalTextAlignment="Center">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference RemoveBtn}, Path=BackgroundColor}" Value="#0b64f4">
-                                <Setter Property="TextColor" Value="White"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference RemoveBtn}, Path=BackgroundColor}" Value="#3c83f6">
                                 <Setter Property="TextColor" Value="Black"/>
                             </DataTrigger>
                         </Label.Triggers>
@@ -120,7 +84,7 @@
                     </Image>
 
                     <Label Grid.Column="1" 
-                           Text="{x:Static strings:AppResources.DeleteTeam}"
+                           Text="{x:Static strings:AppResources.DeleteBoard}"
                            Style="{StaticResource MenuItemDangerLabelStyle}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference DeleteBtn}, Path=BackgroundColor}" Value="#0b64f4">

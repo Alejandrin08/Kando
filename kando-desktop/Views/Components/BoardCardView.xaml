@@ -45,7 +45,11 @@
                        VerticalOptions="Start"
                        Margin="0,-10,10,0"
                        Opacity="0"
-                       local:CursorBehavior.Cursor="Hand"/>
+                       local:CursorBehavior.Cursor="Hand">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnOptionsTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
 
             <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
