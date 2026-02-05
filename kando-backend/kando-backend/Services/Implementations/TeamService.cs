@@ -117,34 +117,46 @@ namespace kando_backend.Services.Implementations
         public async Task<bool> InviteMemberAsync(int teamId, string emailToInvite, int ownerId)
         {
             var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == teamId && t.OwnerId == ownerId);
-            if (team == null) throw new Exception("Team not found or unauthorized.");
+            if (team == null) throw new UnauthorizedAccessException("Team not found or unauthorized.");
 
             var userToInvite = await _context.Users.FirstOrDefaultAsync(u => u.Email == emailToInvite);
             if (userToInvite == null)
             {
-                throw new Exception("User not found via email.");
+                throw new KeyNotFoundException("User not found.");
             }
 
-            if (userToInvite.Id == ownerId) throw new Exception("You cannot invite yourself.");
+            if (userToInvite.Id == ownerId) throw new InvalidOperationException("Self invite.");
 
             var existingMembership = await _context.TeamMembers
                 .FirstOrDefaultAsync(tm => tm.TeamId == teamId && tm.UserId == userToInvite.Id);
 
             if (existingMembership != null)
             {
-                if (existingMembership.Status == "Active") throw new Exception("User is already in the team.");
-                if (existingMembership.Status == "Pending") throw new Exception("Invitation already sent.");
-            }
+                if (existingMembership.Status == "Active")
+                    throw new InvalidOperationException("Already active.");
 
-            var newMember = new TeamMember
+                if (existingMembership.Status == "Pending")
+                    throw new InvalidOperationException("Already pending.");
+
+                if (existingMembership.Status == "Rejected" || existingMembership.Status == "Removed")
+                {
+                    existingMembership.Status = "Pending"; 
+                    existingMembership.JoinedAt = null;   
+                    existingMembership.RemovedAt = null;
+                }
+            }
+            else
             {
-                UserId = userToInvite.Id,
-                TeamId = teamId,
-                Role = "Member",       
-                Status = "Pending",    
-                JoinedAt = null        
-            };
-            _context.TeamMembers.Add(newMember);
+                var newMember = new TeamMember
+                {
+                    UserId = userToInvite.Id,
+                    TeamId = teamId,
+                    Role = "Member",
+                    Status = "Pending",
+                    JoinedAt = null
+                };
+                _context.TeamMembers.Add(newMember);
+            }
 
             var notification = new Notification
             {

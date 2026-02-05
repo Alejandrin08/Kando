@@ -108,19 +108,9 @@
                         <Setter Property="Opacity" Value="0.5"/>
                     </DataTrigger>
 
-                    <DataTrigger TargetType="Button" Binding="{Binding HasNameError}" Value="False">
-                        <Setter Property="IsEnabled" Value="True"/>
-                        <Setter Property="Opacity" Value="1.0"/>
-                    </DataTrigger>
-
                     <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
                         <Setter Property="IsEnabled" Value="False"/>
                         <Setter Property="Opacity" Value="0.5"/>
-                    </DataTrigger>
-
-                    <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="False">
-                        <Setter Property="IsEnabled" Value="True"/>
-                        <Setter Property="Opacity" Value="1.0"/>
                     </DataTrigger>
                 </Button.Triggers>
             </Button>

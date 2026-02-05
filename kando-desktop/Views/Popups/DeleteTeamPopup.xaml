@@ -10,12 +10,12 @@
                Color="Transparent"
                x:Name="Root">
 
-    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource MenuBgDark}}"
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate1000}}"
             WidthRequest="550" 
             HeightRequest="175"
             VerticalOptions="Center"
             StrokeShape="RoundRectangle 12"
-            Stroke="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource BorderDark}}"
+            Stroke="{AppThemeBinding Light={StaticResource White}, Dark=#263244}"
             StrokeThickness="1" 
             Padding="25">
 

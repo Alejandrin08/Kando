@@ -151,6 +151,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No puedes invitarte a ti mismo.
+        /// </summary>
+        public static string CannotInviteSelf {
+            get {
+                return ResourceManager.GetString("CannotInviteSelf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cerrar.
         /// </summary>
         public static string Close {
@@ -421,6 +430,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se pudo enviar la invitación.
+        /// </summary>
+        public static string GenericInviteError {
+            get {
+                return ResourceManager.GetString("GenericInviteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a GitHub.
         /// </summary>
         public static string GitHubBtn {
@@ -480,6 +498,33 @@ namespace kando_desktop.Resources.Strings {
         public static string InvalidPassword {
             get {
                 return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha enviado una invitación a este usuario.
+        /// </summary>
+        public static string InvitationAlreadySent {
+            get {
+                return ResourceManager.GetString("InvitationAlreadySent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invitación reenviada correctamente.
+        /// </summary>
+        public static string InvitationResent {
+            get {
+                return ResourceManager.GetString("InvitationResent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invitación enviada correctamente.
+        /// </summary>
+        public static string InvitationSentSuccessfully {
+            get {
+                return ResourceManager.GetString("InvitationSentSuccessfully", resourceCulture);
             }
         }
         
@@ -930,6 +975,24 @@ namespace kando_desktop.Resources.Strings {
         public static string UnexpectedError {
             get {
                 return ResourceManager.GetString("UnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El usuario ya pertenece al equipo.
+        /// </summary>
+        public static string UserAlreadyInTeam {
+            get {
+                return ResourceManager.GetString("UserAlreadyInTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se encontró un usuario con este correo.
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         

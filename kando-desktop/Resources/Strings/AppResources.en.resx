@@ -429,4 +429,25 @@
   <data name="SendInvitation" xml:space="preserve">
     <value>Send Invitation</value>
   </data>
+  <data name="InvitationSentSuccessfully" xml:space="preserve">
+    <value>Invitation sent successfully</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found with this email</value>
+  </data>
+  <data name="UserAlreadyInTeam" xml:space="preserve">
+    <value>User is already in the team</value>
+  </data>
+  <data name="InvitationAlreadySent" xml:space="preserve">
+    <value>&#x8;Invitation already pending</value>
+  </data>
+  <data name="CannotInviteSelf" xml:space="preserve">
+    <value>You cannot invite yourself</value>
+  </data>
+  <data name="InvitationResent" xml:space="preserve">
+    <value>Invitation resent successfully</value>
+  </data>
+  <data name="GenericInviteError" xml:space="preserve">
+    <value>Could not send invitation</value>
+  </data>
 </root>

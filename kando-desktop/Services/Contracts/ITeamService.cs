@@ -17,5 +17,7 @@ namespace kando_desktop.Services.Contracts
         Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto); 
 
         Task<bool> DeleteTeamAsync(int teamId);
+
+        Task<string?> InviteMemberAsync(int teamId, string email);
     }
 }

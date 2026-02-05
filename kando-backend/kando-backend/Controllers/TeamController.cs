@@ -99,6 +99,10 @@ namespace kando_backend.Controllers
                 }
                 return NoContent();
             }
+            catch (KeyNotFoundException ex) 
+            {
+                return NotFound(new { message = ex.Message }); 
+            }
             catch (Exception)
             {
                 return StatusCode(500, new { message = "Internal error while deleting the team." });
@@ -114,11 +118,23 @@ namespace kando_backend.Controllers
             try
             {
                 await _teamService.InviteMemberAsync(request.TeamId, request.EmailToInvite, userId.Value);
-                return Ok(new { message = "Invitation sent successfully." });
+                return Ok(new { message = "Invitation sent." });
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException)
             {
-                return BadRequest(new { message = ex.Message });
+                return NotFound(); 
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid(); 
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { error = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
             }
         }
     }

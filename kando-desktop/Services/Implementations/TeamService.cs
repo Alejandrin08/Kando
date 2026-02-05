@@ -1,5 +1,6 @@
 ﻿using kando_desktop.DTOs.Requests;
 using kando_desktop.DTOs.Responses;
+using kando_desktop.Resources.Strings;
 using kando_desktop.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,35 @@ namespace kando_desktop.Services.Implementations
             }
 
             return true;
+        }
+
+        public async Task<string?> InviteMemberAsync(int teamId, string email)
+        {
+            var requestDto = new InviteMemberRequestDto { TeamId = teamId, EmailToInvite = email };
+            var response = await _httpClient.PostAsJsonAsync("team/invite", requestDto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return AppResources.UserNotFound;
+            }
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                if (errorContent.Contains("Self invite")) return AppResources.CannotInviteSelf;
+                if (errorContent.Contains("Already active")) return AppResources.UserAlreadyInTeam;
+                if (errorContent.Contains("Already pending")) return AppResources.InvitationAlreadySent;
+
+                return AppResources.UserAlreadyInTeam; 
+            }
+
+            return AppResources.GenericInviteError; 
         }
     }
 }
