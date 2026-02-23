@@ -450,4 +450,10 @@
   <data name="GenericInviteError" xml:space="preserve">
     <value>No se pudo enviar la invitación</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>Sin Notificaciones</value>
+  </data>
 </root>

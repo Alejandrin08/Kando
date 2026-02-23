@@ -26,6 +26,12 @@ namespace kando_desktop.ViewModels.ContentPages
         [ObservableProperty]
         private string userInitials;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HasNotifications))]
+        private int notificationCount = 0;
+
+        public bool HasNotifications => NotificationCount > 0;
+
         public BaseViewModel(ISessionService sessionService)
         {
             _sessionService = sessionService;
@@ -41,6 +47,13 @@ namespace kando_desktop.ViewModels.ContentPages
             UserName = _sessionService.CurrentUser?.UserName ?? string.Empty;
             UserEmail = _sessionService.CurrentUser?.Email ?? string.Empty;
             UserInitials = _sessionService.CurrentUser?.UserInitials ?? "YO";
+
+            LoadFakeNotifications();
+        }
+
+        public void LoadFakeNotifications()
+        {
+            NotificationCount = 5;
         }
 
         [RelayCommand]
@@ -76,6 +89,7 @@ namespace kando_desktop.ViewModels.ContentPages
             OnPropertyChanged(nameof(DownIconSource));
             OnPropertyChanged(nameof(ErrorIconSource));
             OnPropertyChanged(nameof(CheckIconSource));
+            OnPropertyChanged(nameof(BellIconSource));
         }
 
         [RelayCommand]
@@ -94,6 +108,17 @@ namespace kando_desktop.ViewModels.ContentPages
             Shell.Current.CurrentPage.ShowPopup(popup);
         }
 
+        [RelayCommand]
+        private void ShowNotifications(object anchor)
+        {
+            var viewModel = new ContainerNotificationsPopupViewModel();
+            var popup = new ContainerNotificationsPopup();
+            popup.BindingContext = viewModel;
+            popup.Anchor = anchor as View;
+            viewModel.RequestClose = () => popup.Close();
+            Shell.Current.CurrentPage.ShowPopup(popup);
+        }
+
         public string ThemeIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "sun.png" : "moon.png";
         public string LanguageIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "language_light.png" : "language_dark.png";
         public string GoogleIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "google_dark.png" : "google_light.png";
@@ -104,5 +129,6 @@ namespace kando_desktop.ViewModels.ContentPages
         public string DownIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "down_white.png" : "down_black.png";
         public string ErrorIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "error_dark.png" : "error_light.png";
         public string CheckIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "check_dark.png" : "check_light.png";
+        public string BellIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "bell_light.png" : "bell_dark.png";
     }
 }

@@ -673,6 +673,15 @@ namespace kando_desktop.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Sin Notificaciones.
+        /// </summary>
+        public static string NoNotifications {
+            get {
+                return ResourceManager.GetString("NoNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No hay equipos.
         /// </summary>
         public static string NoTeams {
@@ -687,6 +696,15 @@ namespace kando_desktop.Resources.Strings {
         public static string NoTeamsDescription {
             get {
                 return ResourceManager.GetString("NoTeamsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Notificaciones.
+        /// </summary>
+        public static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
             }
         }
         

@@ -27,7 +27,7 @@
                             <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.05" />
                         </Border.Shadow>
 
-                        <Grid ColumnDefinitions="Auto, *, Auto, Auto, Auto, Auto" ColumnSpacing="15">
+                        <Grid ColumnDefinitions="Auto, *, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="15">
 
                             <HorizontalStackLayout Grid.Column="0" Spacing="10" VerticalOptions="Center">
                                 <Image Source="kando_icon.png" Aspect="AspectFit"/>
@@ -114,6 +114,44 @@
                             </Border>
 
                             <Border Grid.Column="5" 
+                                    x:Name="NotificationBtn" 
+                                    Style="{StaticResource InputBorderStyle}"
+                                    Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
+                                    Padding="5"
+                                    HeightRequest="36"
+                                    WidthRequest="36"
+                                    StrokeShape="RoundRectangle 8"
+                                    local:CursorBehavior.Cursor="Hand">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ShowNotificationsCommand, Source={RelativeSource TemplatedParent}}"
+                                                          CommandParameter="{Binding Source={x:Reference NotificationBtn}}"/>
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="{Binding BindingContext.BellIconSource, Source={RelativeSource TemplatedParent}}" 
+                                           HeightRequest="20" WidthRequest="20"
+                                           VerticalOptions="Center" HorizontalOptions="Center"/>
+
+                                    <Border BackgroundColor="Red"
+                                            Stroke="Transparent"
+                                            StrokeShape="RoundRectangle 10"
+                                            HeightRequest="14"
+                                            WidthRequest="14"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="-3"  
+                                            IsVisible="{Binding BindingContext.HasNotifications, Source={RelativeSource TemplatedParent}}">
+                                        <Label Text="{Binding BindingContext.NotificationCount, Source={RelativeSource TemplatedParent}}"
+                                               TextColor="White"
+                                               FontSize="9"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="6" 
                                     x:Name="AvatarBorder"
                                     StrokeShape="RoundRectangle 18" 
                                     HeightRequest="36" WidthRequest="36"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="kando_desktop.Views.Popups.ContainerNotificationsPopup"
+               xmlns:local="clr-namespace:kando_desktop"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+               xmlns:selectors="clr-namespace:kando_desktop.Selectors"
+               Color="Transparent"
+               CanBeDismissedByTappingOutsideOfPopup="True">
+
+    <Border StrokeShape="RoundRectangle 12"
+            StrokeThickness="1"
+            BackgroundColor="{AppThemeBinding Light={StaticResource MenuBgLight}, Dark={StaticResource MenuBgDark}}"
+            Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource MenuBorderDark}}"
+            Padding="0" 
+            WidthRequest="350" 
+            HeightRequest="350"
+            TranslationY="5"
+            TranslationX="-165"
+            HorizontalOptions="End"
+            VerticalOptions="Start">
+
+        <Border.Shadow>
+            <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.2"/>
+        </Border.Shadow>
+
+        <Grid RowDefinitions="Auto, Auto, *">
+
+            <Label Grid.Row="0" 
+                   Text="{x:Static strings:AppResources.Notifications}"
+                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   Padding="15,12"/>
+
+            <BoxView Grid.Row="1" 
+                     HeightRequest="1" 
+                     Color="{AppThemeBinding Light={StaticResource MenuSeparatorLight}, Dark={StaticResource MenuSeparatorDark}}"
+                     VerticalOptions="End"/>
+
+            <CollectionView Grid.Row="2"
+                            ItemsSource="{Binding Notifications}"
+                            ItemTemplate="{StaticResource NotificationSelector}"
+                            SelectionMode="None"
+                            VerticalScrollBarVisibility="Default">
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Image Source="{AppThemeBinding Light=bell_dark.png, Dark=bell_light.png}" 
+                               WidthRequest="40" HeightRequest="40" Opacity="0.5"/>
+                        <Label Text="{x:Static strings:AppResources.NoNotifications}"
+                               TextColor="{StaticResource Slate400}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+        </Grid>
+    </Border>
+</toolkit:Popup>
