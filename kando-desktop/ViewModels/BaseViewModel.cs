@@ -5,6 +5,7 @@ using kando_desktop.Resources.Strings;
 using kando_desktop.Services.Contracts;
 using kando_desktop.ViewModels.Popups;
 using kando_desktop.Views.Popups;
+using System.Collections.Specialized;
 using System.Globalization;
 
 namespace kando_desktop.ViewModels.ContentPages
@@ -48,12 +49,37 @@ namespace kando_desktop.ViewModels.ContentPages
             UserEmail = _sessionService.CurrentUser?.Email ?? string.Empty;
             UserInitials = _sessionService.CurrentUser?.UserInitials ?? "YO";
 
-            LoadFakeNotifications();
+            if (_sessionService.CurrentUser != null)
+            {
+                InitializeNotificationCounter();
+            }
         }
 
-        public void LoadFakeNotifications()
+        private void InitializeNotificationCounter()
         {
-            NotificationCount = 5;
+            var notificationService = Shell.Current.Handler?.MauiContext?.Services.GetService<INotificationService>();
+
+            if (notificationService != null)
+            {
+                NotificationCount = notificationService.RealTimeNotifications.Count;
+
+                notificationService.RealTimeNotifications.CollectionChanged -= OnNotificationsChanged;
+                notificationService.RealTimeNotifications.CollectionChanged += OnNotificationsChanged;
+            }
+        }
+
+        private void OnNotificationsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var notificationService = Shell.Current.Handler?.MauiContext?.Services.GetService<INotificationService>();
+                if (notificationService != null)
+                {
+                    NotificationCount = notificationService.RealTimeNotifications.Count;
+                    OnPropertyChanged(nameof(NotificationCount));
+                    OnPropertyChanged(nameof(HasNotifications));
+                }
+            });
         }
 
         [RelayCommand]
@@ -111,7 +137,8 @@ namespace kando_desktop.ViewModels.ContentPages
         [RelayCommand]
         private void ShowNotifications(object anchor)
         {
-            var viewModel = new ContainerNotificationsPopupViewModel();
+            var notificationService = Shell.Current.Handler.MauiContext.Services.GetService<INotificationService>();
+            var viewModel = new ContainerNotificationsPopupViewModel(notificationService);
             var popup = new ContainerNotificationsPopup();
             popup.BindingContext = viewModel;
             popup.Anchor = anchor as View;

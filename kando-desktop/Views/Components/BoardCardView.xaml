@@ -9,60 +9,118 @@
              xmlns:vm="clr-namespace:kando_desktop.ViewModels.Components"
              x:DataType="vm:BoardCardViewModel">
 
-    <ContentView.Resources>
-        <converters:IntToProgressConverter x:Key="IntToProgressConverter"/>
-    </ContentView.Resources>
+        <ContentView.Resources>
+                <converters:IntToProgressConverter x:Key="IntToProgressConverter"/>
+        </ContentView.Resources>
 
-    <Border Style="{StaticResource InteractiveCardStyle}" HeightRequest="200" WidthRequest="280" Margin="0,0,20,20">
-        <Border.GestureRecognizers>
-            <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
-        </Border.GestureRecognizers>
+        <Border Style="{StaticResource InteractiveCardStyle}"
+                HeightRequest="200"
+                WidthRequest="280"
+                Margin="0,0,20,20">
+                <Border.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnPointerEntered"
+                                                  PointerExited="OnPointerExited"/>
+                </Border.GestureRecognizers>
 
-        <Grid RowDefinitions="Auto, *, Auto, Auto" Padding="20">
-            <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
-                <Border Grid.Column="0" StrokeShape="RoundRectangle 12" HeightRequest="45" WidthRequest="45" BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1f2937}" StrokeThickness="0">
-                    <Image Source="{Binding Board.Icon}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="25" HeightRequest="25"/>
-                </Border>
+                <Grid RowDefinitions="Auto, *, Auto, Auto"
+                      Padding="20">
+                        <Grid Grid.Row="0"
+                              ColumnDefinitions="Auto, *">
+                                <Border Grid.Column="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        HeightRequest="45"
+                                        WidthRequest="45"
+                                        BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1f2937}"
+                                        StrokeThickness="0">
+                                        <Image Source="{Binding Board.Icon}"
+                                               Aspect="AspectFit"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               WidthRequest="25"
+                                               HeightRequest="25"/>
+                                </Border>
 
-                <Label x:Name="ThreeDotsLabel" Grid.Column="1" Text="..." TextColor="{StaticResource Slate400}" FontSize="24" HorizontalOptions="End" VerticalOptions="Start" Margin="0,-10,10,0" Opacity="0" local:CursorBehavior.Cursor="Hand">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenOptionsCommand}" CommandParameter="{x:Reference ThreeDotsLabel}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </Grid>
+                                <Label x:Name="ThreeDotsLabel"
+                                       Grid.Column="1"
+                                       Text="..."
+                                       TextColor="{StaticResource Slate400}"
+                                       FontSize="24"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Start"
+                                       Margin="0,-10,10,0"
+                                       Opacity="0"
+                                       local:CursorBehavior.Cursor="Hand">
+                                        <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenOptionsCommand}"
+                                                                      CommandParameter="{x:Reference ThreeDotsLabel}"/>
+                                        </Label.GestureRecognizers>
+                                </Label>
+                        </Grid>
 
-            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
-                <Label Text="{Binding Board.Name}" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" FontSize="16" LineBreakMode="TailTruncation"/>
+                        <VerticalStackLayout Grid.Row="1"
+                                             VerticalOptions="Center">
+                                <Label Text="{Binding Board.Name}"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                                       FontSize="16"
+                                       LineBreakMode="TailTruncation"/>
 
-                <HorizontalStackLayout Spacing="8">
-                    <Border HeightRequest="8" WidthRequest="8" StrokeShape="RoundRectangle 10" StrokeThickness="0" VerticalOptions="Center"
-                            BackgroundColor="{Binding Board.TeamName.TeamColor}"/>
+                                <HorizontalStackLayout Spacing="8">
+                                        <Border HeightRequest="8"
+                                                WidthRequest="8"
+                                                StrokeShape="RoundRectangle 10"
+                                                StrokeThickness="0"
+                                                VerticalOptions="Center"
+                                                BackgroundColor="{Binding Board.TeamName.TeamColor}"/>
 
-                    <Label Text="{Binding Board.TeamName.Name}" FontSize="12" VerticalOptions="Center" TextColor="{StaticResource Slate400}"/>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                                        <Label Text="{Binding Board.TeamName.Name}"
+                                               FontSize="12"
+                                               VerticalOptions="Center"
+                                               TextColor="{StaticResource Slate400}"/>
+                                </HorizontalStackLayout>
+                        </VerticalStackLayout>
 
-            <Grid Grid.Row="2" ColumnDefinitions="Auto, *" Margin="0,0,0,5">
-                <Label Text="{x:Static strings:AppResources.Progress}" FontSize="12" VerticalOptions="Center" TextColor="{StaticResource Slate400}"/>
+                        <Grid Grid.Row="2"
+                              ColumnDefinitions="Auto, *"
+                              Margin="0,0,0,5">
+                                <Label Text="{x:Static strings:AppResources.Progress}"
+                                       FontSize="12"
+                                       VerticalOptions="Center"
+                                       TextColor="{StaticResource Slate400}"/>
 
-                <Label Text="{Binding Board.TotalTaskPorcentage, StringFormat='{}{0:P0}'}" Grid.Column="1" FontSize="12" HorizontalOptions="End" VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
-            </Grid>
+                                <Label Text="{Binding Board.TotalTaskPorcentage, StringFormat='{}{0:P0}'}"
+                                       Grid.Column="1"
+                                       FontSize="12"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
+                        </Grid>
 
-            <VerticalStackLayout Grid.Row="3" Spacing="8">
-                <ProgressBar Progress="{Binding Board.TotalTaskPorcentage}" HeightRequest="8" ProgressColor="{StaticResource Blue500}" BackgroundColor="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource Slate700}}"/>
+                        <VerticalStackLayout Grid.Row="3"
+                                             Spacing="8">
+                                <ProgressBar Progress="{Binding Board.TotalTaskPorcentage}"
+                                             HeightRequest="8"
+                                             ProgressColor="{StaticResource Blue500}"
+                                             BackgroundColor="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource Slate700}}"/>
 
-                <Label FontSize="12" VerticalOptions="Center" TextColor="{StaticResource Slate400}">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{Binding Board.CompletedTasks}" TextColor="{StaticResource Slate400}"/>
-                            <Span Text="/" TextColor="{StaticResource Slate400}"/>
-                            <Span Text="{Binding Board.TotalTasks}" TextColor="{StaticResource Slate400}" />
-                            <Span Text=" " />
-                            <Span Text="{x:Static strings:AppResources.Tasks}"  TextColor="{StaticResource Slate400}"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </VerticalStackLayout>
-        </Grid>
-    </Border>
+                                <Label FontSize="12"
+                                       VerticalOptions="Center"
+                                       TextColor="{StaticResource Slate400}">
+                                        <Label.FormattedText>
+                                                <FormattedString>
+                                                        <Span Text="{Binding Board.CompletedTasks}"
+                                                              TextColor="{StaticResource Slate400}"/>
+                                                        <Span Text="/"
+                                                              TextColor="{StaticResource Slate400}"/>
+                                                        <Span Text="{Binding Board.TotalTasks}"
+                                                              TextColor="{StaticResource Slate400}"/>
+                                                        <Span Text=" "/>
+                                                        <Span Text="{x:Static strings:AppResources.Tasks}"
+                                                              TextColor="{StaticResource Slate400}"/>
+                                                </FormattedString>
+                                        </Label.FormattedText>
+                                </Label>
+                        </VerticalStackLayout>
+                </Grid>
+        </Border>
 </ContentView>

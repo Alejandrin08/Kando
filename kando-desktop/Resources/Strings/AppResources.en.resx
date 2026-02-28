@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,341 +119,506 @@
   </resheader>
   <data name="AppTitle" xml:space="preserve">
     <value>Kando</value>
+    <comment/>
   </data>
   <data name="SloganLine1" xml:space="preserve">
     <value>Organize your work,</value>
+    <comment/>
   </data>
   <data name="SloganLine2" xml:space="preserve">
     <value>amplify your impact.</value>
+    <comment/>
   </data>
   <data name="SubSlogan" xml:space="preserve">
     <value>The modern project management tool</value>
+    <comment/>
   </data>
   <data name="WelcomeTitle" xml:space="preserve">
     <value>Welcome back!</value>
+    <comment/>
   </data>
   <data name="WelcomeSubtitle" xml:space="preserve">
     <value>Enter your credentials</value>
+    <comment/>
   </data>
   <data name="EmailLabel" xml:space="preserve">
     <value>Email</value>
+    <comment/>
   </data>
   <data name="EmailPlaceholder" xml:space="preserve">
     <value>name@example.com</value>
+    <comment/>
   </data>
   <data name="PasswordLabel" xml:space="preserve">
     <value>Password</value>
+    <comment/>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
+    <comment/>
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Sign In</value>
+    <comment/>
   </data>
   <data name="OrContinueWith" xml:space="preserve">
     <value>Or continue with</value>
+    <comment/>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Don't have an account?</value>
+    <comment/>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Sign up</value>
+    <comment/>
   </data>
   <data name="GoogleBtn" xml:space="preserve">
     <value>Google</value>
+    <comment/>
   </data>
   <data name="GitHubBtn" xml:space="preserve">
     <value>GitHub</value>
+    <comment/>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create an account</value>
+    <comment/>
   </data>
   <data name="CreateAccountSubtitle" xml:space="preserve">
     <value>Start managing your projects today</value>
+    <comment/>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>Full Name</value>
+    <comment/>
   </data>
   <data name="CreateAccountBtn" xml:space="preserve">
     <value>Create account</value>
+    <comment/>
   </data>
   <data name="FullNamePlaceholder" xml:space="preserve">
     <value>John Doe</value>
+    <comment/>
   </data>
   <data name="AlreadyAccount" xml:space="preserve">
     <value>Already have an account?</value>
+    <comment/>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>
+    <comment/>
   </data>
   <data name="SearchBoards" xml:space="preserve">
     <value>Search for boards...</value>
+    <comment/>
   </data>
   <data name="EditProfile" xml:space="preserve">
     <value>Edit Profile</value>
+    <comment/>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Log Out</value>
+    <comment/>
   </data>
   <data name="WelcomeBack" xml:space="preserve">
     <value>Welcome back</value>
+    <comment/>
   </data>
   <data name="WorkspaceTitle" xml:space="preserve">
     <value>Your Workspace</value>
+    <comment/>
   </data>
   <data name="WorkspaceSubtitle" xml:space="preserve">
     <value>Manage your teams and projects in one place</value>
+    <comment/>
   </data>
   <data name="ActiveBoards" xml:space="preserve">
     <value>Active Boards</value>
+    <comment/>
   </data>
   <data name="CompletedTasks" xml:space="preserve">
     <value>Completed Tasks</value>
+    <comment/>
   </data>
   <data name="TeamsCount" xml:space="preserve">
     <value>Teams</value>
+    <comment/>
   </data>
   <data name="YourTeamsTitle" xml:space="preserve">
     <value>Your Teams</value>
+    <comment/>
   </data>
   <data name="NewTeamButton" xml:space="preserve">
     <value>New Team</value>
+    <comment/>
   </data>
   <data name="InviteButton" xml:space="preserve">
     <value>Invite</value>
+    <comment/>
   </data>
   <data name="Boards" xml:space="preserve">
     <value>Boards</value>
+    <comment/>
   </data>
   <data name="YourBoardsTitle" xml:space="preserve">
     <value>Your Boards</value>
+    <comment/>
   </data>
   <data name="NewBoardButton" xml:space="preserve">
     <value>New Board</value>
+    <comment/>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>Progress</value>
+    <comment/>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>tasks</value>
+    <comment/>
   </data>
   <data name="CreateTeam" xml:space="preserve">
     <value>Create Team</value>
+    <comment/>
   </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
+    <comment/>
   </data>
   <data name="TeamColor" xml:space="preserve">
     <value>Team Color</value>
+    <comment/>
   </data>
   <data name="TeamName" xml:space="preserve">
     <value>Team Name</value>
+    <comment/>
   </data>
   <data name="EnterTeamName" xml:space="preserve">
     <value>Enter the team name...</value>
+    <comment/>
   </data>
   <data name="CreateBoard" xml:space="preserve">
     <value>Create Board</value>
+    <comment/>
   </data>
   <data name="BoardName" xml:space="preserve">
     <value>Board Name</value>
+    <comment/>
   </data>
   <data name="EnterBoardName" xml:space="preserve">
     <value>Enter the board name...</value>
+    <comment/>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
+    <comment/>
   </data>
   <data name="SelectTeam" xml:space="preserve">
     <value>Select a team...</value>
+    <comment/>
   </data>
   <data name="NoTeams" xml:space="preserve">
     <value>There are no teams.</value>
+    <comment/>
   </data>
   <data name="NoTeamsDescription" xml:space="preserve">
     <value>Create a new team to start collaborating.</value>
+    <comment/>
   </data>
   <data name="NoBoards" xml:space="preserve">
     <value>There are no boards.</value>
+    <comment/>
   </data>
   <data name="NoBoardsDescription" xml:space="preserve">
     <value>Select a team or create a new one to add a board.</value>
+    <comment/>
   </data>
   <data name="ModifyTeam" xml:space="preserve">
     <value>Modify Team</value>
+    <comment/>
   </data>
   <data name="RemoveMember" xml:space="preserve">
     <value>Remove Member</value>
+    <comment/>
   </data>
   <data name="DeleteTeam" xml:space="preserve">
     <value>Delete Team</value>
+    <comment/>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
+    <comment/>
   </data>
   <data name="TeamMembers" xml:space="preserve">
     <value>Team Members -</value>
+    <comment/>
   </data>
   <data name="TeamCreatedSuccessfully" xml:space="preserve">
     <value>Team created successfully!</value>
+    <comment/>
   </data>
   <data name="BoardCreatedSuccessfully" xml:space="preserve">
     <value>Board created successfully!</value>
+    <comment/>
   </data>
   <data name="ErrorConnectingServer" xml:space="preserve">
     <value>Error connecting to the server</value>
+    <comment/>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>Required field</value>
+    <comment/>
   </data>
   <data name="SelectTeamFirst" xml:space="preserve">
     <value>Select a team first</value>
+    <comment/>
   </data>
   <data name="TeamUpdatedSuccessfully" xml:space="preserve">
     <value>Team updated successfully</value>
+    <comment/>
   </data>
   <data name="MemberRemovedFromTeam" xml:space="preserve">
     <value>successfully deleted</value>
+    <comment/>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+    <comment/>
   </data>
   <data name="Role_Owner" xml:space="preserve">
     <value>Owner</value>
+    <comment/>
   </data>
   <data name="Role_Member" xml:space="preserve">
     <value>Member</value>
+    <comment/>
   </data>
   <data name="Role_Pending" xml:space="preserve">
     <value>Pending</value>
+    <comment/>
   </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password</value>
+    <comment/>
   </data>
   <data name="NetworkError" xml:space="preserve">
     <value>Connection error. Check your internet</value>
+    <comment/>
   </data>
   <data name="UnexpectedError" xml:space="preserve">
     <value>An unexpected error occurred</value>
+    <comment/>
   </data>
   <data name="EmailRequired" xml:space="preserve">
     <value>Email is required</value>
+    <comment/>
   </data>
   <data name="PasswordRequired" xml:space="preserve">
     <value>Password is required</value>
+    <comment/>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid email format</value>
+    <comment/>
   </data>
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Password must be at least 6 characters</value>
+    <comment/>
   </data>
   <data name="LoggingIn" xml:space="preserve">
     <value>Signing in...</value>
+    <comment/>
   </data>
   <data name="RegisterFailed" xml:space="preserve">
     <value>The account could not be created.</value>
+    <comment/>
   </data>
   <data name="FillAllFieldsCorrectly" xml:space="preserve">
     <value>Please correct the fields marked in red.</value>
+    <comment/>
   </data>
   <data name="Registering" xml:space="preserve">
     <value>Saving...</value>
+    <comment/>
   </data>
   <data name="NameRequired" xml:space="preserve">
     <value>Name is required</value>
+    <comment/>
   </data>
   <data name="InvalidName" xml:space="preserve">
     <value>Only letters and spaces</value>
+    <comment/>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
     <value>Min. 6 characters, 1 uppercase, 1 lowercase, 1 symbol</value>
+    <comment/>
   </data>
   <data name="EmailAlreadyRegistered" xml:space="preserve">
     <value>This email is already registered.</value>
+    <comment/>
   </data>
   <data name="RegistrationSuccess" xml:space="preserve">
     <value>Successful registration</value>
+    <comment/>
   </data>
   <data name="FailedToCreateTeam" xml:space="preserve">
     <value>Error creating the team</value>
+    <comment/>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading...</value>
+    <comment/>
   </data>
   <data name="FailedToUpdateTeam" xml:space="preserve">
     <value>Error updating the team</value>
+    <comment/>
   </data>
   <data name="FailedToCreateBoard" xml:space="preserve">
     <value>Error creating the board</value>
+    <comment/>
   </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
+    <comment/>
   </data>
   <data name="DeleteTeamConfirmationMessage" xml:space="preserve">
     <value>This will permanently delete the team and all its data.</value>
+    <comment/>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+    <comment/>
   </data>
   <data name="FailedToDeleteTeam" xml:space="preserve">
     <value>Error deleting the team</value>
+    <comment/>
   </data>
   <data name="TeamDeleteSuccessfully" xml:space="preserve">
     <value>Team deleted successfully </value>
+    <comment/>
   </data>
   <data name="ModifyBoard" xml:space="preserve">
     <value>Modify Board</value>
+    <comment/>
   </data>
   <data name="DeleteBoard" xml:space="preserve">
     <value>Delete Board</value>
+    <comment/>
   </data>
   <data name="DeleteBoardConfirmationMessage" xml:space="preserve">
     <value>This will permanently delete this board and all its tasks.</value>
+    <comment/>
   </data>
   <data name="BoardDeleteSuccessfully" xml:space="preserve">
     <value>Board deleted successfully </value>
+    <comment/>
   </data>
   <data name="FailedToDeleteBoard" xml:space="preserve">
     <value>Error deleting the board</value>
+    <comment/>
   </data>
   <data name="FailedToUpdateBoard" xml:space="preserve">
     <value>Error updating the board</value>
+    <comment/>
   </data>
   <data name="BoardUpdatedSuccessfully" xml:space="preserve">
     <value>Board updated successfully</value>
+    <comment/>
   </data>
   <data name="InviteMember" xml:space="preserve">
     <value>Invite Member</value>
+    <comment/>
   </data>
   <data name="SendInvitation" xml:space="preserve">
     <value>Send Invitation</value>
+    <comment/>
   </data>
   <data name="InvitationSentSuccessfully" xml:space="preserve">
     <value>Invitation sent successfully</value>
+    <comment/>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found with this email</value>
+    <comment/>
   </data>
   <data name="UserAlreadyInTeam" xml:space="preserve">
     <value>User is already in the team</value>
+    <comment/>
   </data>
   <data name="InvitationAlreadySent" xml:space="preserve">
-    <value>&#x8;Invitation already pending</value>
+    <value>Invitation already pending</value>
+    <comment/>
   </data>
   <data name="CannotInviteSelf" xml:space="preserve">
     <value>You cannot invite yourself</value>
+    <comment/>
   </data>
   <data name="InvitationResent" xml:space="preserve">
     <value>Invitation resent successfully</value>
+    <comment/>
   </data>
   <data name="GenericInviteError" xml:space="preserve">
     <value>Could not send invitation</value>
+    <comment/>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+    <comment/>
   </data>
   <data name="NoNotifications" xml:space="preserve">
     <value>Without Notifications</value>
+    <comment/>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
+    <comment/>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+    <comment/>
+  </data>
+  <data name="InvitedYouToJoin" xml:space="preserve">
+    <value>invited you to join</value>
+    <comment/>
+  </data>
+  <data name="NewTeamInvitation" xml:space="preserve">
+    <value>New team invitation</value>
+    <comment/>
+  </data>
+  <data name="YouHaveNewInvitation" xml:space="preserve">
+    <value>You have a new notification</value>
+    <comment/>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>Just now</value>
+    <comment/>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>1 minute ago</value>
+    <comment/>
+  </data>
+  <data name="Ago" xml:space="preserve">
+    <value>ago</value>
+    <comment/>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+    <comment/>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+    <comment/>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>days</value>
+    <comment/>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>1 hour ago</value>
+    <comment/>
+  </data>
+  <data name="OneDayAgo" xml:space="preserve">
+    <value>1 day ago</value>
+    <comment/>
   </data>
 </root>

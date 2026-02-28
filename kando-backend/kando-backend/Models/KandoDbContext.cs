@@ -29,6 +29,9 @@ public partial class KandoDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Board>(entity =>
@@ -75,6 +78,10 @@ public partial class KandoDbContext : DbContext
             entity.HasOne(d => d.FromUser).WithMany(p => p.NotificationFromUsers)
                 .HasForeignKey(d => d.FromUserId)
                 .HasConstraintName("FK_Notifications_Users_From");
+
+            entity.HasOne(d => d.Task).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.TaskId)
+                .HasConstraintName("FK_Notifications_Tasks");
 
             entity.HasOne(d => d.Team).WithMany(p => p.Notifications)
                 .HasForeignKey(d => d.TeamId)

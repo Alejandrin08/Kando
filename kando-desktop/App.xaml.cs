@@ -6,10 +6,15 @@ namespace kando_desktop
     {
         private readonly ISessionService _sessionService;
 
-        public App(ISessionService sessionService)
+        private readonly INotificationService _notificationService;
+
+        public App(ISessionService sessionService, INotificationService notificationService)
         {
             InitializeComponent();
             _sessionService = sessionService;
+            _notificationService = notificationService;
+
+            Task.Run(async () => await InitializeSession());
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
@@ -46,17 +51,48 @@ namespace kando_desktop
 
                 if (_sessionService.IsAuthenticated)
                 {
-                    await Shell.Current.GoToAsync("//HomePage");
+                    var token = await SecureStorage.GetAsync("auth_token");
+                    var userId = _sessionService.CurrentUser?.UserId ?? 0;
+
+                    _ = _notificationService.LoadHistoricalNotificationsAsync();
+                    _ = _notificationService.InitializeSignalRAsync(token, userId);
+
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Shell.Current.GoToAsync("//HomePage", false);
+                    });
                 }
                 else
                 {
-                    await Shell.Current.GoToAsync("//LoginPage");
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Shell.Current.GoToAsync("//LoginPage", false);
+                    });
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error inicializando sesión: {ex.Message}");
-                await Shell.Current.GoToAsync("//LoginPage");
+                MainThread.BeginInvokeOnMainThread(async () => await Shell.Current.GoToAsync("//LoginPage"));
+            }
+        }
+
+        private async Task InitializeNotifications()
+        {
+            try
+            {
+                var token = await SecureStorage.GetAsync("auth_token");
+                var userIdStr = Preferences.Get("user_id", 0);
+
+                if (!string.IsNullOrEmpty(token) && userIdStr > 0)
+                {
+                    await _notificationService.LoadHistoricalNotificationsAsync();
+
+                    await _notificationService.InitializeSignalRAsync(token, userIdStr);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
         }
     }

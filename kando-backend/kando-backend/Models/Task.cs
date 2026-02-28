@@ -37,4 +37,6 @@ public partial class Task
     public virtual User Creator { get; set; } = null!;
 
     public virtual BoardList List { get; set; } = null!;
+
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 }

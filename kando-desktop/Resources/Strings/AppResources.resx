@@ -569,4 +569,56 @@
     <value>Sin Notificaciones</value>
     <comment/>
   </data>
+  <data name="InvitedYouToJoin" xml:space="preserve">
+    <value>te ha invitado a unirte a</value>
+    <comment/>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Aceptar</value>
+    <comment/>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Rechazar</value>
+    <comment/>
+  </data>
+  <data name="NewTeamInvitation" xml:space="preserve">
+    <value>Nueva invitación de equipo</value>
+    <comment/>
+  </data>
+  <data name="YouHaveNewInvitation" xml:space="preserve">
+    <value>Tienes una nueva notificación</value>
+    <comment/>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>Justo ahora</value>
+    <comment/>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>Hace 1 minuto</value>
+    <comment/>
+  </data>
+  <data name="Ago" xml:space="preserve">
+    <value>Hace</value>
+    <comment/>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>Hace 1 hora</value>
+    <comment/>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutos</value>
+    <comment/>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>horas</value>
+    <comment/>
+  </data>
+  <data name="OneDayAgo" xml:space="preserve">
+    <value>Hace 1 día</value>
+    <comment/>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>día</value>
+    <comment/>
+  </data>
 </root>

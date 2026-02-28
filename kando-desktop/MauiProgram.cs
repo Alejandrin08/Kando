@@ -76,9 +76,20 @@ namespace kando_desktop
                     .ConfigurePrimaryHttpMessageHandler(handlerConfig)
                     .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
 
+            builder.Services.AddHttpClient<NotificationService>(httpClientConfig)
+                   .ConfigurePrimaryHttpMessageHandler(handlerConfig)
+                   .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
+
+            builder.Services.AddSingleton<INotificationService>(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                var httpClient = sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(NotificationService));
+
+                return new NotificationService(config, httpClient);
+            });
+
             builder.Services.AddSingleton<ISessionService, SessionService>();
             builder.Services.AddSingleton<IWorkspaceService, WorkspaceService>();
-            builder.Services.AddSingleton<INotificationService, NotificationService>();
 
             builder.Services.AddTransient<BaseViewModel>();
             builder.Services.AddTransient<LoginViewModel>();

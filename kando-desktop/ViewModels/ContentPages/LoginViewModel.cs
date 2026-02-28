@@ -145,6 +145,8 @@ namespace kando_desktop.ViewModels.ContentPages
                     };
 
                     await _sessionService.SaveSessionAsync(session, response.Token);
+                    await _notificationService.InitializeSignalRAsync(response.Token, response.Id);
+                    await _notificationService.LoadHistoricalNotificationsAsync();
 
                     await Shell.Current.GoToAsync("//HomePage");
 

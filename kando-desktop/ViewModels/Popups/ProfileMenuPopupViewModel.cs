@@ -35,7 +35,9 @@ namespace kando_desktop.ViewModels.Popups
             RequestClose?.Invoke();
 
             await Task.Delay(150);
-            
+
+            await _notificationService.DisconnectSignalRAsync();
+            _notificationService.ClearNotifications();
             _workspaceService.ClearData();
             _sessionService.Logout();
             await Shell.Current.GoToAsync("//LoginPage");

@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace kando_desktop.Resources.Strings {
+namespace kando_desktop.Resources.Strings
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     /// </summary>
@@ -22,1058 +23,1436 @@ namespace kando_desktop.Resources.Strings {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AppResources {
-        
+    public class AppResources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources() {
+        internal AppResources()
+        {
         }
-        
+
         /// <summary>
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("kando_desktop.Resources.Strings.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tableros Activos.
         /// </summary>
-        public static string ActiveBoards {
-            get {
+        public static string ActiveBoards
+        {
+            get
+            {
                 return ResourceManager.GetString("ActiveBoards", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¿Ya tienes una cuenta?.
         /// </summary>
-        public static string AlreadyAccount {
-            get {
+        public static string AlreadyAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AlreadyAccount", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Kando.
         /// </summary>
-        public static string AppTitle {
-            get {
+        public static string AppTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AppTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¿Estás seguro?.
         /// </summary>
-        public static string AreYouSure {
-            get {
+        public static string AreYouSure
+        {
+            get
+            {
                 return ResourceManager.GetString("AreYouSure", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¡Tablero creado correctamente!.
         /// </summary>
-        public static string BoardCreatedSuccessfully {
-            get {
+        public static string BoardCreatedSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("BoardCreatedSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tablero eliminado correctamente.
         /// </summary>
-        public static string BoardDeleteSuccessfully {
-            get {
+        public static string BoardDeleteSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("BoardDeleteSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Nombre del Tablero.
         /// </summary>
-        public static string BoardName {
-            get {
+        public static string BoardName
+        {
+            get
+            {
                 return ResourceManager.GetString("BoardName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tableros.
         /// </summary>
-        public static string Boards {
-            get {
+        public static string Boards
+        {
+            get
+            {
                 return ResourceManager.GetString("Boards", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tablero actualizado correctamente.
         /// </summary>
-        public static string BoardUpdatedSuccessfully {
-            get {
+        public static string BoardUpdatedSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("BoardUpdatedSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Cancelar.
         /// </summary>
-        public static string Cancel {
-            get {
+        public static string Cancel
+        {
+            get
+            {
                 return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a No puedes invitarte a ti mismo.
         /// </summary>
-        public static string CannotInviteSelf {
-            get {
+        public static string CannotInviteSelf
+        {
+            get
+            {
                 return ResourceManager.GetString("CannotInviteSelf", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Cerrar.
         /// </summary>
-        public static string Close {
-            get {
+        public static string Close
+        {
+            get
+            {
                 return ResourceManager.GetString("Close", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tareas completadas.
         /// </summary>
-        public static string CompletedTasks {
-            get {
+        public static string CompletedTasks
+        {
+            get
+            {
                 return ResourceManager.GetString("CompletedTasks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Crear una cuenta.
         /// </summary>
-        public static string CreateAccount {
-            get {
+        public static string CreateAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("CreateAccount", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Crear cuenta.
         /// </summary>
-        public static string CreateAccountBtn {
-            get {
+        public static string CreateAccountBtn
+        {
+            get
+            {
                 return ResourceManager.GetString("CreateAccountBtn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Comienza administrando tus proyectos hoy.
         /// </summary>
-        public static string CreateAccountSubtitle {
-            get {
+        public static string CreateAccountSubtitle
+        {
+            get
+            {
                 return ResourceManager.GetString("CreateAccountSubtitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Crear Tablero.
         /// </summary>
-        public static string CreateBoard {
-            get {
+        public static string CreateBoard
+        {
+            get
+            {
                 return ResourceManager.GetString("CreateBoard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Crear Equipo.
         /// </summary>
-        public static string CreateTeam {
-            get {
+        public static string CreateTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("CreateTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Eliminar Tablero.
         /// </summary>
-        public static string DeleteBoard {
-            get {
+        public static string DeleteBoard
+        {
+            get
+            {
                 return ResourceManager.GetString("DeleteBoard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Esto eliminará permanentemente este tablero y todas sus tareas..
         /// </summary>
-        public static string DeleteBoardConfirmationMessage {
-            get {
+        public static string DeleteBoardConfirmationMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("DeleteBoardConfirmationMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Eliminar Equipo.
         /// </summary>
-        public static string DeleteTeam {
-            get {
+        public static string DeleteTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("DeleteTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Esto eliminará permanentemente el equipo y todos sus datos..
         /// </summary>
-        public static string DeleteTeamConfirmationMessage {
-            get {
+        public static string DeleteTeamConfirmationMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("DeleteTeamConfirmationMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Modificar Perfil.
         /// </summary>
-        public static string EditProfile {
-            get {
+        public static string EditProfile
+        {
+            get
+            {
                 return ResourceManager.GetString("EditProfile", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Este correo ya está registrado.
         /// </summary>
-        public static string EmailAlreadyRegistered {
-            get {
+        public static string EmailAlreadyRegistered
+        {
+            get
+            {
                 return ResourceManager.GetString("EmailAlreadyRegistered", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Correo.
         /// </summary>
-        public static string EmailLabel {
-            get {
+        public static string EmailLabel
+        {
+            get
+            {
                 return ResourceManager.GetString("EmailLabel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a tucorreo@ejemplo.com.
         /// </summary>
-        public static string EmailPlaceholder {
-            get {
+        public static string EmailPlaceholder
+        {
+            get
+            {
                 return ResourceManager.GetString("EmailPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a El correo es requerido.
         /// </summary>
-        public static string EmailRequired {
-            get {
+        public static string EmailRequired
+        {
+            get
+            {
                 return ResourceManager.GetString("EmailRequired", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Ingresa el nombre del tablero....
         /// </summary>
-        public static string EnterBoardName {
-            get {
+        public static string EnterBoardName
+        {
+            get
+            {
                 return ResourceManager.GetString("EnterBoardName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Ingresa el nombre del equipo....
         /// </summary>
-        public static string EnterTeamName {
-            get {
+        public static string EnterTeamName
+        {
+            get
+            {
                 return ResourceManager.GetString("EnterTeamName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al conectar con el servidor.
         /// </summary>
-        public static string ErrorConnectingServer {
-            get {
+        public static string ErrorConnectingServer
+        {
+            get
+            {
                 return ResourceManager.GetString("ErrorConnectingServer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al crear el tablero.
         /// </summary>
-        public static string FailedToCreateBoard {
-            get {
+        public static string FailedToCreateBoard
+        {
+            get
+            {
                 return ResourceManager.GetString("FailedToCreateBoard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al crear el equipo.
         /// </summary>
-        public static string FailedToCreateTeam {
-            get {
+        public static string FailedToCreateTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("FailedToCreateTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al eliminar el tablero.
         /// </summary>
-        public static string FailedToDeleteBoard {
-            get {
+        public static string FailedToDeleteBoard
+        {
+            get
+            {
                 return ResourceManager.GetString("FailedToDeleteBoard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al eliminar el equipo.
         /// </summary>
-        public static string FailedToDeleteTeam {
-            get {
+        public static string FailedToDeleteTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("FailedToDeleteTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al actualizar el tablero.
         /// </summary>
-        public static string FailedToUpdateBoard {
-            get {
+        public static string FailedToUpdateBoard
+        {
+            get
+            {
                 return ResourceManager.GetString("FailedToUpdateBoard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error al actualizar el equipo.
         /// </summary>
-        public static string FailedToUpdateTeam {
-            get {
+        public static string FailedToUpdateTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("FailedToUpdateTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Campo obligatorio.
         /// </summary>
-        public static string FieldRequired {
-            get {
+        public static string FieldRequired
+        {
+            get
+            {
                 return ResourceManager.GetString("FieldRequired", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Por favor corrige los campos marcados en rojo..
         /// </summary>
-        public static string FillAllFieldsCorrectly {
-            get {
+        public static string FillAllFieldsCorrectly
+        {
+            get
+            {
                 return ResourceManager.GetString("FillAllFieldsCorrectly", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¿Olvidaste tu contraseña?.
         /// </summary>
-        public static string ForgotPassword {
-            get {
+        public static string ForgotPassword
+        {
+            get
+            {
                 return ResourceManager.GetString("ForgotPassword", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Nombre Completo.
         /// </summary>
-        public static string FullName {
-            get {
+        public static string FullName
+        {
+            get
+            {
                 return ResourceManager.GetString("FullName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a John Doe.
         /// </summary>
-        public static string FullNamePlaceholder {
-            get {
+        public static string FullNamePlaceholder
+        {
+            get
+            {
                 return ResourceManager.GetString("FullNamePlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a No se pudo enviar la invitación.
         /// </summary>
-        public static string GenericInviteError {
-            get {
+        public static string GenericInviteError
+        {
+            get
+            {
                 return ResourceManager.GetString("GenericInviteError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a GitHub.
         /// </summary>
-        public static string GitHubBtn {
-            get {
+        public static string GitHubBtn
+        {
+            get
+            {
                 return ResourceManager.GetString("GitHubBtn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Google.
         /// </summary>
-        public static string GoogleBtn {
-            get {
+        public static string GoogleBtn
+        {
+            get
+            {
                 return ResourceManager.GetString("GoogleBtn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Icono.
         /// </summary>
-        public static string Icon {
-            get {
+        public static string Icon
+        {
+            get
+            {
                 return ResourceManager.GetString("Icon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Correo o contraseña incorrectos.
         /// </summary>
-        public static string InvalidCredentials {
-            get {
+        public static string InvalidCredentials
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidCredentials", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a El correo no es válido.
         /// </summary>
-        public static string InvalidEmail {
-            get {
+        public static string InvalidEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Solo letras y espacios.
         /// </summary>
-        public static string InvalidName {
-            get {
+        public static string InvalidName
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Mín. 6 caracteres, 1 Mayús, 1 Minús, 1 Símbolo.
         /// </summary>
-        public static string InvalidPassword {
-            get {
+        public static string InvalidPassword
+        {
+            get
+            {
                 return ResourceManager.GetString("InvalidPassword", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Ya se ha enviado una invitación a este usuario.
         /// </summary>
-        public static string InvitationAlreadySent {
-            get {
+        public static string InvitationAlreadySent
+        {
+            get
+            {
                 return ResourceManager.GetString("InvitationAlreadySent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Invitación reenviada correctamente.
         /// </summary>
-        public static string InvitationResent {
-            get {
+        public static string InvitationResent
+        {
+            get
+            {
                 return ResourceManager.GetString("InvitationResent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Invitación enviada correctamente.
         /// </summary>
-        public static string InvitationSentSuccessfully {
-            get {
+        public static string InvitationSentSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("InvitationSentSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Invitar.
         /// </summary>
-        public static string InviteButton {
-            get {
+        public static string InviteButton
+        {
+            get
+            {
                 return ResourceManager.GetString("InviteButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Invitar Miembro.
         /// </summary>
-        public static string InviteMember {
-            get {
+        public static string InviteMember
+        {
+            get
+            {
                 return ResourceManager.GetString("InviteMember", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Cargando....
         /// </summary>
-        public static string Loading {
-            get {
+        public static string Loading
+        {
+            get
+            {
                 return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Iniciando sesión....
         /// </summary>
-        public static string LoggingIn {
-            get {
+        public static string LoggingIn
+        {
+            get
+            {
                 return ResourceManager.GetString("LoggingIn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Iniciar sesión.
         /// </summary>
-        public static string LoginButton {
-            get {
+        public static string LoginButton
+        {
+            get
+            {
                 return ResourceManager.GetString("LoginButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Cerrar Sesión.
         /// </summary>
-        public static string Logout {
-            get {
+        public static string Logout
+        {
+            get
+            {
                 return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a eliminado exitosamente.
         /// </summary>
-        public static string MemberRemovedFromTeam {
-            get {
+        public static string MemberRemovedFromTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("MemberRemovedFromTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Modificar Tablero.
         /// </summary>
-        public static string ModifyBoard {
-            get {
+        public static string ModifyBoard
+        {
+            get
+            {
                 return ResourceManager.GetString("ModifyBoard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Modificar Equipo.
         /// </summary>
-        public static string ModifyTeam {
-            get {
+        public static string ModifyTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("ModifyTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a El nombres es requerido.
         /// </summary>
-        public static string NameRequired {
-            get {
+        public static string NameRequired
+        {
+            get
+            {
                 return ResourceManager.GetString("NameRequired", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Error de conexión. Verifica tu internet.
         /// </summary>
-        public static string NetworkError {
-            get {
+        public static string NetworkError
+        {
+            get
+            {
                 return ResourceManager.GetString("NetworkError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Nuevo Tablero.
         /// </summary>
-        public static string NewBoardButton {
-            get {
+        public static string NewBoardButton
+        {
+            get
+            {
                 return ResourceManager.GetString("NewBoardButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Nuevo Equipo.
         /// </summary>
-        public static string NewTeamButton {
-            get {
+        public static string NewTeamButton
+        {
+            get
+            {
                 return ResourceManager.GetString("NewTeamButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¿No tienes una cuenta?.
         /// </summary>
-        public static string NoAccount {
-            get {
+        public static string NoAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("NoAccount", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a No hay tableros.
         /// </summary>
-        public static string NoBoards {
-            get {
+        public static string NoBoards
+        {
+            get
+            {
                 return ResourceManager.GetString("NoBoards", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Selecciona un equipo o crea uno nuevo para añadir un tablero..
         /// </summary>
-        public static string NoBoardsDescription {
-            get {
+        public static string NoBoardsDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("NoBoardsDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Sin Notificaciones.
         /// </summary>
-        public static string NoNotifications {
-            get {
+        public static string NoNotifications
+        {
+            get
+            {
                 return ResourceManager.GetString("NoNotifications", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a No hay equipos.
         /// </summary>
-        public static string NoTeams {
-            get {
+        public static string NoTeams
+        {
+            get
+            {
                 return ResourceManager.GetString("NoTeams", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Crea un nuevo equipo para comenzar a colaborar..
         /// </summary>
-        public static string NoTeamsDescription {
-            get {
+        public static string NoTeamsDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("NoTeamsDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Notificaciones.
         /// </summary>
-        public static string Notifications {
-            get {
+        public static string Notifications
+        {
+            get
+            {
                 return ResourceManager.GetString("Notifications", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a O continuar con.
         /// </summary>
-        public static string OrContinueWith {
-            get {
+        public static string OrContinueWith
+        {
+            get
+            {
                 return ResourceManager.GetString("OrContinueWith", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Contraseña.
         /// </summary>
-        public static string PasswordLabel {
-            get {
+        public static string PasswordLabel
+        {
+            get
+            {
                 return ResourceManager.GetString("PasswordLabel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a La contraseña es requerida.
         /// </summary>
-        public static string PasswordRequired {
-            get {
+        public static string PasswordRequired
+        {
+            get
+            {
                 return ResourceManager.GetString("PasswordRequired", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a La contraseña debe tener al menos 6 caracteres.
         /// </summary>
-        public static string PasswordTooShort {
-            get {
+        public static string PasswordTooShort
+        {
+            get
+            {
                 return ResourceManager.GetString("PasswordTooShort", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Progreso.
         /// </summary>
-        public static string Progress {
-            get {
+        public static string Progress
+        {
+            get
+            {
                 return ResourceManager.GetString("Progress", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Registrarse.
         /// </summary>
-        public static string Register {
-            get {
+        public static string Register
+        {
+            get
+            {
                 return ResourceManager.GetString("Register", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a No se pudo crear la cuenta. .
         /// </summary>
-        public static string RegisterFailed {
-            get {
+        public static string RegisterFailed
+        {
+            get
+            {
                 return ResourceManager.GetString("RegisterFailed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Registrando....
         /// </summary>
-        public static string Registering {
-            get {
+        public static string Registering
+        {
+            get
+            {
                 return ResourceManager.GetString("Registering", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Registro exitoso.
         /// </summary>
-        public static string RegistrationSuccess {
-            get {
+        public static string RegistrationSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("RegistrationSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Eliminar Integrante.
         /// </summary>
-        public static string RemoveMember {
-            get {
+        public static string RemoveMember
+        {
+            get
+            {
                 return ResourceManager.GetString("RemoveMember", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Miembro.
         /// </summary>
-        public static string Role_Member {
-            get {
+        public static string Role_Member
+        {
+            get
+            {
                 return ResourceManager.GetString("Role_Member", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Dueño.
         /// </summary>
-        public static string Role_Owner {
-            get {
+        public static string Role_Owner
+        {
+            get
+            {
                 return ResourceManager.GetString("Role_Owner", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Pendiente.
         /// </summary>
-        public static string Role_Pending {
-            get {
+        public static string Role_Pending
+        {
+            get
+            {
                 return ResourceManager.GetString("Role_Pending", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Guardar Cambios.
         /// </summary>
-        public static string SaveChanges {
-            get {
+        public static string SaveChanges
+        {
+            get
+            {
                 return ResourceManager.GetString("SaveChanges", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Buscar tableros....
         /// </summary>
-        public static string SearchBoards {
-            get {
+        public static string SearchBoards
+        {
+            get
+            {
                 return ResourceManager.GetString("SearchBoards", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Selecciona un equipo....
         /// </summary>
-        public static string SelectTeam {
-            get {
+        public static string SelectTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("SelectTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Selecciona un equipo primero.
         /// </summary>
-        public static string SelectTeamFirst {
-            get {
+        public static string SelectTeamFirst
+        {
+            get
+            {
                 return ResourceManager.GetString("SelectTeamFirst", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Enviar Invitación.
         /// </summary>
-        public static string SendInvitation {
-            get {
+        public static string SendInvitation
+        {
+            get
+            {
                 return ResourceManager.GetString("SendInvitation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Iniciar sesión.
         /// </summary>
-        public static string SignIn {
-            get {
+        public static string SignIn
+        {
+            get
+            {
                 return ResourceManager.GetString("SignIn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Organiza tu trabajo,.
         /// </summary>
-        public static string SloganLine1 {
-            get {
+        public static string SloganLine1
+        {
+            get
+            {
                 return ResourceManager.GetString("SloganLine1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a amplifica tu impacto..
         /// </summary>
-        public static string SloganLine2 {
-            get {
+        public static string SloganLine2
+        {
+            get
+            {
                 return ResourceManager.GetString("SloganLine2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a El moderno administrador de proyectos.
         /// </summary>
-        public static string SubSlogan {
-            get {
+        public static string SubSlogan
+        {
+            get
+            {
                 return ResourceManager.GetString("SubSlogan", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a tareas.
         /// </summary>
-        public static string Tasks {
-            get {
+        public static string Tasks
+        {
+            get
+            {
                 return ResourceManager.GetString("Tasks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Equipo.
         /// </summary>
-        public static string Team {
-            get {
+        public static string Team
+        {
+            get
+            {
                 return ResourceManager.GetString("Team", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Color del Equipo.
         /// </summary>
-        public static string TeamColor {
-            get {
+        public static string TeamColor
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamColor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¡Equipo creado correctamente!.
         /// </summary>
-        public static string TeamCreatedSuccessfully {
-            get {
+        public static string TeamCreatedSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamCreatedSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Equipo eliminado correctamente.
         /// </summary>
-        public static string TeamDeleteSuccessfully {
-            get {
+        public static string TeamDeleteSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamDeleteSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Miembros del Equipo -.
         /// </summary>
-        public static string TeamMembers {
-            get {
+        public static string TeamMembers
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamMembers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Nombre del Equipo.
         /// </summary>
-        public static string TeamName {
-            get {
+        public static string TeamName
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Equipos.
         /// </summary>
-        public static string TeamsCount {
-            get {
+        public static string TeamsCount
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamsCount", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Equipo actualizado correctamente.
         /// </summary>
-        public static string TeamUpdatedSuccessfully {
-            get {
+        public static string TeamUpdatedSuccessfully
+        {
+            get
+            {
                 return ResourceManager.GetString("TeamUpdatedSuccessfully", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Ocurrió un error inesperado.
         /// </summary>
-        public static string UnexpectedError {
-            get {
+        public static string UnexpectedError
+        {
+            get
+            {
                 return ResourceManager.GetString("UnexpectedError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a El usuario ya pertenece al equipo.
         /// </summary>
-        public static string UserAlreadyInTeam {
-            get {
+        public static string UserAlreadyInTeam
+        {
+            get
+            {
                 return ResourceManager.GetString("UserAlreadyInTeam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a No se encontró un usuario con este correo.
         /// </summary>
-        public static string UserNotFound {
-            get {
+        public static string UserNotFound
+        {
+            get
+            {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Bienvenido de nuevo.
         /// </summary>
-        public static string WelcomeBack {
-            get {
+        public static string WelcomeBack
+        {
+            get
+            {
                 return ResourceManager.GetString("WelcomeBack", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Ingresa tus credenciales.
         /// </summary>
-        public static string WelcomeSubtitle {
-            get {
+        public static string WelcomeSubtitle
+        {
+            get
+            {
                 return ResourceManager.GetString("WelcomeSubtitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a ¡Bienvenido de vuelta!.
         /// </summary>
-        public static string WelcomeTitle {
-            get {
+        public static string WelcomeTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("WelcomeTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Gestiona tus equipos y proyectos en un solo lugar.
         /// </summary>
-        public static string WorkspaceSubtitle {
-            get {
+        public static string WorkspaceSubtitle
+        {
+            get
+            {
                 return ResourceManager.GetString("WorkspaceSubtitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tu Espacio de Trabajo.
         /// </summary>
-        public static string WorkspaceTitle {
-            get {
+        public static string WorkspaceTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("WorkspaceTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tus Tableros.
         /// </summary>
-        public static string YourBoardsTitle {
-            get {
+        public static string YourBoardsTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("YourBoardsTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Busca una cadena traducida similar a Tus Equipos.
         /// </summary>
-        public static string YourTeamsTitle {
-            get {
+        public static string YourTeamsTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("YourTeamsTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a te ha invitado a unirte a .
+        /// </summary>
+        public static string InvitedYouToJoin
+        {
+            get
+            {
+                return ResourceManager.GetString("InvitedYouToJoin", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Aceptar.
+        /// </summary>
+        public static string Accept
+        {
+            get
+            {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Rechazar.
+        /// </summary>
+        public static string Decline
+        {
+            get
+            {
+                return ResourceManager.GetString("Decline", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nueva invitación de equipo.
+        /// </summary>
+        public static string NewTeamInvitation
+        {
+            get
+            {
+                return ResourceManager.GetString("NewTeamInvitation", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tienes una nueva invitación.
+        /// </summary>
+        public static string YouHaveNewInvitation
+        {
+            get
+            {
+                return ResourceManager.GetString("YouHaveNewInvitation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hace (o 'ago' en inglés).
+        /// </summary>
+        public static string Ago
+        {
+            get
+            {
+                return ResourceManager.GetString("Ago", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a minutos.
+        /// </summary>
+        public static string Minutes
+        {
+            get
+            {
+                return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a horas.
+        /// </summary>
+        public static string Hours
+        {
+            get
+            {
+                return ResourceManager.GetString("Hours", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a días.
+        /// </summary>
+        public static string Days
+        {
+            get
+            {
+                return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Justo ahora.
+        /// </summary>
+        public static string JustNow
+        {
+            get
+            {
+                return ResourceManager.GetString("JustNow", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hace 1 minuto.
+        /// </summary>
+        public static string OneMinuteAgo
+        {
+            get
+            {
+                return ResourceManager.GetString("OneMinuteAgo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hace 1 hora.
+        /// </summary>
+        public static string OneHourAgo
+        {
+            get
+            {
+                return ResourceManager.GetString("OneHourAgo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hace 1 día.
+        /// </summary>
+        public static string OneDayAgo
+        {
+            get
+            {
+                return ResourceManager.GetString("OneDayAgo", resourceCulture);
             }
         }
     }

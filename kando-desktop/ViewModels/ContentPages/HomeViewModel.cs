@@ -21,7 +21,6 @@ namespace kando_desktop.ViewModels.ContentPages
         [ObservableProperty] private bool isTeamDropdownOpen;
         [ObservableProperty] private TeamCardViewModel selectedTeam;
         [ObservableProperty] private string searchText;
-
         [ObservableProperty] private int activeBoardsCount;
         [ObservableProperty] private int completedTasks;
         [ObservableProperty] private int totalTasksCount;
@@ -47,7 +46,7 @@ namespace kando_desktop.ViewModels.ContentPages
         {
             IsBusy = true;
             await _workspaceService.InitializeDataAsync();
-            RefreshData(); 
+            RefreshData();
             IsBusy = false;
         }
 
@@ -74,7 +73,6 @@ namespace kando_desktop.ViewModels.ContentPages
                     _workspaceService.Teams.CollectionChanged -= OnDataChanged;
                     _workspaceService.Teams.CollectionChanged += OnDataChanged;
                 }
-
 
                 RefreshData();
             }
@@ -147,7 +145,7 @@ namespace kando_desktop.ViewModels.ContentPages
         {
             if (TeamCards.Count > 0 && SelectedTeam == null)
             {
-                SelectedTeam = TeamCards[0]; 
+                SelectedTeam = TeamCards[0];
             }
             IsTeamDropdownOpen = false;
             RequestShowCreateBoard?.Invoke();

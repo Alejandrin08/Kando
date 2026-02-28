@@ -12,11 +12,13 @@ namespace kando_backend.Services.Implementations
 
         private readonly KandoDbContext _context;
         private readonly IEmailService _emailService;
+        private readonly INotificationService _notificationService;
 
-        public TeamService(KandoDbContext context, IEmailService emailService)
+        public TeamService(KandoDbContext context, IEmailService emailService, INotificationService notificationService)
         {
             _context = context;
             _emailService = emailService;
+            _notificationService = notificationService;
         }
 
         public async Task<Team> CreateTeamAsync(CreateTeamDto createTeamDto, int ownerId)
@@ -83,7 +85,7 @@ namespace kando_backend.Services.Implementations
 
             var allLists = existingTeam.Boards
                 .SelectMany(b => b.BoardLists)
-                .Where(l => l.IsDeleted != true) 
+                .Where(l => l.IsDeleted != true)
                 .ToList();
 
             var allTasks = allLists
@@ -120,10 +122,7 @@ namespace kando_backend.Services.Implementations
             if (team == null) throw new UnauthorizedAccessException("Team not found or unauthorized.");
 
             var userToInvite = await _context.Users.FirstOrDefaultAsync(u => u.Email == emailToInvite);
-            if (userToInvite == null)
-            {
-                throw new KeyNotFoundException("User not found.");
-            }
+            if (userToInvite == null) throw new KeyNotFoundException("User not found.");
 
             if (userToInvite.Id == ownerId) throw new InvalidOperationException("Self invite.");
 
@@ -132,16 +131,13 @@ namespace kando_backend.Services.Implementations
 
             if (existingMembership != null)
             {
-                if (existingMembership.Status == "Active")
-                    throw new InvalidOperationException("Already active.");
-
-                if (existingMembership.Status == "Pending")
-                    throw new InvalidOperationException("Already pending.");
+                if (existingMembership.Status == "Active") throw new InvalidOperationException("Already active.");
+                if (existingMembership.Status == "Pending") throw new InvalidOperationException("Already pending.");
 
                 if (existingMembership.Status == "Rejected" || existingMembership.Status == "Removed")
                 {
-                    existingMembership.Status = "Pending"; 
-                    existingMembership.JoinedAt = null;   
+                    existingMembership.Status = "Pending";
+                    existingMembership.JoinedAt = null;
                     existingMembership.RemovedAt = null;
                 }
             }
@@ -151,9 +147,8 @@ namespace kando_backend.Services.Implementations
                 {
                     UserId = userToInvite.Id,
                     TeamId = teamId,
-                    Role = "Member",
-                    Status = "Pending",
-                    JoinedAt = null
+                    Role = "PendingMember",
+                    Status = "Pending"
                 };
                 _context.TeamMembers.Add(newMember);
             }
@@ -163,21 +158,41 @@ namespace kando_backend.Services.Implementations
                 FromUserId = ownerId,
                 ToUserId = userToInvite.Id,
                 TeamId = teamId,
-                Type = "InviteTeam", 
+                Type = "InviteTeam",
                 IsRead = false,
                 CreatedAt = DateTime.UtcNow
             };
             _context.Notifications.Add(notification);
 
-            await _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync();
 
             var ownerUser = await _context.Users.FindAsync(ownerId);
-            string ownerName = ownerUser?.Username;
+            string ownerName = ownerUser?.Username ?? "Un usuario";
+
+            var notificationDto = new NotificationResponseDto
+            {
+                Id = notification.Id,
+                NotificationType = "InviteTeam",
+                IsRead = false,
+                CreatedAt = notification.CreatedAt ?? DateTime.UtcNow,
+                TeamId = team.Id,
+                TeamName = team.Name,
+                TeamIcon = team.Icon,
+                TeamColor = team.Color,
+                OwnerName = ownerName,
+                TaskId = null,
+                TaskName = null,
+                BoardName = null,
+                Title = "Invitación a equipo",
+                Message = $"{ownerName} te ha invitado al equipo {team.Name}"
+            };
+
+            await _notificationService.SendNotificationToUserAsync(userToInvite.Id, notificationDto);
 
             string htmlBody = EmailTemplates.GetInvitationTemplate(team.Name, ownerName);
             string subject = $"Kando: Invitación al equipo {team.Name}";
 
-            await _emailService.SendEmailAsync(emailToInvite, subject, htmlBody);
+            _ = _emailService.SendEmailAsync(emailToInvite, subject, htmlBody);
 
             return true;
         }

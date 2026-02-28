@@ -19,7 +19,11 @@ public partial class Notification
 
     public DateTime? CreatedAt { get; set; }
 
+    public int? TaskId { get; set; }
+
     public virtual User? FromUser { get; set; }
+
+    public virtual Task? Task { get; set; }
 
     public virtual Team? Team { get; set; }
 
