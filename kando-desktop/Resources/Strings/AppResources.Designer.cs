@@ -1455,5 +1455,49 @@ namespace kando_desktop.Resources.Strings
                 return ResourceManager.GetString("OneDayAgo", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has aceptado la invitación correctamente.
+        /// </summary>
+        public static string AcceptedInvitation
+        {
+            get
+            {
+                return ResourceManager.GetString("AcceptedInvitation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has rechazado la invitación.
+        /// </summary>
+        public static string RejectedInvitation
+        {
+            get
+            {
+                return ResourceManager.GetString("RejectedInvitation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has eliminado el equipo.
+        /// </summary>
+        public static string TeamDeleted
+        {
+            get
+            {
+                return ResourceManager.GetString("TeamDeleted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has modificado el equipo.
+        /// </summary>
+        public static string TeamUpdated
+        {
+            get
+            {
+                return ResourceManager.GetString("TeamUpdated", resourceCulture);
+            }
+        }
     }
 }

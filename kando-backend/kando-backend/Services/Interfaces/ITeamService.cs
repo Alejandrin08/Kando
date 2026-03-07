@@ -6,14 +6,16 @@ namespace kando_backend.Services.Interfaces
 {
     public interface ITeamService
     {
-        Task<Team> CreateTeamAsync(CreateTeamDto createTeamDto, int ownerId);
+        Task<TeamResponseDto> CreateTeamAsync(CreateTeamDto createTeamDto, int ownerId);
 
-        Task<List<TeamResponseDto>> GetTeamsUserAsync(int ownerId);  
+        Task<List<TeamResponseDto>> GetTeamsUserAsync(int ownerId);
 
         Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto updateTeamDto, int ownerId);
 
         Task<bool> DeleteTeamAsync(int teamId, int ownerId);
 
         Task<bool> InviteMemberAsync(int teamId, string emailToInvite, int ownerId);
+
+        Task<bool> UpdateInvitationAsync(int teamId, int userId, UpdateInvitationDecisionDto dto);
     }
 }

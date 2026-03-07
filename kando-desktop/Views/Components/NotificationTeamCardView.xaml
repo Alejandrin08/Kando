@@ -2,17 +2,18 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kando_desktop.Views.Components.NotificationTeamCardView"
+             xmlns:vm="clr-namespace:kando_desktop.ViewModels.Components"
              xmlns:local="clr-namespace:kando_desktop"
              xmlns:models="clr-namespace:kando_desktop.Models"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
+             x:Name="this"
              x:DataType="models:NotificationItem">
+    <ContentView.Resources>
+        <vm:NotificationTeamCardViewModel x:Key="CardVM"/>
+    </ContentView.Resources>
 
     <Border Style="{StaticResource InteractiveCardStyle}"
-            Padding="15"
-            Margin="0,0,0,0"
-            HorizontalOptions="Fill"
-            StrokeShape="RoundRectangle 0">
-
+            Padding="15">
         <Grid ColumnDefinitions="Auto, *"
               ColumnSpacing="15">
 
@@ -21,12 +22,9 @@
                     HeightRequest="45"
                     WidthRequest="45"
                     BackgroundColor="{Binding TeamColor}"
-                    StrokeThickness="0"
-                    VerticalOptions="Start">
+                    StrokeThickness="0">
                 <Image Source="{Binding TeamIcon}"
                        Aspect="AspectFit"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
                        WidthRequest="25"
                        HeightRequest="25"/>
             </Border>
@@ -34,7 +32,6 @@
             <VerticalStackLayout Grid.Column="1"
                                  Spacing="4"
                                  VerticalOptions="Center">
-
                 <Label FontSize="14"
                        LineBreakMode="WordWrap">
                     <Label.FormattedText>
@@ -42,14 +39,10 @@
                             <Span Text="{Binding OwnerName}"
                                   FontAttributes="Bold"
                                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
-
                             <Span Text=" "/>
-
                             <Span Text="{x:Static strings:AppResources.InvitedYouToJoin}"
                                   TextColor="{AppThemeBinding Light={StaticResource Slate600}, Dark={StaticResource Slate300}}"/>
-
                             <Span Text=" "/>
-
                             <Span Text="{Binding TeamName}"
                                   FontAttributes="Bold"
                                   TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
@@ -63,23 +56,23 @@
                        Margin="0,0,0,8"/>
 
                 <HorizontalStackLayout Spacing="10">
-
                     <Button Text="{x:Static strings:AppResources.Accept}"
                             Style="{StaticResource PrimaryButton}"
                             HeightRequest="32"
                             Padding="15,0"
                             FontSize="12"
+                            Command="{Binding AcceptInvitationCommand, Source={StaticResource CardVM}}"
+                            CommandParameter="{Binding .}"
                             local:CursorBehavior.Cursor="Hand"/>
-
                     <Button Text="{x:Static strings:AppResources.Decline}"
                             Style="{StaticResource DeclineButtonStyle}"
                             HeightRequest="32"
                             Padding="15,0"
                             FontSize="12"
+                            Command="{Binding DeclineInvitationCommand, Source={StaticResource CardVM}}"
+                            CommandParameter="{Binding .}"
                             local:CursorBehavior.Cursor="Hand"/>
-
                 </HorizontalStackLayout>
-
             </VerticalStackLayout>
         </Grid>
     </Border>

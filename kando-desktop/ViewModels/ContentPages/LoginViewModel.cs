@@ -114,7 +114,7 @@ namespace kando_desktop.ViewModels.ContentPages
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(AllowConcurrentExecutions = false)]
         private async Task Login()
         {
             if (IsBusy) return;

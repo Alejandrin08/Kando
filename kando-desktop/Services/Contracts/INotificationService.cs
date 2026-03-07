@@ -19,6 +19,7 @@ namespace kando_desktop.Services.Contracts
         Task LoadHistoricalNotificationsAsync();
         Task DisconnectSignalRAsync();
         void ClearNotifications();
+        Task SubscribeToTeamsAsync(List<int> teamIds);
         bool IsConnected { get; }
     }
 }

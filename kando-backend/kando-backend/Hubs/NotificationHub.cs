@@ -8,5 +8,13 @@ namespace kando_backend.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, userId);
         }
+
+        public async Task JoinTeamsGroups(List<int> teamIds)
+        {
+            foreach (var teamId in teamIds)
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, $"Team_{teamId}");
+            }
+        }
     }
 }

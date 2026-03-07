@@ -1,10 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kando_desktop.Models
 {
@@ -30,5 +25,8 @@ namespace kando_desktop.Models
         private ObservableCollection<Member> members = new ObservableCollection<Member>();
 
         public int MemberCount { get; set; }
+
+        [ObservableProperty]
+        private bool isCurrentUserOwner;
     }
 }

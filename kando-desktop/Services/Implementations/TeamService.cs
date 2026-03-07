@@ -67,6 +67,19 @@ namespace kando_desktop.Services.Implementations
             return true;
         }
 
+        public async Task<bool> UpdateInvitationAsync(int teamId, UpdateInvitationDecisionDto updateInvitationDecisionDto)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"team/{teamId}/respond", updateInvitationDecisionDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Error API: {errorContent}");
+                return false;
+            }
+            return true;
+        }
+
         public async Task<bool> DeleteTeamAsync(int teamId)
         {
             var response = await _httpClient.DeleteAsync($"team/{teamId}");
@@ -104,10 +117,10 @@ namespace kando_desktop.Services.Implementations
                 if (errorContent.Contains("Already active")) return AppResources.UserAlreadyInTeam;
                 if (errorContent.Contains("Already pending")) return AppResources.InvitationAlreadySent;
 
-                return AppResources.UserAlreadyInTeam; 
+                return AppResources.UserAlreadyInTeam;
             }
 
-            return AppResources.GenericInviteError; 
+            return AppResources.GenericInviteError;
         }
     }
 }

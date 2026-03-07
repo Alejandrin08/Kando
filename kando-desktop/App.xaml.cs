@@ -1,4 +1,5 @@
-﻿using kando_desktop.Services.Contracts;
+﻿using kando_desktop.Helpers;
+using kando_desktop.Services.Contracts;
 
 namespace kando_desktop
 {
@@ -54,8 +55,15 @@ namespace kando_desktop
                     var token = await SecureStorage.GetAsync("auth_token");
                     var userId = _sessionService.CurrentUser?.UserId ?? 0;
 
+                    await _notificationService.InitializeSignalRAsync(token, userId);
+
                     _ = _notificationService.LoadHistoricalNotificationsAsync();
-                    _ = _notificationService.InitializeSignalRAsync(token, userId);
+
+                    var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+                    await workspaceService.InitializeDataAsync();
+
+                    var teamIds = workspaceService.Teams.Select(t => t.Id).ToList();
+                    await _notificationService.SubscribeToTeamsAsync(teamIds);
 
                     MainThread.BeginInvokeOnMainThread(async () =>
                     {

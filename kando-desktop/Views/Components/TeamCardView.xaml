@@ -7,65 +7,128 @@
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              xmlns:vm="clr-namespace:kando_desktop.ViewModels.Components"
              x:DataType="vm:TeamCardViewModel">
-    <Border Style="{StaticResource InteractiveCardStyle}" HeightRequest="130" Margin="0,0,20,20">
+
+    <Border Style="{StaticResource InteractiveCardStyle}"
+            HeightRequest="130"
+            Margin="0,0,20,20">
         <Border.GestureRecognizers>
-            <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
+            <PointerGestureRecognizer PointerEntered="OnPointerEntered"
+                                      PointerExited="OnPointerExited"/>
         </Border.GestureRecognizers>
 
         <Grid RowDefinitions="Auto, Auto, *">
-            <Border Grid.Row="0" HeightRequest="5" VerticalOptions="Start" StrokeShape="RoundRectangle 12,12,0,0" StrokeThickness="0"
+            <Border Grid.Row="0"
+                    HeightRequest="5"
+                    VerticalOptions="Start"
+                    StrokeShape="RoundRectangle 12,12,0,0"
+                    StrokeThickness="0"
                     BackgroundColor="{Binding Team.TeamColor}"/>
 
-            <Grid Grid.Row="1" Padding="15,15,15,0" ColumnDefinitions="Auto, *">
-                <Border Grid.Column="0" HeightRequest="50" WidthRequest="50" VerticalOptions="Center" StrokeShape="RoundRectangle 12" StrokeThickness="0" Margin="0,0,15,0"
+            <Grid Grid.Row="1"
+                  Padding="15,15,15,0"
+                  ColumnDefinitions="Auto, *">
+                <Border Grid.Column="0"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        VerticalOptions="Center"
+                        StrokeShape="RoundRectangle 12"
+                        StrokeThickness="0"
+                        Margin="0,0,15,0"
                         BackgroundColor="{Binding Team.TeamColor}">
-                    <Image Source="{Binding Team.Icon}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="30" HeightRequest="30"/>
+                    <Image Source="{Binding Team.Icon}"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           WidthRequest="30"
+                           HeightRequest="30"/>
                 </Border>
 
-                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                <VerticalStackLayout Grid.Column="1"
+                                     VerticalOptions="Center">
                     <Grid ColumnDefinitions="*, Auto">
-                        <Label Grid.Column="0" Text="{Binding Team.Name}" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}" FontSize="16" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Column="0"
+                               Text="{Binding Team.Name}"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
+                               FontSize="16"
+                               LineBreakMode="TailTruncation"/>
 
-                        <Label x:Name="ThreeDotsLabel" Grid.Column="1" Text="..." TextColor="{StaticResource Slate400}" FontSize="24" HorizontalOptions="End" VerticalOptions="Start" Padding="5,0" local:CursorBehavior.Cursor="Hand" Opacity="0">
+                        <Label x:Name="ThreeDotsLabel"
+                               Grid.Column="1"
+                               Text="..."
+                               IsVisible="{Binding IsOwner}"
+                               TextColor="{StaticResource Slate400}"
+                               FontSize="24"
+                               HorizontalOptions="End"
+                               VerticalOptions="Start"
+                               Padding="5,0"
+                               local:CursorBehavior.Cursor="Hand"
+                               Opacity="0">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OpenOptionsCommand}" CommandParameter="{x:Reference ThreeDotsLabel}"/>
+                                <TapGestureRecognizer Command="{Binding OpenOptionsCommand}"
+                                                      CommandParameter="{x:Reference ThreeDotsLabel}"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Grid>
 
-                    <Label FontSize="12" Margin="0,2,0,0">
+                    <Label FontSize="12"
+                           Margin="0,2,0,0">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding Team.NumberBoards}" TextColor="{StaticResource Slate400}"/>
-                                <Span Text=" " />
-                                <Span Text="{x:Static strings:AppResources.Boards}" TextColor="{StaticResource Slate400}"/>
+                                <Span Text="{Binding Team.NumberBoards}"
+                                      TextColor="{StaticResource Slate400}"/>
+                                <Span Text=" "/>
+                                <Span Text="{x:Static strings:AppResources.Boards}"
+                                      TextColor="{StaticResource Slate400}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                 </VerticalStackLayout>
             </Grid>
 
-            <Grid Grid.Row="2" Padding="15,0">
+            <Grid Grid.Row="2"
+                  Padding="15,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <HorizontalStackLayout Grid.Column="0" BindableLayout.ItemsSource="{Binding Team.Members}" Spacing="-10" VerticalOptions="Center" HorizontalOptions="Start">
+                <HorizontalStackLayout Grid.Column="0"
+                                       BindableLayout.ItemsSource="{Binding Team.Members}"
+                                       Spacing="-10"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Start">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="models:Member">
-                            <Border HeightRequest="30" WidthRequest="30" StrokeShape="RoundRectangle 15" Stroke="{AppThemeBinding Light={StaticResource White}, Dark=#1d283a}" StrokeThickness="2" BackgroundColor="{Binding BaseColor}">
+                            <Border HeightRequest="30"
+                                    WidthRequest="30"
+                                    StrokeShape="RoundRectangle 15"
+                                    Stroke="{AppThemeBinding Light={StaticResource White}, Dark=#1d283a}"
+                                    StrokeThickness="2"
+                                    BackgroundColor="{Binding BaseColor}">
                                 <Grid>
-                                    <BoxView Opacity="0.3" Color="Black"/>
-                                    <Label Text="{Binding Initials}" FontSize="10" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
+                                    <BoxView Opacity="0.3"
+                                             Color="Black"/>
+                                    <Label Text="{Binding Initials}"
+                                           FontSize="10"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </HorizontalStackLayout>
 
-                <Button Grid.Column="1" Text="{x:Static strings:AppResources.InviteButton}" Style="{StaticResource InviteButtonStyle}" WidthRequest="100" 
-                        Command="{Binding OpenInvitePopupCommand}" ImageSource="user_invite.png" local:CursorBehavior.Cursor="Hand"/>
+                <Button Grid.Column="1"
+                        IsVisible="{Binding IsOwner}"
+                        Text="{x:Static strings:AppResources.InviteButton}"
+                        Style="{StaticResource InviteButtonStyle}"
+                        WidthRequest="100"
+                        Command="{Binding OpenInvitePopupCommand}"
+                        ImageSource="user_invite.png"
+                        local:CursorBehavior.Cursor="Hand"/>
             </Grid>
         </Grid>
     </Border>

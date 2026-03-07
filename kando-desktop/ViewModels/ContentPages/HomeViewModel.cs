@@ -34,10 +34,16 @@ namespace kando_desktop.ViewModels.ContentPages
             _workspaceService = workspaceService;
             _notificationService = notificationService;
 
-            _workspaceService.PropertyChanged += OnServicePropertyChanged;
-
             _workspaceService.Boards.CollectionChanged += OnDataChanged;
             _workspaceService.Teams.CollectionChanged += OnDataChanged;
+
+            _workspaceService.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == "ForceUIRefresh")
+                {
+                    RefreshData();
+                }
+            };
 
             LoadData();
         }
@@ -53,34 +59,11 @@ namespace kando_desktop.ViewModels.ContentPages
         private void OnDataChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsBusy) return;
-
             RefreshData();
-        }
-
-        private void OnServicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(IWorkspaceService.Boards) ||
-                e.PropertyName == nameof(IWorkspaceService.Teams))
-            {
-                if (e.PropertyName == nameof(IWorkspaceService.Boards))
-                {
-                    _workspaceService.Boards.CollectionChanged -= OnDataChanged;
-                    _workspaceService.Boards.CollectionChanged += OnDataChanged;
-                }
-
-                if (e.PropertyName == nameof(IWorkspaceService.Teams))
-                {
-                    _workspaceService.Teams.CollectionChanged -= OnDataChanged;
-                    _workspaceService.Teams.CollectionChanged += OnDataChanged;
-                }
-
-                RefreshData();
-            }
         }
 
         public void Unsubscribe()
         {
-            _workspaceService.PropertyChanged -= OnServicePropertyChanged;
             _workspaceService.Boards.CollectionChanged -= OnDataChanged;
             _workspaceService.Teams.CollectionChanged -= OnDataChanged;
         }
@@ -88,17 +71,21 @@ namespace kando_desktop.ViewModels.ContentPages
         private void RefreshData()
         {
             UpdateTeamCards();
-
             PerformSearch(SearchText);
             UpdateStats();
         }
 
         private void UpdateTeamCards()
         {
-            TeamCards.Clear();
+            var toRemove = TeamCards.Where(c => !_workspaceService.Teams.Any(t => t.Id == c.Team.Id)).ToList();
+            foreach (var r in toRemove) TeamCards.Remove(r);
+
             foreach (var team in _workspaceService.Teams)
             {
-                TeamCards.Add(new TeamCardViewModel(team));
+                if (!TeamCards.Any(c => c.Team.Id == team.Id))
+                {
+                    TeamCards.Add(new TeamCardViewModel(team));
+                }
             }
 
             if (SelectedTeam != null && !_workspaceService.Teams.Contains(SelectedTeam.Team))
@@ -114,18 +101,22 @@ namespace kando_desktop.ViewModels.ContentPages
 
         private void PerformSearch(string query)
         {
-            FilteredBoards.Clear();
             var source = _workspaceService.Boards;
 
             var items = string.IsNullOrWhiteSpace(query)
                 ? source
                 : source.Where(b => b.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
 
+            var toRemove = FilteredBoards.Where(b => !items.Any(i => i.Id == b.Board.Id)).ToList();
+            foreach (var r in toRemove) FilteredBoards.Remove(r);
+
             foreach (var item in items)
             {
-                FilteredBoards.Add(new BoardCardViewModel(item));
+                if (!FilteredBoards.Any(b => b.Board.Id == item.Id))
+                {
+                    FilteredBoards.Add(new BoardCardViewModel(item));
+                }
             }
-            OnPropertyChanged(nameof(FilteredBoards));
         }
 
         private void UpdateStats()
@@ -133,7 +124,6 @@ namespace kando_desktop.ViewModels.ContentPages
             TeamsCount = _workspaceService.Teams.Count;
             ActiveBoardsCount = _workspaceService.Boards.Count;
             TotalTasksCount = _workspaceService.Boards.Sum(b => b.TotalTasks);
-
             CompletedTasks = _workspaceService.Boards.Sum(b => b.CompletedTasks);
         }
 

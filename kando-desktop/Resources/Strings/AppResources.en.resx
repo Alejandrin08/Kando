@@ -621,4 +621,20 @@
     <value>1 day ago</value>
     <comment/>
   </data>
+  <data name="AcceptedInvitation" xml:space="preserve">
+    <value>You have successfully accepted the invitation.</value>
+    <comment/>
+  </data>
+  <data name="RejectedInvitation" xml:space="preserve">
+    <value>You have declined the invitation.</value>
+    <comment/>
+  </data>
+  <data name="TeamDeleted" xml:space="preserve">
+    <value>has deleted the team</value>
+    <comment/>
+  </data>
+  <data name="TeamUpdated" xml:space="preserve">
+    <value>has changed the team</value>
+    <comment/>
+  </data>
 </root>

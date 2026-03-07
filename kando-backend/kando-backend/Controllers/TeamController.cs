@@ -84,6 +84,36 @@ namespace kando_backend.Controllers
             }
         }
 
+        [HttpPut("{teamId}/respond")]
+        public async Task<IActionResult> UpdateInvitationDeceision(int teamId, [FromBody] UpdateInvitationDecisionDto updateInvitationDecisionDto)
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized(new { message = "User not identified." });
+
+            try
+            {
+                var updated = await _teamService.UpdateInvitationAsync(teamId, userId.Value, updateInvitationDecisionDto);
+
+                if (!updated)
+                {
+                    return NotFound(new { message = "Invitation not found or already processed." });
+                }
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal error while processing invitation." });
+            }
+        }
+
         [HttpDelete("{teamId}")]
         public async Task<IActionResult> DeleteTeam(int teamId)
         {
@@ -99,9 +129,9 @@ namespace kando_backend.Controllers
                 }
                 return NoContent();
             }
-            catch (KeyNotFoundException ex) 
+            catch (KeyNotFoundException ex)
             {
-                return NotFound(new { message = ex.Message }); 
+                return NotFound(new { message = ex.Message });
             }
             catch (Exception)
             {
@@ -122,11 +152,11 @@ namespace kando_backend.Controllers
             }
             catch (KeyNotFoundException)
             {
-                return NotFound(); 
+                return NotFound();
             }
             catch (UnauthorizedAccessException)
             {
-                return Forbid(); 
+                return Forbid();
             }
             catch (InvalidOperationException ex)
             {

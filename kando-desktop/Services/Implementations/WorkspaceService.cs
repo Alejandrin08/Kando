@@ -2,6 +2,7 @@
 using kando_desktop.DTOs.Requests;
 using kando_desktop.DTOs.Responses;
 using kando_desktop.Enums;
+using kando_desktop.Helpers;
 using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
 using System.Collections.ObjectModel;
@@ -10,7 +11,6 @@ namespace kando_desktop.Services.Implementations
 {
     public class WorkspaceService : ObservableObject, IWorkspaceService
     {
-
         private ObservableCollection<Team> _teams = new();
         public ObservableCollection<Team> Teams
         {
@@ -27,7 +27,6 @@ namespace kando_desktop.Services.Implementations
 
         public ObservableCollection<Member> Members { get; } = new();
 
-
         private readonly ITeamService _teamService;
         private readonly ISessionService _sessionService;
         private readonly IBoardService _boardService;
@@ -35,7 +34,11 @@ namespace kando_desktop.Services.Implementations
 
         private bool _isDataLoaded = false;
 
-        public WorkspaceService(ITeamService teamService, ISessionService sessionService, IBoardService boardService, IDashboardService dashboardService)
+        public WorkspaceService(
+            ITeamService teamService,
+            ISessionService sessionService,
+            IBoardService boardService,
+            IDashboardService dashboardService)
         {
             _teamService = teamService;
             _sessionService = sessionService;
@@ -46,75 +49,168 @@ namespace kando_desktop.Services.Implementations
         public async Task InitializeDataAsync()
         {
             if (_isDataLoaded) return;
-
             await ForceRefreshAsync();
         }
+
         public async Task ForceRefreshAsync()
         {
             var dashboardData = await _dashboardService.GetDashboardAsync();
-
             if (dashboardData == null) return;
 
-            var teamsDtos = dashboardData.Teams;
-            var boardsDtos = dashboardData.Boards;
-
-            var tempTeams = new List<Team>();
-            var tempBoards = new List<Board>();
-
-            var currentUser = _sessionService.CurrentUser;
-            var userName = currentUser?.UserName;
-            var initials = GetInitials(userName);
-
-            foreach (var dto in teamsDtos)
+            await MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Color teamColor;
-                try { teamColor = Color.FromArgb(dto.Color); }
-                catch { teamColor = Color.FromHex("#8f45ef"); }
-
-                var ownerMember = new Member
-                {
-                    Name = userName,
-                    Initials = initials,
-                    BaseColor = teamColor,
-                    Role = TeamRole.Owner
-                };
-
-                var team = new Team
-                {
-                    Id = dto.Id,
-                    Name = dto.Name,
-                    Icon = dto.Icon,
-                    TeamColor = teamColor,
-                    MemberCount = 1,
-                    Members = new ObservableCollection<Member> { ownerMember }
-                };
-                tempTeams.Add(team); 
-            }
-
-            foreach (var boardDto in boardsDtos)
-            {
-                var team = tempTeams.FirstOrDefault(t => t.Id == boardDto.TeamId);
-                if (team == null) continue;
-
-                var board = new Board
-                {
-                    Id = boardDto.Id,
-                    Name = boardDto.Name,
-                    Icon = boardDto.Icon,
-                    TeamName = team,
-                    TeamColor = team.TeamColor,
-                    CompletedTasks = boardDto.CompletedTasks,
-                    TotalTasks = boardDto.TotalTasks,
-                    TotalTaskPorcentage = boardDto.TotalTaskPorcentage
-                };
-                tempBoards.Add(board);
-                team.NumberBoards++;
-            }
-
-            Teams = new ObservableCollection<Team>(tempTeams);
-            Boards = new ObservableCollection<Board>(tempBoards);
+                SyncTeams(dashboardData.Teams);
+                SyncBoards(dashboardData.Boards);
+                OnPropertyChanged("ForceUIRefresh");
+            });
 
             _isDataLoaded = true;
+
+            await SubscribeToAllTeamsAsync();
+        }
+
+        private async Task SubscribeToAllTeamsAsync()
+        {
+            var notificationService = ServiceHelper.GetService<INotificationService>();
+            if (notificationService != null && notificationService.IsConnected)
+            {
+                var teamIds = Teams.Select(t => t.Id).ToList();
+                if (teamIds.Any())
+                {
+                    await notificationService.SubscribeToTeamsAsync(teamIds);
+                }
+            }
+        }
+
+        private void SyncTeams(List<TeamResponseDto> teamDtos)
+        {
+            RemoveDeletedTeams(teamDtos);
+
+            foreach (var dto in teamDtos)
+            {
+                var existingTeam = Teams.FirstOrDefault(t => t.Id == dto.Id);
+
+                if (existingTeam != null)
+                {
+                    UpdateExistingTeam(existingTeam, dto);
+                }
+                else
+                {
+                    AddNewTeam(dto);
+                }
+            }
+        }
+
+        private void RemoveDeletedTeams(List<TeamResponseDto> teamDtos)
+        {
+            var teamsToRemove = Teams
+                .Where(t => !teamDtos.Any(dto => dto.Id == t.Id))
+                .ToList();
+
+            foreach (var team in teamsToRemove)
+            {
+                Teams.Remove(team);
+            }
+        }
+
+        private void UpdateExistingTeam(Team team, TeamResponseDto dto)
+        {
+            var teamColor = ParseColor(dto.Color);
+
+            team.Name = dto.Name;
+            team.Icon = dto.Icon;
+            team.TeamColor = teamColor;
+            team.IsCurrentUserOwner = dto.IsCurrentUserOwner;
+
+            UpdateTeamMembers(team, dto.Members, teamColor);
+            team.MemberCount = team.Members.Count;
+        }
+
+        private void AddNewTeam(TeamResponseDto dto)
+        {
+            var teamColor = ParseColor(dto.Color);
+
+            var newTeam = new Team
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Icon = dto.Icon,
+                TeamColor = teamColor,
+                IsCurrentUserOwner = dto.IsCurrentUserOwner,
+                Members = new ObservableCollection<Member>()
+            };
+
+            UpdateTeamMembers(newTeam, dto.Members, teamColor);
+            newTeam.MemberCount = newTeam.Members.Count;
+
+            Teams.Add(newTeam);
+        }
+
+        private void UpdateTeamMembers(Team team, List<TeamMemberDto> memberDtos, Color teamColor)
+        {
+            team.Members.Clear();
+
+            foreach (var memberDto in memberDtos)
+            {
+                team.Members.Add(new Member
+                {
+                    Name = memberDto.Name,
+                    Initials = GetInitials(memberDto.Name),
+                    BaseColor = teamColor,
+                    Role = memberDto.Role == "Owner" ? TeamRole.Owner : TeamRole.Member
+                });
+            }
+        }
+
+        private void SyncBoards(List<BoardResponseDto> boardDtos)
+        {
+            Boards.Clear();
+
+            foreach (var boardDto in boardDtos)
+            {
+                var team = Teams.FirstOrDefault(t => t.Id == boardDto.TeamId);
+                if (team == null) continue;
+
+                AddBoardToCollection(boardDto, team);
+                IncrementTeamBoardCount(team);
+            }
+        }
+
+        private void AddBoardToCollection(BoardResponseDto boardDto, Team team)
+        {
+            var board = new Board
+            {
+                Id = boardDto.Id,
+                Name = boardDto.Name,
+                Icon = boardDto.Icon,
+                TeamName = team,
+                TeamColor = team.TeamColor,
+                CompletedTasks = boardDto.CompletedTasks,
+                TotalTasks = boardDto.TotalTasks,
+                TotalTaskPorcentage = boardDto.TotalTaskPorcentage
+            };
+
+            Boards.Add(board);
+        }
+
+        private void IncrementTeamBoardCount(Team team)
+        {
+            if (team.NumberBoards == 0)
+                team.NumberBoards = 1;
+            else
+                team.NumberBoards++;
+        }
+
+        private Color ParseColor(string colorString)
+        {
+            try
+            {
+                return Color.FromArgb(colorString);
+            }
+            catch
+            {
+                return Color.FromHex("#8f45ef");
+            }
         }
 
         public void ClearData()
@@ -125,21 +221,17 @@ namespace kando_desktop.Services.Implementations
             _isDataLoaded = false;
         }
 
-        public void CreateTeam(TeamResponseDto dto, UserSession currentUser)
+        public async void CreateTeam(TeamResponseDto dto, UserSession currentUser)
         {
             string userName = currentUser?.UserName ?? "Tú";
-            string initials = GetInitials(userName);
-
-            Color teamColor;
-            try { teamColor = Color.FromArgb(dto.Color); }
-            catch { teamColor = Color.FromArgb("#8f45ef"); }
+            var teamColor = ParseColor(dto.Color);
 
             var myself = new Member
             {
-                Initials = initials,
-                Name =  userName,
-                BaseColor = Color.FromArgb(dto.Color), 
-                Role = Enums.TeamRole.Owner
+                Initials = GetInitials(userName),
+                Name = userName,
+                BaseColor = teamColor,
+                Role = TeamRole.Owner
             };
 
             var newTeam = new Team
@@ -147,21 +239,26 @@ namespace kando_desktop.Services.Implementations
                 Id = dto.Id,
                 Name = dto.Name,
                 Icon = dto.Icon,
-                TeamColor = teamColor,  
+                TeamColor = teamColor,
                 MemberCount = 1,
                 NumberBoards = 0,
+                IsCurrentUserOwner = dto.IsCurrentUserOwner,
                 Members = new ObservableCollection<Member> { myself }
             };
 
             Teams.Insert(0, newTeam);
+
+            var notificationService = ServiceHelper.GetService<INotificationService>();
+            if (notificationService != null && notificationService.IsConnected)
+            {
+                await notificationService.SubscribeToTeamsAsync(new List<int> { dto.Id });
+            }
         }
 
         public void CreateBoard(BoardResponseDto boardDto)
         {
             var parentTeam = Teams.FirstOrDefault(t => t.Id == boardDto.TeamId);
-
             if (parentTeam == null) return;
-
 
             var newBoard = new Board
             {
@@ -176,7 +273,6 @@ namespace kando_desktop.Services.Implementations
             };
 
             Boards.Add(newBoard);
-
             parentTeam.NumberBoards++;
         }
 
@@ -184,16 +280,10 @@ namespace kando_desktop.Services.Implementations
         {
             var team = Teams.FirstOrDefault(t => t.Id == teamId);
             if (team == null) return;
+
             team.Name = updateTeamDto.Name;
             team.Icon = updateTeamDto.Icon;
-            try
-            {
-                team.TeamColor = Color.FromArgb(updateTeamDto.Color);
-            }
-            catch
-            {
-                team.TeamColor = Color.FromHex("#8f45ef");
-            }
+            team.TeamColor = ParseColor(updateTeamDto.Color);
 
             foreach (var member in team.Members)
             {
@@ -205,6 +295,7 @@ namespace kando_desktop.Services.Implementations
         {
             var board = Boards.FirstOrDefault(b => b.Id == boardId);
             if (board == null) return;
+
             board.Name = updateBoardDto.Name;
             board.Icon = updateBoardDto.Icon;
         }
@@ -213,7 +304,10 @@ namespace kando_desktop.Services.Implementations
         {
             if (team == null) return;
 
-            var associatedBoards = Boards.Where(b => b.TeamName == team).ToList();
+            var associatedBoards = Boards
+                .Where(b => b.TeamName == team)
+                .ToList();
+
             foreach (var board in associatedBoards)
             {
                 Boards.Remove(board);
@@ -248,8 +342,12 @@ namespace kando_desktop.Services.Implementations
         private string GetInitials(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) return "YO";
+
             var parts = name.Trim().Split(' ');
-            if (parts.Length == 1) return parts[0][0].ToString().ToUpper();
+
+            if (parts.Length == 1)
+                return parts[0][0].ToString().ToUpper();
+
             return $"{parts[0][0]}{parts[1][0]}".ToUpper();
         }
     }

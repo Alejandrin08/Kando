@@ -6,6 +6,7 @@ using kando_desktop.Models;
 using kando_desktop.Services.Contracts;
 using kando_desktop.ViewModels.Popups;
 using kando_desktop.Views.Popups;
+using kando_desktop.Enums;
 using InviteFriendPopup = kando_desktop.Views.Popups.InviteFriendPopup;
 
 namespace kando_desktop.ViewModels.Components
@@ -18,14 +19,18 @@ namespace kando_desktop.ViewModels.Components
         private readonly ITeamService _teamService;
         private readonly IWorkspaceService _workspaceService;
         private readonly INotificationService _notificationService;
+        private readonly ISessionService _sessionService;
+        public bool IsOwner => Team.IsCurrentUserOwner;
 
         public TeamCardViewModel(Team team)
         {
             _team = team;
-
             _teamService = ServiceHelper.GetService<ITeamService>();
             _workspaceService = ServiceHelper.GetService<IWorkspaceService>();
             _notificationService = ServiceHelper.GetService<INotificationService>();
+            _sessionService = ServiceHelper.GetService<ISessionService>();
+
+            OnPropertyChanged(nameof(IsOwner));
         }
 
         [RelayCommand]

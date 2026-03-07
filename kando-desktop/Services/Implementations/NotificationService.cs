@@ -1,7 +1,7 @@
-﻿
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Net.Http.Json;
 using kando_desktop.DTOs.Responses;
+using kando_desktop.Helpers;
 using kando_desktop.Models;
 using kando_desktop.Resources.Strings;
 using kando_desktop.Services.Contracts;
@@ -13,15 +13,13 @@ namespace kando_desktop.Services.Implementations
     public class NotificationService : INotificationService
     {
         private HubConnection _hubConnection;
-
         private readonly HttpClient _httpClient;
-
         private readonly string _baseUrl;
 
         public event Action<string, bool> OnShowNotification;
+        public event Action<int> OnTeamUpdated;
 
         public ObservableCollection<NotificationItem> RealTimeNotifications { get; } = new();
-
         public bool IsConnected => _hubConnection?.State == HubConnectionState.Connected;
 
         public NotificationService(IConfiguration configuration, HttpClient httpClient)
@@ -42,62 +40,161 @@ namespace kando_desktop.Services.Implementations
                 await DisconnectSignalRAsync();
             }
 
+            _hubConnection = BuildHubConnection(token);
+            RegisterEventHandlers();
+
+            await StartConnectionAsync(userId);
+        }
+
+        private HubConnection BuildHubConnection(string token)
+        {
             string hubUrl = _baseUrl.EndsWith("api/")
                 ? _baseUrl.Replace("api/", "notificationHub")
                 : $"{_baseUrl}notificationHub";
 
-            _hubConnection = new HubConnectionBuilder()
+            return new HubConnectionBuilder()
                 .WithUrl(hubUrl, options =>
                 {
                     options.AccessTokenProvider = () => Task.FromResult(token);
                 })
                 .WithAutomaticReconnect()
                 .Build();
+        }
 
-            _hubConnection.On<NotificationResponseDto>("ReceiveNotification", (notification) =>
+        private void RegisterEventHandlers()
+        {
+            _hubConnection.Reconnected += OnReconnectedAsync;
+
+            _hubConnection.On<NotificationResponseDto>("ReceiveNotification", HandleReceiveNotification);
+            _hubConnection.On<int>("TeamMembersChanged", HandleTeamMembersChanged);
+            _hubConnection.On<int, string, string, int>("TeamUpdated", HandleTeamUpdated);
+            _hubConnection.On<int, string, string, int>("TeamDeleted", HandleTeamDeleted);
+        }
+
+        private async Task OnReconnectedAsync(string connectionId)
+        {
+            var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+            var teamIds = workspaceService?.Teams.Select(t => t.Id).ToList();
+
+            if (teamIds != null && teamIds.Any())
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    var item = new NotificationItem
-                    {
-                        Id = notification.Id,
-                        NotificationType = notification.NotificationType,
-                        CreatedAt = notification.CreatedAt,
-                        IsRead = notification.IsRead,
-                        TeamId = notification.TeamId,
-                        TeamName = notification.TeamName,
-                        TeamIcon = notification.TeamIcon,
-                        TeamColor = !string.IsNullOrEmpty(notification.TeamColor)
-                                                ? Color.FromArgb(notification.TeamColor)
-                                                : Colors.Gray,
-                        OwnerName = notification.OwnerName,
-                        TaskId = notification.TaskId,
-                        TaskName = notification.TaskName,
-                        BoardName = notification.BoardName,
-                        Title = notification.Title,
-                        Message = notification.Message
-                    };
+                await SubscribeToTeamsAsync(teamIds);
+            }
+        }
 
-                    RealTimeNotifications.Insert(0, item);
+        private void HandleReceiveNotification(NotificationResponseDto notification)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var item = MapNotificationDto(notification);
+                RealTimeNotifications.Insert(0, item);
 
-                    string toastMsg = notification.NotificationType == "InviteTeam"
-                                      ? AppResources.NewTeamInvitation
-                                      : AppResources.YouHaveNewInvitation;
+                string toastMsg = notification.NotificationType == "InviteTeam"
+                    ? AppResources.NewTeamInvitation
+                    : AppResources.YouHaveNewInvitation;
 
-                    Show(toastMsg);
-                });
+                Show(toastMsg);
             });
+        }
 
+        private void HandleTeamMembersChanged(int teamId)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                OnTeamUpdated?.Invoke(teamId);
+                await RefreshWorkspaceAsync();
+            });
+        }
+
+        private void HandleTeamUpdated(int teamId, string teamName, string ownerName, int actionOwnerId)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await RefreshWorkspaceAsync();
+
+                if (!IsCurrentUser(actionOwnerId))
+                {
+                    string message = $"{ownerName} {AppResources.TeamUpdated} {teamName}.";
+                    Show(message);
+                }
+            });
+        }
+
+        private void HandleTeamDeleted(int teamId, string teamName, string ownerName, int actionOwnerId)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                RemoveTeamFromWorkspace(teamId);
+
+                if (!IsCurrentUser(actionOwnerId))
+                {
+                    string message = $"{ownerName} {AppResources.TeamDeleted} {teamName}.";
+                    Show(message);
+                }
+            });
+        }
+
+        private async Task StartConnectionAsync(int userId)
+        {
             try
             {
                 await _hubConnection.StartAsync();
                 await _hubConnection.InvokeAsync("JoinUserGroup", userId.ToString());
-                System.Diagnostics.Debug.WriteLine($"✅ SignalR connected for user {userId}");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"SignalR Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error starting SignalR: {ex.Message}");
             }
+        }
+
+        private NotificationItem MapNotificationDto(NotificationResponseDto dto)
+        {
+            return new NotificationItem
+            {
+                Id = dto.Id,
+                NotificationType = dto.NotificationType,
+                CreatedAt = dto.CreatedAt,
+                IsRead = dto.IsRead,
+                TeamId = dto.TeamId,
+                TeamName = dto.TeamName,
+                TeamIcon = dto.TeamIcon,
+                TeamColor = !string.IsNullOrEmpty(dto.TeamColor)
+                    ? Color.FromArgb(dto.TeamColor)
+                    : Colors.Gray,
+                OwnerName = dto.OwnerName,
+                TaskId = dto.TaskId,
+                TaskName = dto.TaskName,
+                BoardName = dto.BoardName,
+                Title = dto.Title,
+                Message = dto.Message
+            };
+        }
+
+        private async Task RefreshWorkspaceAsync()
+        {
+            var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+            if (workspaceService != null)
+            {
+                await workspaceService.ForceRefreshAsync();
+            }
+        }
+
+        private void RemoveTeamFromWorkspace(int teamId)
+        {
+            var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
+            var teamToRemove = workspaceService?.Teams.FirstOrDefault(t => t.Id == teamId);
+
+            if (teamToRemove != null)
+            {
+                workspaceService.DeleteTeam(teamToRemove);
+            }
+        }
+
+        private bool IsCurrentUser(int actionOwnerId)
+        {
+            var sessionService = ServiceHelper.GetService<ISessionService>();
+            var currentUserId = sessionService?.CurrentUser?.UserId;
+            return currentUserId == actionOwnerId;
         }
 
         public async Task DisconnectSignalRAsync()
@@ -109,7 +206,6 @@ namespace kando_desktop.Services.Implementations
                     await _hubConnection.StopAsync();
                     await _hubConnection.DisposeAsync();
                     _hubConnection = null;
-                    System.Diagnostics.Debug.WriteLine("✅ SignalR disconnected");
                 }
                 catch (Exception ex)
                 {
@@ -118,12 +214,40 @@ namespace kando_desktop.Services.Implementations
             }
         }
 
+        public async Task SubscribeToTeamsAsync(List<int> teamIds)
+        {
+            if (!teamIds.Any()) return;
+
+            try
+            {
+                await WaitForConnectionAsync();
+
+                if (_hubConnection.State == HubConnectionState.Connected)
+                {
+                    await _hubConnection.InvokeAsync("JoinTeamsGroups", teamIds);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error subscribing to teams: {ex.Message}");
+            }
+        }
+
+        private async Task WaitForConnectionAsync(int maxRetries = 5, int delayMs = 500)
+        {
+            int retry = 0;
+            while (_hubConnection.State != HubConnectionState.Connected && retry < maxRetries)
+            {
+                await Task.Delay(delayMs);
+                retry++;
+            }
+        }
+
         public void ClearNotifications()
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 RealTimeNotifications.Clear();
-                System.Diagnostics.Debug.WriteLine("✅ Notifications cleared");
             });
         }
 
@@ -140,7 +264,7 @@ namespace kando_desktop.Services.Implementations
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error getting notifications: {ex.Message}");
             }
             return new List<NotificationResponseDto>();
         }
@@ -159,25 +283,7 @@ namespace kando_desktop.Services.Implementations
                     {
                         foreach (var notif in history)
                         {
-                            var item = new NotificationItem
-                            {
-                                Id = notif.Id,
-                                NotificationType = notif.NotificationType,
-                                CreatedAt = notif.CreatedAt,
-                                IsRead = notif.IsRead,
-                                TeamId = notif.TeamId,
-                                TeamName = notif.TeamName,
-                                TeamIcon = notif.TeamIcon,
-                                TeamColor = string.IsNullOrEmpty(notif.TeamColor)
-                                                                ? Colors.Gray
-                                                                : Color.FromArgb(notif.TeamColor),
-                                OwnerName = notif.OwnerName,
-                                TaskId = notif.TaskId,
-                                TaskName = notif.TaskName,
-                                BoardName = notif.BoardName,
-                                Title = notif.Title,
-                                Message = notif.Message
-                            };
+                            var item = MapNotificationDto(notif);
                             RealTimeNotifications.Add(item);
                         }
                     }
@@ -185,7 +291,7 @@ namespace kando_desktop.Services.Implementations
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error loading historical notifications: {ex.Message}");
             }
         }
     }

@@ -621,4 +621,20 @@
     <value>día</value>
     <comment/>
   </data>
+  <data name="AcceptedInvitation" xml:space="preserve">
+    <value>Has aceptado la invitación correctamente.</value>
+    <comment/>
+  </data>
+  <data name="RejectedInvitation" xml:space="preserve">
+    <value>Has rechazado la invitación.</value>
+    <comment/>
+  </data>
+  <data name="TeamDeleted" xml:space="preserve">
+    <value>ha eliminado el equipo</value>
+    <comment/>
+  </data>
+  <data name="TeamUpdated" xml:space="preserve">
+    <value>ha modificado el equipo</value>
+    <comment/>
+  </data>
 </root>
