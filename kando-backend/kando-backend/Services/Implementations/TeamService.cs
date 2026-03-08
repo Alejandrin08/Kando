@@ -127,6 +127,30 @@ namespace kando_backend.Services.Implementations
 
             var now = DateTime.UtcNow;
 
+            var pendingUserIds = await _context.TeamMembers
+                .Where(tm => tm.TeamId == teamId && tm.Status == "Pending")
+                .Select(tm => tm.UserId)
+                .ToListAsync();
+
+            var teamNotifications = await _context.Notifications
+                .Where(n => n.TeamId == teamId && n.Type == "InviteTeam")
+                .ToListAsync();
+
+            if (teamNotifications.Any())
+            {
+                _context.Notifications.RemoveRange(teamNotifications);
+            }
+
+            var allTeamMembers = await _context.TeamMembers
+                .Where(tm => tm.TeamId == teamId && tm.Status != "Removed")
+                .ToListAsync();
+
+            foreach (var tm in allTeamMembers)
+            {
+                tm.Status = "Removed";
+                tm.RemovedAt = now;
+            }
+
             var allLists = existingTeam.Boards
                 .SelectMany(b => b.BoardLists)
                 .Where(l => l.IsDeleted != true)
@@ -161,7 +185,14 @@ namespace kando_backend.Services.Implementations
             existingTeam.DeletedAt = now;
 
             await _context.SaveChangesAsync();
+
             await _hubContext.Clients.Group($"Team_{teamId}").SendAsync("TeamDeleted", teamId, teamName, ownerName, ownerId);
+
+            foreach (var userId in pendingUserIds)
+            {
+                await _hubContext.Clients.Group(userId.ToString()).SendAsync("InvitationRevoked", teamId);
+            }
+
             return true;
         }
 

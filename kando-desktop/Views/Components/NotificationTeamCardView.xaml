@@ -12,7 +12,7 @@
         <vm:NotificationTeamCardViewModel x:Key="CardVM"/>
     </ContentView.Resources>
 
-    <Border Style="{StaticResource InteractiveCardStyle}"
+    <Border Style="{StaticResource NotificationCardStyle}"
             Padding="15">
         <Grid ColumnDefinitions="Auto, *"
               ColumnSpacing="15">
