@@ -10,7 +10,10 @@ namespace kando_desktop.Models
 {
     public partial class Member : ObservableObject
     {
-        [ObservableProperty] 
+        [ObservableProperty]
+        private int userId;
+
+        [ObservableProperty]
         private string initials;
 
         [ObservableProperty]

@@ -637,4 +637,8 @@
     <value>has changed the team</value>
     <comment/>
   </data>
+  <data name="RemovedFromTeam" xml:space="preserve">
+    <value>has removed you from the team</value>
+    <comment/>
+  </data>
 </root>

@@ -20,6 +20,7 @@ namespace kando_desktop.Services.Contracts
         Task DisconnectSignalRAsync();
         void ClearNotifications();
         Task SubscribeToTeamsAsync(List<int> teamIds);
+        Task UnsubscribeFromTeamAsync(int teamId);
         bool IsConnected { get; }
     }
 }

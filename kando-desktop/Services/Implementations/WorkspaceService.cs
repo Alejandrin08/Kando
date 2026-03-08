@@ -121,6 +121,7 @@ namespace kando_desktop.Services.Implementations
             team.Icon = dto.Icon;
             team.TeamColor = teamColor;
             team.IsCurrentUserOwner = dto.IsCurrentUserOwner;
+            team.TotalCapacity = dto.TotalCapacity;
 
             UpdateTeamMembers(team, dto.Members, teamColor);
             team.MemberCount = team.Members.Count;
@@ -137,6 +138,7 @@ namespace kando_desktop.Services.Implementations
                 Icon = dto.Icon,
                 TeamColor = teamColor,
                 IsCurrentUserOwner = dto.IsCurrentUserOwner,
+                TotalCapacity = dto.TotalCapacity,
                 Members = new ObservableCollection<Member>()
             };
 
@@ -152,12 +154,19 @@ namespace kando_desktop.Services.Implementations
 
             foreach (var memberDto in memberDtos)
             {
+                TeamRole assignedRole = TeamRole.Member;
+                if (memberDto.Role == "Owner")
+                    assignedRole = TeamRole.Owner;
+                else if (memberDto.Status == "Pending")
+                    assignedRole = TeamRole.Pending;
+
                 team.Members.Add(new Member
                 {
+                    UserId = memberDto.UserId,
                     Name = memberDto.Name,
                     Initials = GetInitials(memberDto.Name),
                     BaseColor = teamColor,
-                    Role = memberDto.Role == "Owner" ? TeamRole.Owner : TeamRole.Member
+                    Role = assignedRole
                 });
             }
         }
@@ -228,6 +237,7 @@ namespace kando_desktop.Services.Implementations
 
             var myself = new Member
             {
+                UserId = currentUser?.UserId ?? 0,
                 Initials = GetInitials(userName),
                 Name = userName,
                 BaseColor = teamColor,
@@ -242,6 +252,7 @@ namespace kando_desktop.Services.Implementations
                 TeamColor = teamColor,
                 MemberCount = 1,
                 NumberBoards = 0,
+                TotalCapacity = 1,
                 IsCurrentUserOwner = dto.IsCurrentUserOwner,
                 Members = new ObservableCollection<Member> { myself }
             };

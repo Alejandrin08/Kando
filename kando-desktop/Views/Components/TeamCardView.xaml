@@ -122,7 +122,7 @@
                 </HorizontalStackLayout>
 
                 <Button Grid.Column="1"
-                        IsVisible="{Binding IsOwner}"
+                        IsVisible="{Binding Team.CanInvite}"
                         Text="{x:Static strings:AppResources.InviteButton}"
                         Style="{StaticResource InviteButtonStyle}"
                         WidthRequest="100"

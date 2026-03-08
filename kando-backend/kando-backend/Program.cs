@@ -15,6 +15,7 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<ITeamMemberService, TeamMemberService>();
 
 builder.Services.AddSignalR();
 builder.Services.AddControllers();

@@ -62,9 +62,10 @@ namespace kando_backend.Services.Implementations
                 Color = team.Color,
                 CreatedAt = team.CreatedAt.Value,
                 IsCurrentUserOwner = true,
+                TotalCapacity = 1,
                 Members = new List<TeamMemberDto>
                 {
-                    new TeamMemberDto { Name = ownerUser.Username, Role = "Owner" }
+                    new TeamMemberDto { UserId = ownerId, Name = ownerUser.Username, Role = "Owner" }
                 }
             };
         }
@@ -89,7 +90,8 @@ namespace kando_backend.Services.Implementations
                 Color = t.Color,
                 CreatedAt = t.CreatedAt.GetValueOrDefault(DateTime.UtcNow),
                 Members = BuildMemberList(t),
-                IsCurrentUserOwner = t.OwnerId == userId
+                IsCurrentUserOwner = t.OwnerId == userId,
+                TotalCapacity = t.TeamMembers.Count(tm => tm.Status == "Active" || tm.Status == "Pending")
             }).ToList();
         }
 
@@ -173,7 +175,7 @@ namespace kando_backend.Services.Implementations
             var currentMemberCount = await _context.TeamMembers
                 .CountAsync(tm => tm.TeamId == teamId && (tm.Status == "Active" || tm.Status == "Pending"));
 
-            if (currentMemberCount + 1 >= MaxMembersTeam)
+            if (currentMemberCount + 1 > MaxMembersTeam)
                 throw new InvalidOperationException("The team has reached its maximum capacity (5 members including pending invites).");
 
             var userToInvite = await _context.Users.FirstOrDefaultAsync(u => u.Email == emailToInvite);
@@ -256,7 +258,7 @@ namespace kando_backend.Services.Implementations
             string htmlBody = EmailTemplates.GetInvitationTemplate(team.Name, ownerName);
             string subject = $"Kando: Invitación al equipo {team.Name}";
             _ = _emailService.SendEmailAsync(emailToInvite, subject, htmlBody);
-
+            await _hubContext.Clients.Group($"Team_{teamId}").SendAsync("TeamMembersChanged", teamId);
             return true;
         }
 
@@ -282,12 +284,13 @@ namespace kando_backend.Services.Implementations
                 var team = await _context.Teams.FindAsync(teamId);
                 if (team != null)
                 {
-                    await _hubContext.Clients.Group(team.OwnerId.ToString()).SendAsync("TeamMembersChanged", teamId);
+                    await _hubContext.Clients.Group($"Team_{teamId}").SendAsync("TeamMembersChanged", teamId);
                 }
             }
             else if (dto.Status == "Rejected")
             {
                 membership.RemovedAt = DateTime.UtcNow;
+                await _hubContext.Clients.Group($"Team_{teamId}").SendAsync("TeamMembersChanged", teamId);
             }
 
             var notification = await _context.Notifications
@@ -308,19 +311,23 @@ namespace kando_backend.Services.Implementations
 
             members.Add(new TeamMemberDto
             {
+                UserId = team.OwnerId,
                 Name = team.Owner.Username,
-                Role = "Owner"
+                Role = "Owner",
+                Status = "Active"
             });
 
-            var activeMembers = team.TeamMembers
-                .Where(tm => tm.Status == "Active" && tm.UserId != team.OwnerId)
-                .Select(tm => new TeamMemberDto
-                {
-                    Name = tm.User.Username,
-                    Role = tm.Role
-                });
+            var activeAndPendingMembers = team.TeamMembers
+                   .Where(tm => (tm.Status == "Active" || tm.Status == "Pending") && tm.UserId != team.OwnerId)
+                   .Select(tm => new TeamMemberDto
+                   {
+                       UserId = tm.UserId,
+                       Name = tm.User.Username,
+                       Role = tm.Role,
+                       Status = tm.Status
+                   });
 
-            members.AddRange(activeMembers);
+            members.AddRange(activeAndPendingMembers);
             return members;
         }
     }

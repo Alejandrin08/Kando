@@ -28,5 +28,11 @@ namespace kando_desktop.Models
 
         [ObservableProperty]
         private bool isCurrentUserOwner;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CanInvite))]
+        private int totalCapacity;
+
+        public bool CanInvite => IsCurrentUserOwner && TotalCapacity < 5;
     }
 }

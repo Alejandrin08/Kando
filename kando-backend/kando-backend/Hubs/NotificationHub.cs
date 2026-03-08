@@ -16,5 +16,10 @@ namespace kando_backend.Hubs
                 await Groups.AddToGroupAsync(Context.ConnectionId, $"Team_{teamId}");
             }
         }
+
+        public async Task LeaveTeamGroup(int teamId)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"Team_{teamId}");
+        }
     }
 }

@@ -9,11 +9,6 @@
         public DateTime CreatedAt { get; set; }
         public List<TeamMemberDto> Members { get; set; } = new();
         public bool IsCurrentUserOwner { get; set; }
-    }
-
-    public class TeamMemberDto
-    {
-        public string Name { get; set; }
-        public string Role { get; set; }
+        public int TotalCapacity { get; set; }
     }
 }

@@ -76,6 +76,10 @@ namespace kando_desktop
                     .ConfigurePrimaryHttpMessageHandler(handlerConfig)
                     .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
 
+            builder.Services.AddHttpClient<ITeamMemberService, TeamMemberService>(httpClientConfig)
+                    .ConfigurePrimaryHttpMessageHandler(handlerConfig)
+                    .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();
+
             builder.Services.AddHttpClient<NotificationService>(httpClientConfig)
                    .ConfigurePrimaryHttpMessageHandler(handlerConfig)
                    .AddHttpMessageHandler<AuthenticatedHttpMessageHandler>();

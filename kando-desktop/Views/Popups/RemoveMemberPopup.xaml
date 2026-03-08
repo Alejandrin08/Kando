@@ -19,7 +19,8 @@
 
         <Grid RowDefinitions="Auto, Auto, *">
 
-            <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, *, Auto">
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="Auto, Auto, *, Auto">
 
                 <Border BackgroundColor="{Binding TeamSelected.TeamColor}"
                         HeightRequest="50"
@@ -36,16 +37,16 @@
                 </Border>
 
                 <Label Grid.Column="1"
-                       Text="{x:Static strings:AppResources.TeamMembers}" 
-                       FontSize="20" 
+                       Text="{x:Static strings:AppResources.TeamMembers}"
+                       FontSize="20"
                        FontAttributes="Bold"
                        VerticalOptions="Center"
-                       Margin="20,0,5,0" 
+                       Margin="20,0,5,0"
                        TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"/>
 
                 <Label Grid.Column="2"
-                       Text="{Binding TeamSelected.Name}" 
-                       FontSize="20" 
+                       Text="{Binding TeamSelected.Name}"
+                       FontSize="20"
                        FontAttributes="Bold"
                        VerticalOptions="Center"
                        LineBreakMode="TailTruncation"
@@ -53,7 +54,8 @@
 
                 <ImageButton Source="close.png"
                              Grid.Column="3"
-                             HeightRequest="30" WidthRequest="30"
+                             HeightRequest="30"
+                             WidthRequest="30"
                              VerticalOptions="Start"
                              HorizontalOptions="End"
                              Background="Transparent"
@@ -66,14 +68,14 @@
             </Grid>
 
             <VerticalStackLayout Grid.Row="1"
-                                 Margin="0,10,0,0"
-                                 VerticalOptions="Center"     
-                                 Spacing="2"
-                                 BindableLayout.ItemsSource="{Binding TeamSelected.Members}">
+                                 Margin="0,40,0,0"
+                                 VerticalOptions="Center"
+                                 Spacing="7"
+                                 BindableLayout.ItemsSource="{Binding RemovableMembers}">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <controls:MemberCardView />
+                        <controls:MemberCardView/>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>

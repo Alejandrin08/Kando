@@ -75,15 +75,13 @@ namespace kando_desktop.ViewModels.Components
 
         private void ShowRemoveMemberPopup()
         {
-            var member = Team.Members?.FirstOrDefault();
-            if (member == null) return;
+            var teamMemberService = ServiceHelper.GetService<ITeamMemberService>();
 
-            var viewModel = new RemoveMemberPopupViewModel(Team, member, _workspaceService, _notificationService);
+            var viewModel = new RemoveMemberPopupViewModel(Team, _workspaceService, _notificationService, teamMemberService);
             var popup = new RemoveMemberPopup { BindingContext = viewModel };
             viewModel.RequestClose = () => popup.Close();
             Shell.Current.CurrentPage.ShowPopup(popup);
         }
-
         private void ShowDeleteTeamPopup()
         {
             var viewModel = new DeleteTeamPopupViewModel(_workspaceService, _notificationService, _teamService, Team);

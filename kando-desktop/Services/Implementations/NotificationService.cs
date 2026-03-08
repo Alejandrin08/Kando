@@ -46,6 +46,21 @@ namespace kando_desktop.Services.Implementations
             await StartConnectionAsync(userId);
         }
 
+        public async Task UnsubscribeFromTeamAsync(int teamId)
+        {
+            if (IsConnected)
+            {
+                try
+                {
+                    await _hubConnection.InvokeAsync("LeaveTeamGroup", teamId);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error leaving group SignalR: {ex.Message}");
+                }
+            }
+        }
+
         private HubConnection BuildHubConnection(string token)
         {
             string hubUrl = _baseUrl.EndsWith("api/")
@@ -69,6 +84,8 @@ namespace kando_desktop.Services.Implementations
             _hubConnection.On<int>("TeamMembersChanged", HandleTeamMembersChanged);
             _hubConnection.On<int, string, string, int>("TeamUpdated", HandleTeamUpdated);
             _hubConnection.On<int, string, string, int>("TeamDeleted", HandleTeamDeleted);
+            _hubConnection.On<int, string, string>("RemovedFromTeam", HandleRemovedFromTeam);
+            _hubConnection.On<int>("InvitationRevoked", HandleInvitationRevoked);
         }
 
         private async Task OnReconnectedAsync(string connectionId)
@@ -122,14 +139,41 @@ namespace kando_desktop.Services.Implementations
 
         private void HandleTeamDeleted(int teamId, string teamName, string ownerName, int actionOwnerId)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
                 RemoveTeamFromWorkspace(teamId);
+                await UnsubscribeFromTeamAsync(teamId);
 
                 if (!IsCurrentUser(actionOwnerId))
                 {
                     string message = $"{ownerName} {AppResources.TeamDeleted} {teamName}.";
                     Show(message);
+                }
+            });
+        }
+
+        private void HandleRemovedFromTeam(int teamId, string teamName, string ownerName)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                RemoveTeamFromWorkspace(teamId);
+                await UnsubscribeFromTeamAsync(teamId);
+
+                string message = $"{ownerName} {AppResources.RemovedFromTeam} {teamName}.";
+                Show(message);
+            });
+        }
+
+        private void HandleInvitationRevoked(int teamId)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var notifToRemove = RealTimeNotifications
+                    .FirstOrDefault(n => n.TeamId == teamId && n.NotificationType == "InviteTeam");
+
+                if (notifToRemove != null)
+                {
+                    RealTimeNotifications.Remove(notifToRemove);
                 }
             });
         }

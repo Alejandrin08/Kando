@@ -1499,5 +1499,16 @@ namespace kando_desktop.Resources.Strings
                 return ResourceManager.GetString("TeamUpdated", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Te ha eliminado del equipo.
+        /// </summary>
+        public static string RemovedFromTeam
+        {
+            get
+            {
+                return ResourceManager.GetString("RemovedFromTeam", resourceCulture);
+            }
+        }
     }
 }
