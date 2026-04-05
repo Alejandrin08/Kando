@@ -8,7 +8,7 @@ namespace kando_backend.Services.Interfaces
     {
         Task<BoardResponseDto> CreateBoardAsync(CreateBoardDto createBoardDto, int ownerId);
 
-        Task<List<BoardResponseDto>> GetBoardsUserAsync(int ownerId);
+        Task<List<BoardResponseDto>> GetBoardsUserAsync(int userId);
 
         Task<bool> UpdateBoardAsync(int boardId, UpdateBoardDto updateBoardDto, int ownerId);
 

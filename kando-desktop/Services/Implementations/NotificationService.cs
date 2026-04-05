@@ -86,6 +86,7 @@ namespace kando_desktop.Services.Implementations
             _hubConnection.On<int, string, string, int>("TeamDeleted", HandleTeamDeleted);
             _hubConnection.On<int, string, string>("RemovedFromTeam", HandleRemovedFromTeam);
             _hubConnection.On<int>("InvitationRevoked", HandleInvitationRevoked);
+            _hubConnection.On("BoardsChanged", HandleBoardsChanged);
         }
 
         private async Task OnReconnectedAsync(string connectionId)
@@ -111,6 +112,14 @@ namespace kando_desktop.Services.Implementations
                     : AppResources.YouHaveNewInvitation;
 
                 Show(toastMsg);
+            });
+        }
+
+        private void HandleBoardsChanged()
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await RefreshWorkspaceAsync();
             });
         }
 

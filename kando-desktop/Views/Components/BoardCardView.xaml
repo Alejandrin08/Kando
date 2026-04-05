@@ -44,6 +44,7 @@
                                        Grid.Column="1"
                                        Text="..."
                                        TextColor="{StaticResource Slate400}"
+                                       IsVisible="{Binding Board.IsCurrentUserOwner}"
                                        FontSize="24"
                                        HorizontalOptions="End"
                                        VerticalOptions="Start"

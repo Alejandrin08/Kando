@@ -1,7 +1,9 @@
 ﻿using kando_backend.DTOs.Requests;
 using kando_backend.DTOs.Responses;
+using kando_backend.Hubs;
 using kando_backend.Models;
 using kando_backend.Services.Interfaces;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace kando_backend.Services.Implementations
@@ -10,10 +12,12 @@ namespace kando_backend.Services.Implementations
     {
 
         private readonly KandoDbContext _context;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public BoardService(KandoDbContext context)
+        public BoardService(KandoDbContext context, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         public async Task<BoardResponseDto> CreateBoardAsync(CreateBoardDto createBoardDto, int ownerId)
@@ -43,6 +47,8 @@ namespace kando_backend.Services.Implementations
             _context.Boards.Add(board);
             await _context.SaveChangesAsync();
 
+            await _hubContext.Clients.Group($"Team_{board.TeamId}").SendAsync("BoardsChanged");
+
             return new BoardResponseDto
             {
                 Id = board.Id,
@@ -64,8 +70,8 @@ namespace kando_backend.Services.Implementations
                     .Include(b => b.BoardLists)
                         .ThenInclude(bl => bl.Tasks)
                     .FirstOrDefaultAsync(b => b.Id == boardId &&
-                                              b.Team.OwnerId == userId && 
-                                              (b.IsDeleted == false || b.IsDeleted == null));
+                                            b.Team.OwnerId == userId &&
+                                            (b.IsDeleted == false || b.IsDeleted == null));
 
             if (existingBoard == null) return false;
 
@@ -94,15 +100,19 @@ namespace kando_backend.Services.Implementations
             existingBoard.DeletedAt = now;
 
             await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.Group($"Team_{existingBoard.TeamId}").SendAsync("BoardsChanged");
+
             return true;
         }
 
-        public async Task<List<BoardResponseDto>> GetBoardsUserAsync(int ownerId)
+        public async Task<List<BoardResponseDto>> GetBoardsUserAsync(int userId)
         {
             var boards = await _context.Boards
-                .Where(b => b.Team.OwnerId == ownerId
-                                    && (b.Team.IsDeleted == false || b.Team.IsDeleted == null) 
-                                    && (b.IsDeleted == false || b.IsDeleted == null))       
+                .Where(b => (b.Team.IsDeleted == false || b.Team.IsDeleted == null) &&
+                                    (b.IsDeleted == false || b.IsDeleted == null) &&
+                                    (b.Team.OwnerId == userId ||
+                                    b.Team.TeamMembers.Any(tm => tm.UserId == userId && tm.Status == "Active")))
                         .AsNoTracking()
                 .Select(b => new BoardResponseDto
                 {
@@ -112,8 +122,9 @@ namespace kando_backend.Services.Implementations
                     TeamId = b.TeamId,
                     CreatedAt = b.CreatedAt.GetValueOrDefault(DateTime.UtcNow),
                     TotalTasks = b.TotalTasks,
-                    CompletedTasks = b.CompletedTasks, 
-                    TotalTaskPorcentage = 0
+                    CompletedTasks = b.CompletedTasks,
+                    TotalTaskPorcentage = 0,
+                    IsCurrentUserOwner = b.Team.OwnerId == userId
                 })
                 .ToListAsync();
 
@@ -143,7 +154,10 @@ namespace kando_backend.Services.Implementations
             existingBoard.Name = updateBoardDto.Name;
             existingBoard.Icon = updateBoardDto.Icon;
             await _context.SaveChangesAsync();
-            return true;    
+
+            await _hubContext.Clients.Group($"Team_{existingBoard.TeamId}").SendAsync("BoardsChanged");
+
+            return true;
         }
     }
 }

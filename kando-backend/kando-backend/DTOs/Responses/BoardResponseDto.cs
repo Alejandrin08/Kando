@@ -7,8 +7,9 @@
         public string Icon { get; set; }
         public int TeamId { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int CompletedTasks { get; set; } 
-        public int TotalTasks { get; set; } 
+        public int CompletedTasks { get; set; }
+        public int TotalTasks { get; set; }
         public double TotalTaskPorcentage { get; set; }
+        public bool IsCurrentUserOwner { get; set; }
     }
 }

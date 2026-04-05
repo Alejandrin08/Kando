@@ -29,12 +29,12 @@ namespace kando_desktop.ViewModels.Popups
         [ObservableProperty]
         private bool isBusy;
 
-        [ObservableProperty] 
+        [ObservableProperty]
         private bool isTeamDropdownOpen;
 
         public Action RequestClose;
 
-        public ObservableCollection<Team> Teams => _workspaceService.Teams;
+        public ObservableCollection<Team> Teams { get; } = new();
 
         public ObservableCollection<IconItem> Icons { get; } = new()
         {
@@ -63,7 +63,20 @@ namespace kando_desktop.ViewModels.Popups
             _workspaceService = workspaceService;
             _notificationService = notificationService;
             _boardService = boardService;
-            SelectedTeam = selectedTeam;
+
+            foreach (var team in _workspaceService.Teams.Where(t => t.IsCurrentUserOwner))
+            {
+                Teams.Add(team);
+            }
+
+            if (selectedTeam != null && selectedTeam.IsCurrentUserOwner)
+            {
+                SelectedTeam = selectedTeam;
+            }
+            else
+            {
+                SelectedTeam = Teams.FirstOrDefault();
+            }
         }
 
         [RelayCommand(AllowConcurrentExecutions = false)]
@@ -90,7 +103,7 @@ namespace kando_desktop.ViewModels.Popups
                 {
                     Name = BoardName,
                     Icon = SelectedIconSource,
-                    TeamId = SelectedTeam.Id 
+                    TeamId = SelectedTeam.Id
                 };
 
                 var createdBoard = await _boardService.CreateBoardAsync(dto);

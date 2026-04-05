@@ -32,5 +32,8 @@ namespace kando_desktop.Models
 
         [ObservableProperty]
         private double totalTaskPorcentage;
+
+        [ObservableProperty]
+        private bool isCurrentUserOwner;
     }
 }

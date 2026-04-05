@@ -175,6 +175,11 @@ namespace kando_desktop.Services.Implementations
         {
             Boards.Clear();
 
+            foreach (var team in Teams)
+            {
+                team.NumberBoards = 0;
+            }
+
             foreach (var boardDto in boardDtos)
             {
                 var team = Teams.FirstOrDefault(t => t.Id == boardDto.TeamId);
@@ -196,7 +201,8 @@ namespace kando_desktop.Services.Implementations
                 TeamColor = team.TeamColor,
                 CompletedTasks = boardDto.CompletedTasks,
                 TotalTasks = boardDto.TotalTasks,
-                TotalTaskPorcentage = boardDto.TotalTaskPorcentage
+                TotalTaskPorcentage = boardDto.TotalTaskPorcentage,
+                IsCurrentUserOwner = boardDto.IsCurrentUserOwner
             };
 
             Boards.Add(board);
@@ -204,10 +210,7 @@ namespace kando_desktop.Services.Implementations
 
         private void IncrementTeamBoardCount(Team team)
         {
-            if (team.NumberBoards == 0)
-                team.NumberBoards = 1;
-            else
-                team.NumberBoards++;
+            team.NumberBoards++;
         }
 
         private Color ParseColor(string colorString)
@@ -280,7 +283,8 @@ namespace kando_desktop.Services.Implementations
                 TeamColor = parentTeam.TeamColor,
                 CompletedTasks = boardDto.CompletedTasks,
                 TotalTasks = boardDto.TotalTasks,
-                TotalTaskPorcentage = boardDto.TotalTaskPorcentage
+                TotalTaskPorcentage = boardDto.TotalTaskPorcentage,
+                IsCurrentUserOwner = parentTeam.IsCurrentUserOwner
             };
 
             Boards.Add(newBoard);
