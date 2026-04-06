@@ -20,6 +20,12 @@ namespace kando_desktop
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                    .ConfigureMauiHandlers(handlers =>
+                {
+#if WINDOWS
+                    handlers.AddHandler<Shell, kando_desktop.Platforms.Windows.CustomShellHandler>();
+#endif
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -99,6 +105,7 @@ namespace kando_desktop
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<ModifyProfileViewModel>();
 
             builder.Services.AddTransient<CreateTeamPopupViewModel>();
             builder.Services.AddTransient<CreateBoardPopupViewModel>();
@@ -110,6 +117,7 @@ namespace kando_desktop
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<ModifyProfilePage>();
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
             {

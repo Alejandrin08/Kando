@@ -47,6 +47,15 @@ namespace kando_desktop.ViewModels.Popups
         }
 
         [RelayCommand]
+        private async Task EditProfile()
+        {
+            RequestClose?.Invoke();
+            await Task.Delay(150);
+
+            await Shell.Current.GoToAsync("ModifyProfilePage");
+        }
+
+        [RelayCommand]
         private void Close()
         {
             RequestClose?.Invoke();

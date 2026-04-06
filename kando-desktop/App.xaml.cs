@@ -1,12 +1,16 @@
 ﻿using kando_desktop.Helpers;
 using kando_desktop.Services.Contracts;
 
+#if WINDOWS
+using Microsoft.UI.Windowing;
+using WinUIWindow = Microsoft.UI.Xaml.Window;
+#endif
+
 namespace kando_desktop
 {
     public partial class App : Application
     {
         private readonly ISessionService _sessionService;
-
         private readonly INotificationService _notificationService;
 
         public App(ISessionService sessionService, INotificationService notificationService)
@@ -32,15 +36,30 @@ namespace kando_desktop
             window.X = (screenWidth - window.Width) / 2;
             window.Y = (screenHeight - window.Height) / 2;
 
+#if WINDOWS
+            window.HandlerChanged += (s, e) =>
+            {
+                var nativeWindow = window.Handler?.PlatformView as WinUIWindow;
+                if (nativeWindow == null) return;
+
+                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+                var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hwnd);
+                var appWindow = AppWindow.GetFromWindowId(windowId);
+
+                if (appWindow?.Presenter is OverlappedPresenter presenter)
+                {
+                    presenter.SetBorderAndTitleBar(true, true);
+                }
+            };
+#endif
+
             return window;
         }
 
         protected override async void OnStart()
         {
             base.OnStart();
-
             await Task.Delay(100);
-
             await InitializeSession();
         }
 
@@ -56,7 +75,6 @@ namespace kando_desktop
                     var userId = _sessionService.CurrentUser?.UserId ?? 0;
 
                     await _notificationService.InitializeSignalRAsync(token, userId);
-
                     _ = _notificationService.LoadHistoricalNotificationsAsync();
 
                     var workspaceService = ServiceHelper.GetService<IWorkspaceService>();
@@ -80,27 +98,8 @@ namespace kando_desktop
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(async () => await Shell.Current.GoToAsync("//LoginPage"));
-            }
-        }
-
-        private async Task InitializeNotifications()
-        {
-            try
-            {
-                var token = await SecureStorage.GetAsync("auth_token");
-                var userIdStr = Preferences.Get("user_id", 0);
-
-                if (!string.IsNullOrEmpty(token) && userIdStr > 0)
-                {
-                    await _notificationService.LoadHistoricalNotificationsAsync();
-
-                    await _notificationService.InitializeSignalRAsync(token, userIdStr);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                MainThread.BeginInvokeOnMainThread(async () =>
+                    await Shell.Current.GoToAsync("//LoginPage"));
             }
         }
     }

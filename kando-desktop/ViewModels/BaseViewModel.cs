@@ -116,6 +116,7 @@ namespace kando_desktop.ViewModels.ContentPages
             OnPropertyChanged(nameof(ErrorIconSource));
             OnPropertyChanged(nameof(CheckIconSource));
             OnPropertyChanged(nameof(BellIconSource));
+            OnPropertyChanged(nameof(BackIconSource));
         }
 
         [RelayCommand]
@@ -157,5 +158,6 @@ namespace kando_desktop.ViewModels.ContentPages
         public string ErrorIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "error_dark.png" : "error_light.png";
         public string CheckIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "check_dark.png" : "check_light.png";
         public string BellIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "bell_light.png" : "bell_dark.png";
+        public string BackIconSource => Application.Current.UserAppTheme == AppTheme.Dark ? "back_white.png" : "back_black.png";
     }
 }
