@@ -346,7 +346,7 @@
     <comment/>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Guardar Cambios</value>
+    <value>Guardar cambios</value>
     <comment/>
   </data>
   <data name="TeamMembers" xml:space="preserve">
@@ -639,6 +639,34 @@
   </data>
   <data name="RemovedFromTeam" xml:space="preserve">
     <value>te ha eliminado del equipo</value>
+    <comment/>
+  </data>
+  <data name="ModifyProfile" xml:space="preserve">
+    <value>Modificar perfil</value>
+    <comment/>
+  </data>
+  <data name="ModifyProfileSubtitle" xml:space="preserve">
+    <value>Actualiza tu información personal y configuración</value>
+    <comment/>
+  </data>
+  <data name="ProfileInfo" xml:space="preserve">
+    <value>Información del Perfil</value>
+    <comment/>
+  </data>
+  <data name="AvatarColor" xml:space="preserve">
+    <value>Color del Avatar</value>
+    <comment/>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Guardando...</value>
+    <comment/>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Perfil actualizado con éxito</value>
+    <comment/>
+  </data>
+  <data name="ErrorUpdatingProfile" xml:space="preserve">
+    <value>Error al actualizar el perfil</value>
     <comment/>
   </data>
 </root>

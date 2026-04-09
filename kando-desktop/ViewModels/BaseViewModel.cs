@@ -28,6 +28,9 @@ namespace kando_desktop.ViewModels.ContentPages
         private string userInitials;
 
         [ObservableProperty]
+        private string userIcon;
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasNotifications))]
         private int notificationCount = 0;
 
@@ -48,11 +51,14 @@ namespace kando_desktop.ViewModels.ContentPages
             UserName = _sessionService.CurrentUser?.UserName ?? string.Empty;
             UserEmail = _sessionService.CurrentUser?.Email ?? string.Empty;
             UserInitials = _sessionService.CurrentUser?.UserInitials ?? "YO";
+            UserIcon = _sessionService.CurrentUser?.UserIcon ?? "#8f45ef";
 
             if (_sessionService.CurrentUser != null)
             {
                 InitializeNotificationCounter();
             }
+
+            _sessionService.OnSessionUpdated += RefreshAvatar;
         }
 
         private void InitializeNotificationCounter()
@@ -68,6 +74,29 @@ namespace kando_desktop.ViewModels.ContentPages
             }
         }
 
+        private void RefreshAvatar()
+        {
+            if (_sessionService.CurrentUser != null)
+            {
+                var user = _sessionService.CurrentUser;
+
+                string hexColor = string.IsNullOrWhiteSpace(user.UserIcon)
+                    ? "#8f45ef"
+                    : user.UserIcon;
+
+                UserIcon = hexColor;
+                UserInitials = GetInitials(user.UserName);
+            }
+        }
+
+        private string GetInitials(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return "U";
+            var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 1) return parts[0][0].ToString().ToUpper();
+            return $"{parts[0][0]}{parts[1][0]}".ToUpper();
+        }
+
         private void OnNotificationsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             MainThread.BeginInvokeOnMainThread(() =>
@@ -80,6 +109,11 @@ namespace kando_desktop.ViewModels.ContentPages
                     OnPropertyChanged(nameof(HasNotifications));
                 }
             });
+        }
+
+        public virtual void Dispose()
+        {
+            _sessionService.OnSessionUpdated -= RefreshAvatar;
         }
 
         [RelayCommand]

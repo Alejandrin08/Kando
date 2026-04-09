@@ -27,7 +27,7 @@ namespace kando_backend.Services.Implementations
                 Email = createUserDto.UserEmail,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password),
                 UserIcon = "#8f45ef",
-                CreatedAt = DateTime.UtcNow 
+                CreatedAt = DateTime.UtcNow
             };
 
             _context.Users.Add(user);
@@ -37,9 +37,29 @@ namespace kando_backend.Services.Implementations
             return result > 0;
         }
 
+        public async Task<bool> EditUserAsync(int userId, UpdateUserDto updateUserDto)
+        {
+            bool emailTaken = await _context.Users
+                .AnyAsync(u => u.Email == updateUserDto.UserEmail && u.Id != userId);
+
+            if (emailTaken)
+            {
+                throw new InvalidOperationException("Email_Taken");
+            }
+
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (existingUser == null) return false;
+
+            existingUser.Username = updateUserDto.UserName;
+            existingUser.Email = updateUserDto.UserEmail;
+            existingUser.UserIcon = updateUserDto.UserIcon;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
         public async Task<UserDetails> GetUserByEmail(string email)
         {
-            var exists = await _context.Users.AnyAsync(u => u.Email == email);  
+            var exists = await _context.Users.AnyAsync(u => u.Email == email);
             if (!exists) return null;
 
             var user = await _context.Users

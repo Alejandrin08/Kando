@@ -10,9 +10,11 @@ namespace kando_desktop.Services.Contracts
     public interface ISessionService
     {
         UserSession? CurrentUser { get; }
+        event Action OnSessionUpdated;
         bool IsAuthenticated { get; }
         Task SaveSessionAsync(UserSession user, string token);
         Task LoadSessionAsync();
         void Logout();
+        Task UpdateSessionDataAsync(string newName, string newEmail, string newIcon);
     }
 }

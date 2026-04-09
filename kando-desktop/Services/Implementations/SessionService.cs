@@ -17,6 +17,7 @@ namespace kando_desktop.Services.Implementations
 
         private const string SessionKey = "user_session_data";
         private const string TokenKey = "auth_token";
+        public event Action OnSessionUpdated;
 
         public async Task SaveSessionAsync(UserSession user, string token)
         {
@@ -40,6 +41,22 @@ namespace kando_desktop.Services.Implementations
             else
             {
                 CurrentUser = null;
+            }
+        }
+
+        public async Task UpdateSessionDataAsync(string newName, string newEmail, string newIcon)
+        {
+            if (CurrentUser != null)
+            {
+                CurrentUser.UserName = newName;
+                CurrentUser.Email = newEmail;
+                CurrentUser.UserIcon = newIcon;
+
+                Preferences.Set("user_name", newName);
+                Preferences.Set("user_email", newEmail);
+                Preferences.Set("user_icon", newIcon);
+
+                OnSessionUpdated?.Invoke();
             }
         }
 

@@ -5,48 +5,334 @@
              xmlns:components="clr-namespace:kando_desktop.Views.Components"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:kando_desktop"
+             xmlns:controls="clr-namespace:kando_desktop.Controls"
              Shell.NavBarIsVisible="False"
              x:Class="kando_desktop.Views.ContentPages.ModifyProfilePage">
 
     <Grid>
+        <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate900}}">
+            <Grid RowDefinitions="Auto, *">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+                <HorizontalStackLayout Grid.Row="0"
+                                       HorizontalOptions="Start"
+                                       Margin="20,10,20,0">
+                    <Border Style="{StaticResource InputBorderStyle}"
+                            Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
+                            Padding="5"
+                            HeightRequest="36"
+                            WidthRequest="36"
+                            StrokeShape="RoundRectangle 50"
+                            local:CursorBehavior.Cursor="Hand">
+                        <Border.Shadow>
+                            <Shadow Brush="Black"
+                                    Offset="0,0"
+                                    Radius="7"
+                                    Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackHomeCommand}"/>
+                        </Border.GestureRecognizers>
+                        <Image Source="{Binding BackIconSource}"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Border>
+                </HorizontalStackLayout>
 
-        <HorizontalStackLayout Grid.Row="0"
-                               HorizontalOptions="Start"
-                               Margin="10">
+                <Grid Grid.Row="1"
+                      Margin="200,0">
+                    <StackLayout>
 
-            <Border Style="{StaticResource InputBorderStyle}"
-                    Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}"
-                    Padding="5"
-                    HeightRequest="36"
-                    WidthRequest="36"
-                    StrokeShape="RoundRectangle 50"
-                    local:CursorBehavior.Cursor="Hand">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding BackHome}"/>
-                </Border.GestureRecognizers>
-                <Image Source="{Binding BackIconSource}"
-                       HeightRequest="20"
-                       WidthRequest="20"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
-            </Border>
-        </HorizontalStackLayout>
+                        <Label Text="{x:Static strings:AppResources.ModifyProfile}"
+                               Style="{StaticResource TitleHuge}"/>
 
-        <Grid Grid.Row="1">
+                        <Label Text="{x:Static strings:AppResources.ModifyProfileSubtitle}"
+                               Style="{StaticResource SubtitleMuted}"
+                               FontSize="14"
+                               Margin="0,10,0,0"/>
 
-        </Grid>
+                        <Border StrokeThickness="0"
+                                Stroke="{AppThemeBinding Light={StaticResource Slate200}, Dark={StaticResource BorderDark}}"
+                                BackgroundColor="{AppThemeBinding Light=#fcfcfc, Dark=#172133}"
+                                StrokeShape="RoundRectangle 10"
+                                Margin="0,30"
+                                Padding="20">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
 
-        <Grid InputTransparent="True"
-              VerticalOptions="End"
-              HorizontalOptions="End"
-              Margin="0,0,30,30">
-            <components:ToastView x:Name="NotificationToast"/>
-        </Grid>
+                                <HorizontalStackLayout Grid.Row="0"
+                                                       Spacing="10">
+                                    <Image Source="user_blue.png"
+                                           Aspect="Fill"
+                                           WidthRequest="16"
+                                           HeightRequest="16"/>
+                                    <Label Text="{x:Static strings:AppResources.ProfileInfo}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Grid.Row="1"
+                                                       Spacing="10"
+                                                       Margin="0,30,0,0">
+                                    <Image Source="color_palette.png"
+                                           Aspect="Fill"
+                                           WidthRequest="16"
+                                           HeightRequest="16"/>
+                                    <Label Text="{x:Static strings:AppResources.AvatarColor}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                           FontSize="14"/>
+                                </HorizontalStackLayout>
+
+                                <Grid Grid.Row="2"
+                                      Margin="0,10,0,30"
+                                      ColumnDefinitions="Auto, *">
+
+                                    <Border Grid.Column="0"
+                                            StrokeShape="RoundRectangle 12"
+                                            StrokeThickness="0"
+                                            BackgroundColor="{Binding SelectedProfileColor}"
+                                            HeightRequest="70"
+                                            WidthRequest="70"
+                                            Margin="0,0,16,0">
+                                        <Grid>
+                                            <BoxView Opacity="0.2">
+                                                <BoxView.Background>
+                                                    <LinearGradientBrush StartPoint="0,0"
+                                                                         EndPoint="0,1">
+                                                        <GradientStop Offset="0.0"
+                                                                      Color="White"/>
+                                                        <GradientStop Offset="1.0"
+                                                                      Color="{Binding SelectedProfileColor}"/>
+                                                    </LinearGradientBrush>
+                                                </BoxView.Background>
+                                            </BoxView>
+                                            <Label Text="{Binding UserInitials}"
+                                                   TextColor="White"
+                                                   FontSize="22"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <FlexLayout Grid.Column="1"
+                                                BindableLayout.ItemsSource="{Binding Colors}"
+                                                Wrap="Wrap"
+                                                Margin="0,10,0,0"
+                                                JustifyContent="Start"
+                                                AlignItems="Center"
+                                                AlignContent="Center">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border StrokeShape="RoundRectangle 10"
+                                                        StrokeThickness="2"
+                                                        BackgroundColor="Transparent"
+                                                        Padding="2"
+                                                        Margin="0,0,4,4"
+                                                        HeightRequest="50"
+                                                        WidthRequest="50"
+                                                        local:CursorBehavior.Cursor="Hand">
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectColorCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                                              CommandParameter="{Binding .}"/>
+                                                    </Border.GestureRecognizers>
+                                                    <Border.Triggers>
+                                                        <DataTrigger TargetType="Border"
+                                                                     Binding="{Binding IsSelected}"
+                                                                     Value="False">
+                                                            <Setter Property="Stroke"
+                                                                    Value="Transparent"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Border"
+                                                                     Binding="{Binding IsSelected}"
+                                                                     Value="True">
+                                                            <Setter Property="Stroke"
+                                                                    Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}"/>
+                                                        </DataTrigger>
+                                                    </Border.Triggers>
+                                                    <Border StrokeShape="RoundRectangle 7"
+                                                            StrokeThickness="0"
+                                                            BackgroundColor="{Binding ColorHex}"
+                                                            Margin="0">
+                                                        <Grid>
+                                                            <BoxView Opacity="0.2">
+                                                                <BoxView.Background>
+                                                                    <LinearGradientBrush StartPoint="0,0"
+                                                                                         EndPoint="0,1">
+                                                                        <GradientStop Offset="0.0"
+                                                                                      Color="White"/>
+                                                                        <GradientStop Offset="1.0"
+                                                                                      Color="Black"/>
+                                                                    </LinearGradientBrush>
+                                                                </BoxView.Background>
+                                                            </BoxView>
+                                                        </Grid>
+                                                    </Border>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </FlexLayout>
+                                </Grid>
+
+                                <VerticalStackLayout Grid.Row="3"
+                                                     Spacing="5"
+                                                     Margin="0,0,0,15">
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <Label Grid.Column="0"
+                                               Text="{x:Static strings:AppResources.FullName}"
+                                               Style="{StaticResource FormLabel}"
+                                               TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding NameErrorText}"
+                                               IsVisible="{Binding HasNameError}"
+                                               TextColor="#ef4444"
+                                               FontSize="12"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="End"/>
+                                    </Grid>
+                                    <Border Style="{StaticResource InputBorderStyle}"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}">
+                                        <Border.Triggers>
+                                            <DataTrigger TargetType="Border"
+                                                         Binding="{Binding Source={x:Reference NameEntry}, Path=IsFocused}"
+                                                         Value="True">
+                                                <Setter Property="Stroke"
+                                                        Value="{StaticResource Blue500}"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Border"
+                                                         Binding="{Binding HasNameError}"
+                                                         Value="True">
+                                                <Setter Property="Stroke"
+                                                        Value="#ef4444"/>
+                                                <Setter Property="StrokeThickness"
+                                                        Value="1"/>
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <Grid ColumnDefinitions="Auto, *">
+                                            <Image Grid.Column="0"
+                                                   Source="user.png"
+                                                   Style="{StaticResource InputIcon}"/>
+                                            <controls:BorderlessEntry x:Name="NameEntry"
+                                                                      Grid.Column="1"
+                                                                      Text="{Binding UserName}"
+                                                                      Placeholder="{x:Static strings:AppResources.FullNamePlaceholder}"
+                                                                      PlaceholderColor="{AppThemeBinding Light={StaticResource Slate400}, Dark={StaticResource Slate500}}"
+                                                                      TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                                                      Keyboard="Text"
+                                                                      BackgroundColor="Transparent"
+                                                                      VerticalOptions="Center"
+                                                                      HeightRequest="40"
+                                                                      Margin="-5,0">
+                                                <controls:BorderlessEntry.Behaviors>
+                                                    <toolkit:EventToCommandBehavior EventName="Unfocused"
+                                                                                    Command="{Binding ValidateNameCommand}"/>
+                                                </controls:BorderlessEntry.Behaviors>
+                                            </controls:BorderlessEntry>
+                                        </Grid>
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="4"
+                                                     Spacing="5"
+                                                     Margin="0,0,0,15">
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <Label Grid.Column="0"
+                                               Text="{x:Static strings:AppResources.EmailLabel}"
+                                               Style="{StaticResource FormLabel}"
+                                               TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding EmailErrorText}"
+                                               IsVisible="{Binding HasEmailError}"
+                                               TextColor="#ef4444"
+                                               FontSize="12"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="End"/>
+                                    </Grid>
+                                    <Border Style="{StaticResource InputBorderStyle}"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Slate50}, Dark={StaticResource Slate800}}">
+                                        <Border.Triggers>
+                                            <DataTrigger TargetType="Border"
+                                                         Binding="{Binding Source={x:Reference EmailEntry}, Path=IsFocused}"
+                                                         Value="True">
+                                                <Setter Property="Stroke"
+                                                        Value="{StaticResource Blue500}"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Border"
+                                                         Binding="{Binding HasEmailError}"
+                                                         Value="True">
+                                                <Setter Property="Stroke"
+                                                        Value="#ef4444"/>
+                                                <Setter Property="StrokeThickness"
+                                                        Value="1"/>
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <Grid ColumnDefinitions="Auto, *">
+                                            <Image Grid.Column="0"
+                                                   Source="mail.png"
+                                                   Style="{StaticResource InputIcon}"/>
+                                            <controls:BorderlessEntry x:Name="EmailEntry"
+                                                                      Grid.Column="1"
+                                                                      Text="{Binding Email}"
+                                                                      Placeholder="{x:Static strings:AppResources.EmailPlaceholder}"
+                                                                      PlaceholderColor="{AppThemeBinding Light={StaticResource Slate400}, Dark={StaticResource Slate500}}"
+                                                                      TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource Slate50}}"
+                                                                      Keyboard="Email"
+                                                                      BackgroundColor="Transparent"
+                                                                      VerticalOptions="Center"
+                                                                      HeightRequest="40"
+                                                                      Margin="-5,0">
+                                                <controls:BorderlessEntry.Behaviors>
+                                                    <toolkit:EventToCommandBehavior EventName="Unfocused"
+                                                                                    Command="{Binding ValidateEmailCommand}"/>
+                                                </controls:BorderlessEntry.Behaviors>
+                                            </controls:BorderlessEntry>
+                                        </Grid>
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <Button Grid.Row="5"
+                                        Text="{x:Static strings:AppResources.SaveChanges}"
+                                        Style="{StaticResource PrimaryButton}"
+                                        Command="{Binding SaveCommand}"
+                                        local:CursorBehavior.Cursor="Hand"
+                                        Margin="0,10,0,0">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button"
+                                                     Binding="{Binding IsBusy}"
+                                                     Value="True">
+                                            <Setter Property="Text"
+                                                    Value="{x:Static strings:AppResources.Saving}"/>
+                                            <Setter Property="IsEnabled"
+                                                    Value="False"/>
+                                            <Setter Property="Opacity"
+                                                    Value="0.5"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button"
+                                                     Binding="{Binding CanSave}"
+                                                     Value="False">
+                                            <Setter Property="IsEnabled"
+                                                    Value="False"/>
+                                            <Setter Property="Opacity"
+                                                    Value="0.5"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                            </Grid>
+                        </Border>
+                    </StackLayout>
+                </Grid>
+
+                <Grid InputTransparent="True"
+                      VerticalOptions="End"
+                      HorizontalOptions="End"
+                      Margin="0,0,30,30">
+                    <components:ToastView x:Name="NotificationToast"/>
+                </Grid>
+
+            </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>

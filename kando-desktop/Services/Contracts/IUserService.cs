@@ -10,5 +10,6 @@ namespace kando_desktop.Services.Contracts
     public interface IUserService
     {
         Task<bool> CreateUserAsync(CreateUserDto createUserDto);
+        Task<bool> UpdateUserAsync(UpdateUserDto updateUserDto);
     }
 }

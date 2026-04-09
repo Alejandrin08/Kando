@@ -38,8 +38,6 @@ namespace kando_desktop.Views.ContentPages
                 });
             };
 
-            _viewModel.RequestShowCreateTeam += OnRequestShowCreateTeam;
-            _viewModel.RequestShowCreateBoard += OnRequestShowCreateBoard;
             _teamService = teamService;
             _sessionService = sessionService;
             _boardService = boardService;
@@ -59,7 +57,7 @@ namespace kando_desktop.Views.ContentPages
         private void OnRequestShowCreateBoard()
         {
 
-            var selectedTeamModel = _viewModel.GetSelectedTeamModel(); 
+            var selectedTeamModel = _viewModel.GetSelectedTeamModel();
 
             var viewModel = new CreateBoardPopupViewModel(
                 _workspaceService,
@@ -73,6 +71,19 @@ namespace kando_desktop.Views.ContentPages
             viewModel.RequestClose = () => popup.Close();
 
             this.ShowPopup(popup);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _viewModel.RequestShowCreateTeam -= OnRequestShowCreateTeam;
+            _viewModel.RequestShowCreateBoard -= OnRequestShowCreateBoard;
+
+            _viewModel.RequestShowCreateTeam += OnRequestShowCreateTeam;
+            _viewModel.RequestShowCreateBoard += OnRequestShowCreateBoard;
+
+            _viewModel.Resubscribe();
         }
 
         protected override void OnDisappearing()

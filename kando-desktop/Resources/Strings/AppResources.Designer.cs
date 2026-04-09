@@ -1510,5 +1510,82 @@ namespace kando_desktop.Resources.Strings
                 return ResourceManager.GetString("RemovedFromTeam", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Modificar perfil.
+        /// </summary>
+        public static string ModifyProfile
+        {
+            get
+            {
+                return ResourceManager.GetString("ModifyProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Actualiza tu información personal y configuración.
+        /// </summary>
+        public static string ModifyProfileSubtitle
+        {
+            get
+            {
+                return ResourceManager.GetString("ModifyProfileSubtitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Información del Perfil.
+        /// </summary>
+        public static string ProfileInfo
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color del Avatar.
+        /// </summary>
+        public static string AvatarColor
+        {
+            get
+            {
+                return ResourceManager.GetString("AvatarColor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Guardando....
+        /// </summary>
+        public static string Saving
+        {
+            get
+            {
+                return ResourceManager.GetString("Saving", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al actualizar el perfil
+        /// </summary>
+        public static string ErrorUpdatingProfile
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorUpdatingProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Perfil actualizado correctamente
+        /// </summary>
+        public static string ProfileUpdatedSuccessfully
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileUpdatedSuccessfully", resourceCulture);
+            }
+        }
     }
 }

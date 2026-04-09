@@ -155,5 +155,16 @@ namespace kando_desktop.ViewModels.ContentPages
         {
             return SelectedTeam?.Team;
         }
+
+        public void Resubscribe()
+        {
+            _workspaceService.Boards.CollectionChanged -= OnDataChanged;
+            _workspaceService.Teams.CollectionChanged -= OnDataChanged;
+
+            _workspaceService.Boards.CollectionChanged += OnDataChanged;
+            _workspaceService.Teams.CollectionChanged += OnDataChanged;
+
+            RefreshData();
+        }
     }
 }

@@ -346,7 +346,7 @@
     <comment/>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Save Changes</value>
+    <value>Save changes</value>
     <comment/>
   </data>
   <data name="TeamMembers" xml:space="preserve">
@@ -639,6 +639,34 @@
   </data>
   <data name="RemovedFromTeam" xml:space="preserve">
     <value>has removed you from the team</value>
+    <comment/>
+  </data>
+  <data name="ModifyProfile" xml:space="preserve">
+    <value>Edit profile</value>
+    <comment/>
+  </data>
+  <data name="ModifyProfileSubtitle" xml:space="preserve">
+    <value>Update your personal information and settings</value>
+    <comment/>
+  </data>
+  <data name="ProfileInfo" xml:space="preserve">
+    <value>Profile Information</value>
+    <comment/>
+  </data>
+  <data name="AvatarColor" xml:space="preserve">
+    <value>Avatar Color</value>
+    <comment/>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
+    <comment/>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Profile updated successfully</value>
+    <comment/>
+  </data>
+  <data name="ErrorUpdatingProfile" xml:space="preserve">
+    <value>Error updating profile</value>
     <comment/>
   </data>
 </root>
