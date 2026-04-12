@@ -35,5 +35,55 @@
         </body>
         </html>";
         }
+
+        public static string GetRecoveryCodeTemplate(string code)
+        {
+            return $@"
+                    <html>
+                    <head>
+                        <style>
+                            body {{ font-family: Arial, sans-serif; color: #333; }}
+                            .container {{ max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; }}
+                            .header {{ text-align: center; margin-bottom: 20px; }}
+                            .code-box {{ 
+                                display: inline-block; 
+                                padding: 15px 25px; 
+                                background-color: #f3f4f6; 
+                                border-radius: 8px; 
+                                font-size: 24px; 
+                                letter-spacing: 4px; 
+                                font-weight: bold; 
+                                color: #111827;
+                            }}
+                            .footer {{ margin-top: 30px; font-size: 12px; color: #999; text-align: center; }}
+                        </style>
+                    </head>
+                    <body>
+                        <div class='container'>
+                            <div class='header'>
+                                <img src='https://i.ibb.co/TDmrmZ5W/kando-icon.png' alt='Kando Header' width='150'>
+                            </div>
+
+                            <h2 style='text-align: center;'>Recuperar contraseña</h2>
+
+                            <p>Hola,</p>
+
+                            <p>Recibimos una solicitud para restablecer tu contraseña en <strong>Kando</strong>.</p>
+
+                            <p>Usa el siguiente código para continuar con el proceso:</p>
+
+                            <div style='text-align: center; margin: 30px 0;'>
+                                <div class='code-box'>{code}</div>
+                            </div>
+
+                            <p>Este código es válido por un tiempo limitado. No lo compartas con nadie.</p>
+
+                            <div class='footer'>
+                                Si no solicitaste este cambio, puedes ignorar este mensaje de forma segura.
+                            </div>
+                        </div>
+                    </body>
+                    </html>";
+        }
     }
 }

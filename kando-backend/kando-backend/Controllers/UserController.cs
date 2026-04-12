@@ -3,13 +3,14 @@ using kando_backend.DTOs.Requests;
 using kando_backend.Models;
 using kando_backend.Services.Implementations;
 using kando_backend.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kando_backend.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -29,6 +30,7 @@ namespace kando_backend.Controllers
             return null;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
         {

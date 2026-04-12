@@ -29,9 +29,6 @@ public partial class KandoDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Board>(entity =>
@@ -171,8 +168,10 @@ public partial class KandoDbContext : DbContext
 
             entity.HasIndex(e => e.Email, "UQ_Users_Email").IsUnique();
 
+            entity.Property(e => e.CodeCreatedAt).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.RecoveryCode).HasMaxLength(10);
             entity.Property(e => e.UserIcon).HasMaxLength(255);
             entity.Property(e => e.Username).HasMaxLength(255);
         });

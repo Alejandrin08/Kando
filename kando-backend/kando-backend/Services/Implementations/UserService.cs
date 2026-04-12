@@ -1,5 +1,6 @@
 ﻿using kando_backend.DTOs.Requests;
 using kando_backend.DTOs.Responses;
+using kando_backend.Helpers;
 using kando_backend.Models;
 using kando_backend.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -85,6 +86,7 @@ namespace kando_backend.Services.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
         public async Task<UserDetails> GetUserByEmail(string email)
         {
             var exists = await _context.Users.AnyAsync(u => u.Email == email);

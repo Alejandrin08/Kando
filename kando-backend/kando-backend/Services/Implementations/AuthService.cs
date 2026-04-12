@@ -1,5 +1,6 @@
 ﻿using kando_backend.DTOs.Requests;
 using kando_backend.DTOs.Responses;
+using kando_backend.Helpers;
 using kando_backend.Models;
 using kando_backend.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,13 @@ namespace kando_backend.Services.Implementations
     {
         private readonly KandoDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IEmailService _emailService;
 
-        public AuthService(KandoDbContext context, IConfiguration config)
+        public AuthService(KandoDbContext context, IConfiguration config, IEmailService emailService)
         {
             _context = context;
             _config = config;
+            _emailService = emailService;
         }
 
         public async Task<LoginResponseDto> LoginAsync(LoginDto request)
@@ -40,6 +43,67 @@ namespace kando_backend.Services.Implementations
                 UserIcon = user.UserIcon,
                 Token = token
             };
+        }
+
+        public async Task<string?> GenerateRecoveryCodeAsync(string email)
+        {
+            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (existsUser == null) return null;
+
+            string code = GenerateRecoveryCode();
+
+            existsUser.RecoveryCode = code;
+            existsUser.CodeCreatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            string htmlBody = EmailTemplates.GetRecoveryCodeTemplate(code);
+            string subject = "Kando: Recuperación de contraseña";
+            _ = _emailService.SendEmailAsync(existsUser.Email, subject, htmlBody);
+            return code;
+        }
+
+        public async Task<bool> ValidateRecoveryCodeAsync(ValidateCodeDto validateCodeDto)
+        {
+            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == validateCodeDto.Email);
+
+            if (existsUser == null || existsUser.RecoveryCode != validateCodeDto.Code || existsUser.CodeCreatedAt == null)
+                return false;
+
+            DateTime expirationDate = existsUser.CodeCreatedAt.Value.AddMinutes(15);
+
+            if (DateTime.UtcNow > expirationDate)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
+
+            if (existsUser == null || existsUser.RecoveryCode != resetPasswordDto.Code || existsUser.CodeCreatedAt == null)
+                return false;
+
+            DateTime expirationDate = existsUser.CodeCreatedAt.Value.AddMinutes(15);
+            if (DateTime.UtcNow > expirationDate) return false;
+
+            existsUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(resetPasswordDto.NewPassword);
+
+            existsUser.RecoveryCode = null;
+            existsUser.CodeCreatedAt = null;
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        private string GenerateRecoveryCode()
+        {
+            Random random = new Random();
+            return random.Next(100000, 999999).ToString();
         }
 
         private string GenerateJwtToken(Models.User user)

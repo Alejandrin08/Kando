@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace kando_backend.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -26,6 +25,38 @@ namespace kando_backend.Controllers
             }
 
             return Ok(result);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto request)
+        {
+            await _authService.GenerateRecoveryCodeAsync(request.Email);
+
+            return Ok(new { message = "If the email is registered, a recovery code will be sent." });
+        }
+
+        [HttpPost("validate-code")]
+        public async Task<IActionResult> ValidateCode([FromBody] ValidateCodeDto validateCodeDto)
+        {
+            var isValid = await _authService.ValidateRecoveryCodeAsync(validateCodeDto);
+            if (!isValid)
+            {
+                return BadRequest(new { message = "Invalid or expired recovery code." });
+            }
+
+            return Ok(new { message = "Code validated successfully." });
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+        {
+            var isReset = await _authService.ResetPasswordAsync(resetPasswordDto);
+            if (!isReset)
+            {
+                return BadRequest(new { message = "Error resetting password. The code might have expired." });
+            }
+
+            return Ok(new { message = "Password has been successfully reset." });
         }
     }
 }

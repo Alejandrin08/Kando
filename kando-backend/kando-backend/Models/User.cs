@@ -17,6 +17,10 @@ public partial class User
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? RecoveryCode { get; set; }
+
+    public DateTime? CodeCreatedAt { get; set; }
+
     public virtual ICollection<Notification> NotificationFromUsers { get; set; } = new List<Notification>();
 
     public virtual ICollection<Notification> NotificationToUsers { get; set; } = new List<Notification>();
