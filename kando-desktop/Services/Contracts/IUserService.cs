@@ -11,5 +11,6 @@ namespace kando_desktop.Services.Contracts
     {
         Task<bool> CreateUserAsync(CreateUserDto createUserDto);
         Task<bool> UpdateUserAsync(UpdateUserDto updateUserDto);
+        Task<bool> UpdateUserPasswordAsync(UpdatePasswordDto updatePasswordDto);
     }
 }

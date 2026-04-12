@@ -669,4 +669,64 @@
     <value>Error al actualizar el perfil</value>
     <comment/>
   </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Contraseña Actual</value>
+    <comment/>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nueva Contraseña</value>
+    <comment/>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmar Nueva Contraseña</value>
+    <comment/>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Cambiar Contraseña</value>
+    <comment/>
+  </data>
+  <data name="UpdatePassword" xml:space="preserve">
+    <value>Actualizar Contraseña</value>
+    <comment/>
+  </data>
+  <data name="CurrentPasswordRequired" xml:space="preserve">
+    <value>La contraseña actual es obligatoria.</value>
+    <comment/>
+  </data>
+  <data name="NewPasswordRequired" xml:space="preserve">
+    <value>La nueva contraseña es obligatoria.</value>
+    <comment/>
+  </data>
+  <data name="InvalidPasswordFormat" xml:space="preserve">
+    <value>La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un carácter especial.</value>
+    <comment/>
+  </data>
+  <data name="ConfirmPasswordRequired" xml:space="preserve">
+    <value>Debes confirmar la nueva contraseña.</value>
+    <comment/>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Las contraseñas no coinciden.</value>
+    <comment/>
+  </data>
+  <data name="PasswordUpdatedSuccessfully" xml:space="preserve">
+    <value>Contraseña actualizada correctamente.</value>
+    <comment/>
+  </data>
+  <data name="ErrorUpdatingPassword" xml:space="preserve">
+    <value>Ocurrió un error al actualizar la contraseña.</value>
+    <comment/>
+  </data>
+  <data name="PasswordValidationError" xml:space="preserve">
+    <value>No fue posible validar la contraseña. Verifica los datos ingresados.</value>
+    <comment/>
+  </data>
+  <data name="WrongCurrentPassword" xml:space="preserve">
+    <value>La contraseña actual es incorrecta.</value>
+    <comment/>
+  </data>
+  <data name="SamePasswordError" xml:space="preserve">
+    <value>La nueva contraseña debe ser diferente a la actual.</value>
+    <comment/>
+  </data>
 </root>

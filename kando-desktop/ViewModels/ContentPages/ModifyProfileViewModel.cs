@@ -13,11 +13,12 @@ namespace kando_desktop.ViewModels.ContentPages
     public partial class ModifyProfileViewModel : BaseViewModel
     {
         private readonly INotificationService _notificationService;
-        private readonly ISessionService _sessionService;
         private readonly IUserService _userService;
+        private readonly ISessionService _sessionService;
 
         private const string NamePattern = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$";
         private const string EmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        private const string PassPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$";
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(CanSave))]
@@ -28,26 +29,51 @@ namespace kando_desktop.ViewModels.ContentPages
         private string email;
 
         [ObservableProperty]
-        private string userInitials;
-
-        [ObservableProperty]
         private Color selectedProfileColor = Color.FromArgb("#8f45ef");
 
-        [ObservableProperty]
-        private bool hasNameError;
+        [ObservableProperty] private bool hasNameError;
+        [ObservableProperty] private string nameErrorText;
+
+        [ObservableProperty] private bool hasEmailError;
+        [ObservableProperty] private string emailErrorText;
 
         [ObservableProperty]
-        private string nameErrorText;
+        [NotifyPropertyChangedFor(nameof(CanSavePassword))]
+        private string currentPassword = string.Empty;
 
         [ObservableProperty]
-        private bool hasEmailError;
+        [NotifyPropertyChangedFor(nameof(CanSavePassword))]
+        private string newPassword = string.Empty;
 
         [ObservableProperty]
-        private string emailErrorText;
+        [NotifyPropertyChangedFor(nameof(CanSavePassword))]
+        private string confirmPassword = string.Empty;
+
+        [ObservableProperty] private bool hasCurrentPasswordError;
+        [ObservableProperty] private string currentPasswordErrorText;
+
+        [ObservableProperty] private bool hasNewPasswordError;
+        [ObservableProperty] private string newPasswordErrorText;
+
+        [ObservableProperty] private bool hasConfirmPasswordError;
+        [ObservableProperty] private string confirmPasswordErrorText;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(CanSave))]
+        [NotifyPropertyChangedFor(nameof(CanSavePassword))]
         private bool isBusy;
+
+        [ObservableProperty][NotifyPropertyChangedFor(nameof(CurrentEyeIconSource))] private bool isCurrentPasswordHidden = true;
+        public string CurrentEyeIconSource => IsCurrentPasswordHidden ? "show.png" : "hide.png";
+        [RelayCommand] private void ToggleCurrentPasswordVisibility() => IsCurrentPasswordHidden = !IsCurrentPasswordHidden;
+
+        [ObservableProperty][NotifyPropertyChangedFor(nameof(NewEyeIconSource))] private bool isNewPasswordHidden = true;
+        public string NewEyeIconSource => IsNewPasswordHidden ? "show.png" : "hide.png";
+        [RelayCommand] private void ToggleNewPasswordVisibility() => IsNewPasswordHidden = !IsNewPasswordHidden;
+
+        [ObservableProperty][NotifyPropertyChangedFor(nameof(ConfirmEyeIconSource))] private bool isConfirmPasswordHidden = true;
+        public string ConfirmEyeIconSource => IsConfirmPasswordHidden ? "show.png" : "hide.png";
+        [RelayCommand] private void ToggleConfirmPasswordVisibility() => IsConfirmPasswordHidden = !IsConfirmPasswordHidden;
 
         public ObservableCollection<ColorItem> Colors { get; } = new()
         {
@@ -65,11 +91,16 @@ namespace kando_desktop.ViewModels.ContentPages
                                !string.IsNullOrWhiteSpace(UserName) && Regex.IsMatch(UserName, NamePattern) &&
                                !string.IsNullOrWhiteSpace(Email) && Regex.IsMatch(Email, EmailPattern);
 
+        public bool CanSavePassword => !IsBusy &&
+                                       !string.IsNullOrWhiteSpace(CurrentPassword) &&
+                                       !string.IsNullOrWhiteSpace(NewPassword) &&
+                                       !string.IsNullOrWhiteSpace(ConfirmPassword);
+
         public ModifyProfileViewModel(INotificationService notificationService, ISessionService sessionService, IUserService userService) : base(sessionService)
         {
             _notificationService = notificationService;
-            _sessionService = sessionService;
             _userService = userService;
+            _sessionService = sessionService;
 
             InitializeUserData();
         }
@@ -93,40 +124,17 @@ namespace kando_desktop.ViewModels.ContentPages
                 {
                     SelectedProfileColor = Color.FromArgb(userColorHex);
                 }
-
-                UpdateInitials(UserName);
             }
         }
 
         partial void OnUserNameChanged(string value)
         {
-            UpdateInitials(value);
             if (HasNameError) { HasNameError = false; NameErrorText = string.Empty; }
         }
 
         partial void OnEmailChanged(string value)
         {
             if (HasEmailError) { HasEmailError = false; EmailErrorText = string.Empty; }
-        }
-
-        private void UpdateInitials(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                UserInitials = "U";
-                return;
-            }
-
-            var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            if (parts.Length == 1)
-            {
-                UserInitials = parts[0][0].ToString().ToUpper();
-            }
-            else if (parts.Length >= 2)
-            {
-                UserInitials = $"{parts[0][0]}{parts[1][0]}".ToUpper();
-            }
         }
 
         [RelayCommand]
@@ -150,11 +158,7 @@ namespace kando_desktop.ViewModels.ContentPages
         [RelayCommand]
         private void SelectColor(ColorItem colorItem)
         {
-            foreach (var item in Colors)
-            {
-                item.IsSelected = false;
-            }
-
+            foreach (var item in Colors) item.IsSelected = false;
             colorItem.IsSelected = true;
             SelectedProfileColor = Color.FromArgb(colorItem.ColorHex);
         }
@@ -169,7 +173,6 @@ namespace kando_desktop.ViewModels.ContentPages
             if (HasNameError || HasEmailError) return;
 
             IsBusy = true;
-
             var newColorHex = Colors.FirstOrDefault(c => c.IsSelected)?.ColorHex ?? "#8f45ef";
 
             var userToUpdate = new UpdateUserDto
@@ -186,7 +189,6 @@ namespace kando_desktop.ViewModels.ContentPages
                 if (success)
                 {
                     await _sessionService.UpdateSessionDataAsync(UserName, Email, newColorHex);
-
                     _notificationService.Show(AppResources.ProfileUpdatedSuccessfully);
                     await BackHome();
                 }
@@ -202,6 +204,119 @@ namespace kando_desktop.ViewModels.ContentPages
                     HasEmailError = true;
                     EmailErrorText = AppResources.EmailAlreadyRegistered;
                     OnPropertyChanged(nameof(CanSave));
+                }
+                else
+                {
+                    _notificationService.Show(AppResources.NetworkError, true);
+                }
+            }
+            catch (Exception)
+            {
+                _notificationService.Show(AppResources.UnexpectedError, true);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        private void ValidatePassword()
+        {
+            if (string.IsNullOrWhiteSpace(CurrentPassword))
+            {
+                HasCurrentPasswordError = true;
+                CurrentPasswordErrorText = AppResources.CurrentPasswordRequired;
+            }
+            else HasCurrentPasswordError = false;
+
+            if (string.IsNullOrWhiteSpace(NewPassword))
+            {
+                HasNewPasswordError = true;
+                NewPasswordErrorText = AppResources.NewPasswordRequired;
+            }
+            else if (!Regex.IsMatch(NewPassword, PassPattern))
+            {
+                HasNewPasswordError = true;
+                NewPasswordErrorText = AppResources.InvalidPasswordFormat;
+            }
+            else HasNewPasswordError = false;
+
+            if (string.IsNullOrWhiteSpace(ConfirmPassword))
+            {
+                HasConfirmPasswordError = true;
+                ConfirmPasswordErrorText = AppResources.ConfirmPasswordRequired;
+            }
+            else if (NewPassword != ConfirmPassword)
+            {
+                HasConfirmPasswordError = true;
+                ConfirmPasswordErrorText = AppResources.PasswordsDoNotMatch;
+            }
+            else HasConfirmPasswordError = false;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanSavePassword), AllowConcurrentExecutions = false)]
+        private async Task SavePassword()
+        {
+            if (IsBusy) return;
+
+            ValidatePassword();
+
+            if (HasCurrentPasswordError || HasNewPasswordError || HasConfirmPasswordError)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                var dto = new UpdatePasswordDto
+                {
+                    CurrentPassword = CurrentPassword.Trim(),
+                    NewPassword = NewPassword.Trim(),
+                    ConfirmPassword = ConfirmPassword.Trim()
+                };
+
+                var success = await _userService.UpdateUserPasswordAsync(dto);
+
+                if (success)
+                {
+                    CurrentPassword = string.Empty;
+                    NewPassword = string.Empty;
+                    ConfirmPassword = string.Empty;
+
+                    _notificationService.Show(AppResources.PasswordUpdatedSuccessfully);
+
+                    await Task.Delay(1500);
+                    _sessionService.Logout();
+                    await Shell.Current.Navigation.PopToRootAsync(false);
+                    await Shell.Current.GoToAsync("//LoginPage");
+                }
+                else
+                {
+                    _notificationService.Show(AppResources.ErrorUpdatingPassword, true);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                _notificationService.Show(ex.Message, true);
+
+                if (ex.StatusCode == HttpStatusCode.BadRequest || ex.StatusCode == HttpStatusCode.Conflict)
+                {
+                    if (ex.Message == AppResources.WrongCurrentPassword)
+                    {
+                        HasCurrentPasswordError = true;
+                        CurrentPasswordErrorText = ex.Message;
+                    }
+                    else if (ex.Message == AppResources.SamePasswordError)
+                    {
+                        HasNewPasswordError = true;
+                        NewPasswordErrorText = ex.Message;
+                    }
+                    else if (ex.Message == AppResources.PasswordsDoNotMatch)
+                    {
+                        HasConfirmPasswordError = true;
+                        ConfirmPasswordErrorText = ex.Message;
+                    }
                 }
                 else
                 {

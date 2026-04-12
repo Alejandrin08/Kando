@@ -669,4 +669,64 @@
     <value>Error updating profile</value>
     <comment/>
   </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current Password</value>
+    <comment/>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+    <comment/>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+    <comment/>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+    <comment/>
+  </data>
+  <data name="UpdatePassword" xml:space="preserve">
+    <value>Update Password</value>
+    <comment/>
+  </data>
+  <data name="WrongCurrentPassword" xml:space="preserve">
+    <value>Current password is incorrect.</value>
+    <comment/>
+  </data>
+  <data name="SamePasswordError" xml:space="preserve">
+    <value>The new password must be different from the current one.</value>
+    <comment/>
+  </data>
+  <data name="CurrentPasswordRequired" xml:space="preserve">
+    <value>Current password is required.</value>
+    <comment/>
+  </data>
+  <data name="NewPasswordRequired" xml:space="preserve">
+    <value>New password is required.</value>
+    <comment/>
+  </data>
+  <data name="InvalidPasswordFormat" xml:space="preserve">
+    <value>Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character.</value>
+    <comment/>
+  </data>
+  <data name="ConfirmPasswordRequired" xml:space="preserve">
+    <value>You must confirm the new password.</value>
+    <comment/>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+    <comment/>
+  </data>
+  <data name="PasswordUpdatedSuccessfully" xml:space="preserve">
+    <value>Password updated successfully.</value>
+    <comment/>
+  </data>
+  <data name="ErrorUpdatingPassword" xml:space="preserve">
+    <value>An error occurred while updating the password.</value>
+    <comment/>
+  </data>
+  <data name="PasswordValidationError" xml:space="preserve">
+    <value>Password validation failed. Please verify the entered information.</value>
+    <comment/>
+  </data>
 </root>

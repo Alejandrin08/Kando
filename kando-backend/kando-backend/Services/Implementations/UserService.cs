@@ -16,6 +16,34 @@ namespace kando_backend.Services.Implementations
             _context = context;
         }
 
+        public async Task<bool> ChangePassword(int userId, UpdatePasswordDto updatePasswordDto)
+        {
+            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (existsUser == null) return false;
+
+            if (updatePasswordDto.CurrentPassword == updatePasswordDto.NewPassword)
+            {
+                throw new InvalidOperationException("Same_Password");
+            }
+
+            bool passwordIsMatch = BCrypt.Net.BCrypt.Verify(updatePasswordDto.CurrentPassword, existsUser.PasswordHash);
+
+            if (!passwordIsMatch)
+            {
+                throw new InvalidOperationException("Wrong_Password");
+            }
+
+            if (updatePasswordDto.NewPassword != updatePasswordDto.ConfirmPassword)
+            {
+                throw new InvalidOperationException("Passwords_Do_Not_Match");
+            }
+
+            existsUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatePasswordDto.NewPassword);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<bool> CreateUserAsync(CreateUserDto createUserDto)
         {
             var exists = await _context.Users.AnyAsync(u => u.Email == createUserDto.UserEmail);

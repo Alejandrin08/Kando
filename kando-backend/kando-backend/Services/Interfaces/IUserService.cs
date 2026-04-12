@@ -8,5 +8,6 @@ namespace kando_backend.Services.Interfaces
         Task<bool> CreateUserAsync(CreateUserDto createUserDto);
         Task<UserDetails> GetUserByEmail(string email);
         Task<bool> EditUserAsync(int userId, UpdateUserDto updateUserDto);
+        Task<bool> ChangePassword(int userId, UpdatePasswordDto updatePasswordDto);
     }
 }

@@ -1587,5 +1587,170 @@ namespace kando_desktop.Resources.Strings
                 return ResourceManager.GetString("ProfileUpdatedSuccessfully", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña Actual
+        /// </summary>
+        public static string CurrentPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nueva Contraseña
+        /// </summary>
+        public static string NewPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirmar Nueva Contraseña
+        /// </summary>
+        public static string ConfirmNewPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cambiar Contraseña
+        /// </summary>
+        public static string ChangePassword
+        {
+            get
+            {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Actualizar Contraseña
+        /// </summary>
+        public static string UpdatePassword
+        {
+            get
+            {
+                return ResourceManager.GetString("UpdatePassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña actual es obligatoria.
+        /// </summary>
+        public static string CurrentPasswordRequired
+        {
+            get
+            {
+                return ResourceManager.GetString("CurrentPasswordRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a La nueva contraseña es obligatoria.
+        /// </summary>
+        public static string NewPasswordRequired
+        {
+            get
+            {
+                return ResourceManager.GetString("NewPasswordRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un carácter especial.
+        /// </summary>
+        public static string InvalidPasswordFormat
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPasswordFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Debes confirmar la nueva contraseña.
+        /// </summary>
+        public static string ConfirmPasswordRequired
+        {
+            get
+            {
+                return ResourceManager.GetString("ConfirmPasswordRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Las contraseñas no coinciden.
+        /// </summary>
+        public static string PasswordsDoNotMatch
+        {
+            get
+            {
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña actualizada correctamente.
+        /// </summary>
+        public static string PasswordUpdatedSuccessfully
+        {
+            get
+            {
+                return ResourceManager.GetString("PasswordUpdatedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ocurrió un error al actualizar la contraseña.
+        /// </summary>
+        public static string ErrorUpdatingPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorUpdatingPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a No fue posible validar la contraseña. Verifica los datos ingresados.
+        /// </summary>
+        public static string PasswordValidationError
+        {
+            get
+            {
+                return ResourceManager.GetString("PasswordValidationError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña actual es incorrecta.
+        /// </summary>
+        public static string WrongCurrentPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("WrongCurrentPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a La nueva contraseña debe ser diferente a la actual.
+        /// </summary>
+        public static string SamePasswordError
+        {
+            get
+            {
+                return ResourceManager.GetString("SamePasswordError", resourceCulture);
+            }
+        }
     }
 }
