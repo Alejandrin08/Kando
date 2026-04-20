@@ -98,6 +98,14 @@ namespace kando_desktop.ViewModels.ContentPages
         }
 
         [RelayCommand]
+        private async Task VerifyEmail()
+        {
+            await Task.Delay(150);
+
+            await Shell.Current.GoToAsync("VerifyEmailPage");
+        }
+
+        [RelayCommand]
         private void ValidatePassword()
         {
             if (string.IsNullOrWhiteSpace(Password))

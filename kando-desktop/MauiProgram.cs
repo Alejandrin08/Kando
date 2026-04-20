@@ -106,6 +106,9 @@ namespace kando_desktop
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<ModifyProfileViewModel>();
+            builder.Services.AddTransient<VerifyEmailViewModel>();
+            builder.Services.AddTransient<VerifyCodeViewModel>();
+            builder.Services.AddTransient<ResetPasswordViewModel>();
 
             builder.Services.AddTransient<CreateTeamPopupViewModel>();
             builder.Services.AddTransient<CreateBoardPopupViewModel>();
@@ -118,6 +121,9 @@ namespace kando_desktop
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<ModifyProfilePage>();
+            builder.Services.AddTransient<VerifyEmailPage>();
+            builder.Services.AddTransient<VerifyCodePage>();
+            builder.Services.AddTransient<ResetPasswordPage>();
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
             {

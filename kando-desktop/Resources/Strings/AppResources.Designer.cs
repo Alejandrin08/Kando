@@ -1752,5 +1752,171 @@ namespace kando_desktop.Resources.Strings
                 return ResourceManager.GetString("SamePasswordError", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Restablecer Contraseña
+        /// </summary>
+        public static string ResetPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ingresa tu correo y recibirás un código de verificación
+        /// </summary>
+        public static string EnterEmail
+        {
+            get
+            {
+                return ResourceManager.GetString("EnterEmail", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enviar Código de Verificación
+        /// </summary>
+        public static string SendVerificationCode
+        {
+            get
+            {
+                return ResourceManager.GetString("SendVerificationCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enviando
+        /// </summary>
+        public static string Sending
+        {
+            get
+            {
+                return ResourceManager.GetString("Sending", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Código de verificación enviado exitosamente
+        /// </summary>
+        public static string CodeSentSuccessfully
+        {
+            get
+            {
+                return ResourceManager.GetString("CodeSentSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al enviar el código de verificación
+        /// </summary>
+        public static string FailedSentCode
+        {
+            get
+            {
+                return ResourceManager.GetString("FailedSentCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verifica tu Identidad
+        /// </summary>
+        public static string VerifyIdentity
+        {
+            get
+            {
+                return ResourceManager.GetString("VerifyIdentity", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ingresa el código de 6 dígitos enviado a
+        /// </summary>
+        public static string EnterCode
+        {
+            get
+            {
+                return ResourceManager.GetString("EnterCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verificar Código
+        /// </summary>
+        public static string VerifyCode
+        {
+            get
+            {
+                return ResourceManager.GetString("VerifyCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿No recibiste el código?
+        /// </summary>
+        public static string NoCode
+        {
+            get
+            {
+                return ResourceManager.GetString("NoCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reenviar
+        /// </summary>
+        public static string Resend
+        {
+            get
+            {
+                return ResourceManager.GetString("Resend", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a El código es incorrecto o ha expirado. Por favor, inténtalo de nuevo.
+        /// </summary>
+        public static string ErrorValidatingCode
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorValidatingCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reenviar en
+        /// </summary>
+        public static string ResendIn
+        {
+            get
+            {
+                return ResourceManager.GetString("ResendIn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear Nueva Contraseña
+        /// </summary>
+        public static string CreateNewPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("CreateNewPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tu nueva contraseña debe ser diferente a las anteriores
+        /// </summary>
+        public static string NewPasswordDifferent
+        {
+            get
+            {
+                return ResourceManager.GetString("NewPasswordDifferent", resourceCulture);
+            }
+        }
     }
 }

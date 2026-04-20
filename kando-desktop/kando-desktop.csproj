@@ -161,6 +161,12 @@
 	  <MauiXaml Update="Views\ContentPages\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  	  <MauiXaml Update="Views\ContentPage\VerifyEmailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  	  <MauiXaml Update="Views\ContentPage\ResetPasswordPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

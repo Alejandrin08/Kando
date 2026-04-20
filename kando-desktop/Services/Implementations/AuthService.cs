@@ -19,6 +19,31 @@ namespace kando_desktop.Services.Implementations
             _httpClient = httpClient;
         }
 
+        public async Task<bool> GenerateRecoveryCodeAsync(ForgotPasswordDto forgotPasswordDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync("auth/forgot-password", forgotPasswordDto);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> ValidateRecoveryCodeAsync(ValidateCodeDto validateCodeDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync("auth/validate-code", validateCodeDto);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"auth/reset-password", resetPasswordDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Error API: {errorContent}");
+                return false;
+            }
+            return true;
+        }
+
         public async Task<LoginResponseDto> LoginAsync(string email, string password)
         {
             var loginData = new LoginDto

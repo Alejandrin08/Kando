@@ -729,4 +729,64 @@
     <value>Password validation failed. Please verify the entered information.</value>
     <comment/>
   </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+    <comment/>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Enter your email address and you'll receive a verification code</value>
+    <comment/>
+  </data>
+  <data name="SendVerificationCode" xml:space="preserve">
+    <value>Send Verification Code</value>
+    <comment/>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Sending</value>
+    <comment/>
+  </data>
+  <data name="CodeSentSuccessfully" xml:space="preserve">
+    <value>Verification code sent successfully</value>
+    <comment/>
+  </data>
+  <data name="FailedSentCode" xml:space="preserve">
+    <value>Error sending the verification code</value>
+    <comment/>
+  </data>
+  <data name="VerifyIdentity" xml:space="preserve">
+    <value>Verify your Identity</value>
+    <comment/>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>Enter the 6-digit code sent to</value>
+    <comment/>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Verify Code</value>
+    <comment/>
+  </data>
+  <data name="NoCode" xml:space="preserve">
+    <value>Didn't receive the code?</value>
+    <comment/>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>Resend</value>
+    <comment/>
+  </data>
+  <data name="ErrorValidatingCode" xml:space="preserve">
+    <value>The code is incorrect or has expired. Please try again.</value>
+    <comment/>
+  </data>
+  <data name="ResendIn" xml:space="preserve">
+    <value>Resend in</value>
+    <comment/>
+  </data>
+  <data name="CreateNewPassword" xml:space="preserve">
+    <value>Create a New Password</value>
+    <comment/>
+  </data>
+  <data name="NewPasswordDifferent" xml:space="preserve">
+    <value>Your new password must be different from your previous ones</value>
+    <comment/>
+  </data>
 </root>

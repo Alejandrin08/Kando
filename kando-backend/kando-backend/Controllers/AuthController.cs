@@ -30,7 +30,7 @@ namespace kando_backend.Controllers
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto request)
         {
-            await _authService.GenerateRecoveryCodeAsync(request.Email);
+            await _authService.GenerateRecoveryCodeAsync(request);
 
             return Ok(new { message = "If the email is registered, a recovery code will be sent." });
         }
@@ -47,7 +47,7 @@ namespace kando_backend.Controllers
             return Ok(new { message = "Code validated successfully." });
         }
 
-        [HttpPost("reset-password")]
+        [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
             var isReset = await _authService.ResetPasswordAsync(resetPasswordDto);

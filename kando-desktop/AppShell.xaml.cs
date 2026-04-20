@@ -7,9 +7,10 @@
             InitializeComponent();
 
             Routing.RegisterRoute("RegisterPage", typeof(Views.ContentPages.RegisterPage));
-            Routing.RegisterRoute("LoginPage", typeof(Views.ContentPages.LoginPage));
-            Routing.RegisterRoute("HomePage", typeof(Views.ContentPages.HomePage));
             Routing.RegisterRoute("ModifyProfilePage", typeof(Views.ContentPages.ModifyProfilePage));
+            Routing.RegisterRoute("VerifyEmailPage", typeof(Views.ContentPages.VerifyEmailPage));
+            Routing.RegisterRoute("VerifyCodePage", typeof(Views.ContentPages.VerifyCodePage));
+            Routing.RegisterRoute("ResetPasswordPage", typeof(Views.ContentPages.ResetPasswordPage));
 
             if (!string.IsNullOrEmpty(targetRoute))
             {

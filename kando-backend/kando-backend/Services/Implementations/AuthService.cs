@@ -45,9 +45,9 @@ namespace kando_backend.Services.Implementations
             };
         }
 
-        public async Task<string?> GenerateRecoveryCodeAsync(string email)
+        public async Task<string?> GenerateRecoveryCodeAsync(ForgotPasswordDto forgotPasswordDto)
         {
-            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == forgotPasswordDto.Email);
             if (existsUser == null) return null;
 
             string code = GenerateRecoveryCode();
@@ -59,7 +59,7 @@ namespace kando_backend.Services.Implementations
 
             string htmlBody = EmailTemplates.GetRecoveryCodeTemplate(code);
             string subject = "Kando: Recuperación de contraseña";
-            _ = _emailService.SendEmailAsync(existsUser.Email, subject, htmlBody);
+            await _emailService.SendEmailAsync(existsUser.Email, subject, htmlBody);
             return code;
         }
 

@@ -729,4 +729,64 @@
     <value>No fue posible validar la contraseña. Verifica los datos ingresados.</value>
     <comment/>
   </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Restablecer Contraseña</value>
+    <comment/>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Ingresa tu correo y recibirás un código de verificación</value>
+    <comment/>
+  </data>
+  <data name="SendVerificationCode" xml:space="preserve">
+    <value>Enviar Código de Verificación</value>
+    <comment/>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Enviando</value>
+    <comment/>
+  </data>
+  <data name="CodeSentSuccessfully" xml:space="preserve">
+    <value>Código de verificación enviado exitosamente</value>
+    <comment/>
+  </data>
+  <data name="FailedSentCode" xml:space="preserve">
+    <value>Error al enviar el código de verificación</value>
+    <comment/>
+  </data>
+  <data name="VerifyIdentity" xml:space="preserve">
+    <value>Verifica tu Identidad</value>
+    <comment/>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>Ingresa el código de 6 dígitos enviado a</value>
+    <comment/>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Verificar Código</value>
+    <comment/>
+  </data>
+  <data name="NoCode" xml:space="preserve">
+    <value>¿No recibiste el código?</value>
+    <comment/>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>Reenviar</value>
+    <comment/>
+  </data>
+  <data name="ErrorValidatingCode" xml:space="preserve">
+    <value>El código es incorrecto o ha expirado. Por favor, inténtalo de nuevo.</value>
+    <comment/>
+  </data>
+  <data name="ResendIn" xml:space="preserve">
+    <value>Reenviar en</value>
+    <comment/>
+  </data>
+  <data name="CreateNewPassword" xml:space="preserve">
+    <value>Crear Nueva Contraseña</value>
+    <comment/>
+  </data>
+  <data name="NewPasswordDifferent" xml:space="preserve">
+    <value>Tu nueva contraseña debe ser diferente a las anteriores</value>
+    <comment/>
+  </data>
 </root>
