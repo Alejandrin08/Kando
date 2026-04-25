@@ -198,6 +198,7 @@ namespace kando_desktop.Services.Implementations
                 Name = boardDto.Name,
                 Icon = boardDto.Icon,
                 TeamName = team,
+                TeamId = boardDto.TeamId,
                 TeamColor = team.TeamColor,
                 CompletedTasks = boardDto.CompletedTasks,
                 TotalTasks = boardDto.TotalTasks,
@@ -364,6 +365,12 @@ namespace kando_desktop.Services.Implementations
                 return parts[0][0].ToString().ToUpper();
 
             return $"{parts[0][0]}{parts[1][0]}".ToUpper();
+        }
+
+        public ObservableCollection<Board> GetBoardsTeam(int teamId)
+        {
+            var filteredBoards = Boards.Where(b => b.TeamId == teamId);
+            return new ObservableCollection<Board>(filteredBoards);
         }
     }
 }

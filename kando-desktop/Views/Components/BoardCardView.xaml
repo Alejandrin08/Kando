@@ -64,7 +64,13 @@
                                        FontAttributes="Bold"
                                        TextColor="{AppThemeBinding Light={StaticResource Slate900}, Dark={StaticResource White}}"
                                        FontSize="16"
-                                       LineBreakMode="TailTruncation"/>
+                                       LineBreakMode="TailTruncation"
+                                       local:CursorBehavior.Cursor="Hand">
+                                        <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding NavigateToBoardCommand}"
+                                                                      CommandParameter="{Binding Board.Id}"/>
+                                        </Label.GestureRecognizers>
+                                </Label>
 
                                 <HorizontalStackLayout Spacing="8">
                                         <Border HeightRequest="8"

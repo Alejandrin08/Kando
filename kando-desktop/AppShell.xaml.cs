@@ -11,6 +11,7 @@
             Routing.RegisterRoute("VerifyEmailPage", typeof(Views.ContentPages.VerifyEmailPage));
             Routing.RegisterRoute("VerifyCodePage", typeof(Views.ContentPages.VerifyCodePage));
             Routing.RegisterRoute("ResetPasswordPage", typeof(Views.ContentPages.ResetPasswordPage));
+            Routing.RegisterRoute("BoardPage", typeof(Views.ContentPages.BoardPage));
 
             if (!string.IsNullOrEmpty(targetRoute))
             {

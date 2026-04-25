@@ -789,4 +789,12 @@
     <value>Your new password must be different from your previous ones</value>
     <comment/>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+    <comment/>
+  </data>
+  <data name="TeamBoards" xml:space="preserve">
+    <value>Team Boards</value>
+    <comment/>
+  </data>
 </root>

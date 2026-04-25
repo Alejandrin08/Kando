@@ -1918,5 +1918,27 @@ namespace kando_desktop.Resources.Strings
                 return ResourceManager.GetString("NewPasswordDifferent", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Home
+        /// </summary>
+        public static string Home
+        {
+            get
+            {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tableros del Equipo
+        /// </summary>
+        public static string TeamBoards
+        {
+            get
+            {
+                return ResourceManager.GetString("TeamBoards", resourceCulture);
+            }
+        }
     }
 }

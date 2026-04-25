@@ -19,6 +19,9 @@ namespace kando_desktop.Models
         private string icon;
 
         [ObservableProperty]
+        private int teamId;
+
+        [ObservableProperty]
         private Team teamName;
 
         [ObservableProperty]
@@ -35,5 +38,8 @@ namespace kando_desktop.Models
 
         [ObservableProperty]
         private bool isCurrentUserOwner;
+
+        [ObservableProperty]
+        private bool isSelected;
     }
 }

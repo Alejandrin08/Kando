@@ -1084,6 +1084,46 @@
                 </Setter>
         </Style>
 
+        <Style x:Key="SidebarBorderStyle"
+               TargetType="Border">
+                <Setter Property="StrokeShape"
+                        Value="RoundRectangle 12"/>
+                <Setter Property="StrokeThickness"
+                        Value="0"/>
+                <Setter Property="BackgroundColor"
+                        Value="Transparent"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                        <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{AppThemeBinding Light=#e2e4e9, Dark=#1f2937}"/>
+                                                </VisualState.Setters>
+                                        </VisualState>
+                                </VisualStateGroup>
+                        </VisualStateGroupList>
+                </Setter>
+        </Style>
+
+        <Style x:Key="BoardItemStyle"
+               TargetType="Border">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                        <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{AppThemeBinding Light=#e2e4e9, Dark=#161d2b}"/>
+                                                </VisualState.Setters>
+                                        </VisualState>
+                                </VisualStateGroup>
+                        </VisualStateGroupList>
+                </Setter>
+        </Style>
+
         <Style x:Key="MenuItemLabelStyle"
                TargetType="Label">
                 <Setter Property="FontSize"

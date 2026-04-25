@@ -27,6 +27,18 @@ namespace kando_desktop.ViewModels.Components
         }
 
         [RelayCommand]
+        private async Task NavigateToBoard(int boardId)
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "SelectedBoardId", boardId },
+                { "BoardTeamId", _board.TeamId}
+            };
+
+            await Shell.Current.GoToAsync("BoardPage", navigationParameter);
+        }
+
+        [RelayCommand]
         private void OpenOptions(View anchor)
         {
             var viewModel = new BoardMenuPopupViewModel(Board);

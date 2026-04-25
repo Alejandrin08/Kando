@@ -17,6 +17,8 @@ namespace kando_desktop.Services.Contracts
         ObservableCollection<Board> Boards { get; set; }
         ObservableCollection<Member> Members { get; }
 
+        ObservableCollection<Board> GetBoardsTeam(int teamId);
+
         void CreateTeam(TeamResponseDto dto, UserSession currentUser);
         void CreateBoard(BoardResponseDto boardDto);
         void UpdateTeam(int teamId, UpdateTeamDto updateTeamDto);
