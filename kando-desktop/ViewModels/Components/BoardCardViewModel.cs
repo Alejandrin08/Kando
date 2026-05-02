@@ -32,7 +32,8 @@ namespace kando_desktop.ViewModels.Components
             var navigationParameter = new Dictionary<string, object>
             {
                 { "SelectedBoardId", boardId },
-                { "BoardTeamId", _board.TeamId}
+                { "BoardTeamId", _board.TeamId },
+                { "SelectedBoardName", _board.Name }
             };
 
             await Shell.Current.GoToAsync("BoardPage", navigationParameter);

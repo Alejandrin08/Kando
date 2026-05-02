@@ -36,7 +36,8 @@
 
                                         <BoxView HeightRequest="1"
                                                  BackgroundColor="{AppThemeBinding Light=#e5e7eb, Dark=#253141}"
-                                                 VerticalOptions="End"/>
+                                                 VerticalOptions="End"
+                                                 Margin="0,57.5,0,0"/>
                                 </Grid>
 
                                 <Grid Padding="10,15">

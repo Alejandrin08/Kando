@@ -3,61 +3,168 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:strings="clr-namespace:kando_desktop.Resources.Strings"
              xmlns:views="clr-namespace:kando_desktop.Views.Components"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:kando_desktop"
-             xmlns:controls="clr-namespace:kando_desktop.Controls"
              Shell.NavBarIsVisible="False"
              x:Class="kando_desktop.Views.ContentPages.BoardPage">
 
     <Grid>
         <Grid BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Slate900}}">
-            <Grid ColumnDefinitions="Auto, Auto, *"
+
+            <Grid ColumnDefinitions="Auto, *"
                   RowDefinitions="Auto, *">
 
-                <views:SidebarView x:Name="SidebarComponent"
-                                   Grid.Column="0"
-                                   Grid.Row="0"
-                                   Grid.RowSpan="2"
-                                   TeamId="{Binding TeamId}"
-                                   CurrentBoardId="{Binding BoardId}"/>
+                <Grid Grid.Column="0"
+                      Grid.Row="0"
+                      Grid.RowSpan="2">
 
-                <Border Grid.Column="1"
-                        Grid.Row="0"
-                        ZIndex="110"
-                        Margin="-10,75"
-                        WidthRequest="20"
-                        HeightRequest="20"
-                        BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1f2937}"
-                        StrokeShape="RoundRectangle 50"
-                        Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#2c3b4f}"
-                        StrokeThickness="1">
+                    <views:SidebarView x:Name="SidebarComponent"
+                                       TeamId="{Binding TeamId}"
+                                       CurrentBoardId="{Binding BoardId}"/>
 
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnToggleSidebarTapped"/>
-                    </Border.GestureRecognizers>
+                    <Border HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            Margin="0,75,-10,0"
+                            WidthRequest="20"
+                            HeightRequest="20"
+                            BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1f2937}"
+                            StrokeShape="RoundRectangle 50"
+                            Stroke="{AppThemeBinding Light=#e5e7eb, Dark=#2c3b4f}"
+                            StrokeThickness="1">
 
-                    <Image x:Name="ToggleIcon"
-                           Source="down_black.png"
-                           Rotation="90"
-                           HeightRequest="15"
-                           WidthRequest="15"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           local:CursorBehavior.Cursor="Hand">
-                    </Image>
-                </Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnToggleSidebarTapped"/>
+                        </Border.GestureRecognizers>
 
-                <Grid Grid.Column="2"
-                      Grid.Row="0">
+                        <Image x:Name="ToggleIcon"
+                               Source="down_black.png"
+                               Rotation="90"
+                               HeightRequest="15"
+                               WidthRequest="15"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               local:CursorBehavior.Cursor="Hand"/>
+                    </Border>
+
                 </Grid>
+
+                <Grid Grid.Column="1"
+                      Grid.Row="0">
+
+                    <Grid RowDefinitions="Auto, Auto">
+
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding BoardName}"
+                                   Style="{StaticResource TitleHuge}"
+                                   FontSize="20"
+                                   Margin="40,15,20,15"/>
+
+                            <Border Padding="10,0"
+                                    BackgroundColor="{AppThemeBinding Light=#f3f4f6, Dark=#1F2937}"
+                                    Stroke="{AppThemeBinding Light=#f3f4f6, Dark=#1F2937}"
+                                    StrokeShape="RoundRectangle 20"
+                                    HeightRequest="30">
+
+                                <HorizontalStackLayout Spacing="5"
+                                                       VerticalOptions="Center">
+
+                                    <Label Text="4 Columnas"
+                                           FontSize="12"
+                                           TextColor="{AppThemeBinding Light=#6B7280, Dark=#94A3B8}"/>
+
+                                    <Label Text="&#8226;"
+                                           FontSize="12"
+                                           TextColor="{AppThemeBinding Light=#6B7280, Dark=#94A3B8}"/>
+
+                                    <Label Text="9 Tareas"
+                                           FontSize="12"
+                                           TextColor="{AppThemeBinding Light=#6B7280, Dark=#94A3B8}"/>
+
+                                </HorizontalStackLayout>
+                            </Border>
+                        </HorizontalStackLayout>
+
+                        <BoxView Grid.Row="1"
+                                 HeightRequest="1"
+                                 BackgroundColor="{AppThemeBinding Light=#e5e7eb, Dark=#253141}"/>
+                    </Grid>
+                </Grid>
+
+                <CollectionView Grid.Column="1"
+                                Grid.Row="1"
+                                Margin="30"
+                                ItemsSource="{Binding Columns}">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="15"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <views:KanbanColumnView/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <Grid>
+                            <VerticalStackLayout HorizontalOptions="Start"
+                                                 VerticalOptions="Start">
+
+                                <Border WidthRequest="320"
+                                        HeightRequest="128"
+                                        StrokeShape="RoundRectangle 20"
+                                        StrokeThickness="1.5"
+                                        StrokeDashArray="3,3"
+                                        Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#2E3D52}"
+                                        BackgroundColor="Transparent"
+                                        local:CursorBehavior.Cursor="Hand">
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding CreateColumnCommand}"/>
+                                    </Border.GestureRecognizers>
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Normal"/>
+
+                                            <VisualState Name="PointerOver">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Stroke"
+                                                            Value="{AppThemeBinding Light=#93c5fd, Dark=#334155}"/>
+                                                    <Setter Property="BackgroundColor"
+                                                            Value="{AppThemeBinding Light=#eff6ff, Dark=#1e293b}"/>
+                                                    <Setter TargetName="AddColLabel"
+                                                            Property="Label.TextColor"
+                                                            Value="{AppThemeBinding Light=#0b64f4, Dark=#3c83f6}"/>
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+
+                                    <Label x:Name="AddColLabel"
+                                           Text="+ Añadir Columna"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           InputTransparent="True"
+                                           TextColor="{StaticResource Slate400}"/>
+
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </CollectionView.EmptyView>
+
+                </CollectionView>
 
             </Grid>
         </Grid>
+
         <Grid InputTransparent="True"
               VerticalOptions="End"
               HorizontalOptions="End"
               Margin="0,0,30,30">
             <views:ToastView x:Name="NotificationToast"/>
         </Grid>
+
     </Grid>
 </ContentPage>

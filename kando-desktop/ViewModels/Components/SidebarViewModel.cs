@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using kando_desktop.Helpers;
 using kando_desktop.Models;
 using kando_desktop.Resources.Strings;
@@ -57,6 +58,8 @@ namespace kando_desktop.ViewModels.Components
                     b.IsSelected = b.Id == value.Id;
 
                 Console.WriteLine($"Tablero cambiado desde el sidebar. Nuevo ID: {value.Id}");
+
+                WeakReferenceMessenger.Default.Send(new BoardChangedMessage(value));
             }
         }
 
